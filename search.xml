@@ -1,6 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Welcome</title>
+    <url>/post/f876582f.html</url>
+    <content><![CDATA[<h3 id="欢迎来到朱艺杭，周豪，葛权设计的博客系统！"><a href="#欢迎来到朱艺杭，周豪，葛权设计的博客系统！" class="headerlink" title="欢迎来到朱艺杭，周豪，葛权设计的博客系统！"></a>欢迎来到朱艺杭，周豪，葛权设计的博客系统！</h3><p>这是一个使用 hexo 部署的博客系统，可以通过 git 来实现从本地提交到网络站点，与 github 建立连接后还可以直接同步到 github，通过一些 git 命令就可以实现远程访问站点。下面简单介绍一下各个功能的实现。</p>
+<h2 id="hexo-clean"><a href="#hexo-clean" class="headerlink" title="hexo clean"></a><code>hexo clean</code></h2><p>这条指令可以简写为<code>hexo cl</code>，用于清空缓存区，每次进行修改操作要上传之前，都需要先清理缓存区。</p>
+<h2 id="hexo-generate"><a href="#hexo-generate" class="headerlink" title="hexo generate"></a><code>hexo generate</code></h2><p>这条指令可以简写为<code>hexo g</code>，用于生成修改后的整个博客系统。</p>
+<h2 id="hexo-server"><a href="#hexo-server" class="headerlink" title="hexo server"></a><code>hexo server</code></h2><p>这条指令可以简写为<code>hexo s</code>，用于生成一个本地链接以供预览修改的效果，默认端口号为4000。使用<code>hexo s -p 端口号</code>指令可以暂时指定本地生成的端口号。</p>
+<h2 id="hexo-deploy"><a href="#hexo-deploy" class="headerlink" title="hexo deploy"></a><code>hexo deploy</code></h2><p>这条指令可以简写为<code>hexo d</code>，用于将生成的博客系统部署到github上的远程站点，之后通过之前设置好的网址即可远程访问博客系统。</p>
+<h2 id="hexo-new-文章名"><a href="#hexo-new-文章名" class="headerlink" title="hexo new 文章名"></a><code>hexo new 文章名</code></h2><p>这条指令可以简写为<code>hexo n 文章名</code>，用于新建一篇markdown格式的博客，新建之后可在本地的source文件夹中找到相应文件并进行修改。</p>
+]]></content>
+      <categories>
+        <category>介绍</category>
+      </categories>
+      <tags>
+        <tag>简介</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c++引用</title>
+    <url>/post/92ec66fa.html</url>
+    <content><![CDATA[<h1 id="C-–移动构造函数-移动赋值运算符"><a href="#C-–移动构造函数-移动赋值运算符" class="headerlink" title="C++–移动构造函数&#x2F;移动赋值运算符"></a>C++–移动构造函数&#x2F;移动赋值运算符</h1><h2 id="什么是移动语义？"><a href="#什么是移动语义？" class="headerlink" title="什么是移动语义？"></a>什么是移动语义？</h2><blockquote>
+<p>在C++11中，移动语义是一个重要的新特性，它可以使程序在内存管理方面更加高效，同时也提高了程序的性能</p>
+</blockquote>
+<p>它允许将一个对象的所有权从一个对象转移到另一个对象，而不需要进行数据的拷贝。</p>
+<h3 id="通俗理解"><a href="#通俗理解" class="headerlink" title="通俗理解"></a>通俗理解</h3><p>我有一份材料，A同学找我借，那我把材料复印一份，把复印件给他，这叫做数据拷贝；而我如果把材料的所有权转让给他，那么他现在直接拥有原始的那份材料，这叫做移动语义。</p>
+<h2 id="为什么需要移动语义？"><a href="#为什么需要移动语义？" class="headerlink" title="为什么需要移动语义？"></a>为什么需要移动语义？</h2><h2 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h2><blockquote>
+<p>要理解为什么我们需要移动语义，那我们就需要理解拷贝的操作</p>
+</blockquote>
+<p>C++中有拷贝构造函数和拷贝复制运算符。拷贝，顾名思义就是重新申请一块新的内存空间，然后将需要的数据复制一份放到里面。</p>
+<p>如果要复制的对象中涉及到了其他对象或者是指针数据的话，那么拷贝操作就是一项耗时的过程。</p>
+<p>我们通过一个例子来演示一下是如果进行拷贝的：</p>
+<p>定义一个简单的类：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Myclass</span><br><span class="line">&#123;</span><br><span class="line">    public:</span><br><span class="line">    Myclass(const std::string&amp; s):str(s)&#123;&#125;;</span><br><span class="line">    private:</span><br><span class="line">    std::string str;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当新建一个对象A时，传递一个参数”hello,world”，A中的成员变量会存储该字符串，也就是会申请一个新的内存空间去存储该字符串：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass A(&quot;hello,world&quot;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当我们定义一个新的对象B，并将A赋值给B时：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass B=A;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>同样，B也会申请一段空间，并将A中存储的字符串拷贝过来</p>
+<h3 id="需要移动语义的情况"><a href="#需要移动语义的情况" class="headerlink" title="需要移动语义的情况"></a>需要移动语义的情况</h3><blockquote>
+<p>从拷贝的操作不难看出，这样的操作是耗时的，那在什么情况下，拷贝操作不是必要的呢？</p>
+</blockquote>
+<p>同样还是延续上面的例子，这里我们定义一个容器以及一个对象tmp，然后将其装入到容器中：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">std::vector&lt;Myclass&gt; myClasses;</span><br><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>每次将对象添加到容器中都会发生一次拷贝操作。</p>
+<p>我们现在假设tmp对象在被添加到容器中两次之后就不再需要了，那第二次添加的时候是不是可以让容器直接取tmp对象的数据呢？这就是移动语义的意义，减少不必要的数据拷贝，提高程序的性能。</p>
+<p>假设Myclass类已经实现了移动语义，我们就可以使用<code>std::move</code> 让myClasses容器直接转移tmp对象的数据为己用。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="移动语义的实现"><a href="#移动语义的实现" class="headerlink" title="移动语义的实现"></a>移动语义的实现</h2><p>我们需要先了解右值引用</p>
+<h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><blockquote>
+<p>我们都知道C++有一个操作叫引用，实际上默认指的是左值引用，也就是对一个左值进行引用。那右值引用就是对右值的引用</p>
+</blockquote>
+<p>通过<code>&amp;&amp;</code> 声明，同时：</p>
+<ol>
+<li>右值引用只能绑定到一个右值，不能绑定到左值；</li>
+<li>右值引用可以通过<code>std::move()</code> 将一个左值转换成右值引用</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a=0;</span><br><span class="line">int&amp;&amp; tmp=a;   //error,不能引用左值</span><br><span class="line">int&amp;&amp; tmp2=0;  //correct</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="移动构造函数"><a href="#移动构造函数" class="headerlink" title="移动构造函数"></a>移动构造函数</h3><p>还是接着上面的例子，当向容器添加一个新元素时，如果是通过拷贝的方法，那么对应执行的就是<strong>拷贝构造函数</strong>，而如果是通过移动的方式，那对应的就是<strong>移动构造函数</strong>。</p>
+<p>下面我们就为Myclass定义移动构造函数，其中string类型本身就实现了移动构造函数，所以可以直接使用<code>std::move</code> ：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass(Myclass&amp;&amp; rValue) noexcept</span><br><span class="line">    :str(std::move(rValue.str))</span><br><span class="line">    &#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在移动构造函数中，我们要做的就是转移成员数据str。</p>
+<p>我们就可以使用移动构造函数去创建新的对象而无需拷贝复制了：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">Myclass A(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果我们的类成员数据需要我们自己实现数据转移的话，也很简单，就是把数据拿过来，并将原先对象的数据清楚：</p>
+<p>假设这个类有两个成员变量int 和 char*类型：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Myclass2</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    int data;</span><br><span class="line">    char* str;</span><br><span class="line">public:</span><br><span class="line">    Myclass2()</span><br><span class="line">    :data(30)</span><br><span class="line">    &#123;</span><br><span class="line">        str=&quot;mrdc&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    ;</span><br><span class="line">    Myclass2(Myclass2&amp;&amp; rValue) noexcept</span><br><span class="line">    :data(std::move(rValue.data))</span><br><span class="line">    &#123;</span><br><span class="line">        rValue.data=0;  //delete data</span><br><span class="line">        str=rValue.str; //transfer</span><br><span class="line">        rValue.str=nullptr; //delete str</span><br><span class="line">    &#125;</span><br><span class="line">    ~Myclass2()</span><br><span class="line">    &#123;</span><br><span class="line">        if(str!=nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            delete str;</span><br><span class="line">            str=nullptr;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过移动构造函数创建对象B：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MyClass A&#123;&#125;;</span><br><span class="line">MyClass B&#123; std::move(A) &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>内存中的布局：<br><img src="https://img2024.cnblogs.com/blog/2808158/202406/2808158-20240608170517534-1624419800.png" alt="内存布局"></p>
+<h3 id="移动赋值运算符"><a href="#移动赋值运算符" class="headerlink" title="移动赋值运算符"></a>移动赋值运算符</h3><p>和移动构造函数的实现类似：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 移动赋值运算符</span><br><span class="line">MyClass&amp; operator=(MyClass&amp;&amp; myClass) noexcept</span><br><span class="line">&#123;</span><br><span class="line">    val = myClass.val;</span><br><span class="line">    myClass.val = 0;</span><br><span class="line">    name = myClass.name;</span><br><span class="line">    myClass.name = nullptr;</span><br><span class="line">    return *this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>c++</category>
+      </categories>
+      <tags>
+        <tag>引用</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>c++STL</title>
     <url>/post/a11c5604.html</url>
     <content><![CDATA[<p><strong>以下内容来源网上 经过整合STL而成</strong></p>
@@ -127,168 +216,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Welcome</title>
-    <url>/post/f876582f.html</url>
-    <content><![CDATA[<h3 id="欢迎来到朱艺杭，周豪，葛权设计的博客系统！"><a href="#欢迎来到朱艺杭，周豪，葛权设计的博客系统！" class="headerlink" title="欢迎来到朱艺杭，周豪，葛权设计的博客系统！"></a>欢迎来到朱艺杭，周豪，葛权设计的博客系统！</h3><p>这是一个使用 hexo 部署的博客系统，可以通过 git 来实现从本地提交到网络站点，与 github 建立连接后还可以直接同步到 github，通过一些 git 命令就可以实现远程访问站点。下面简单介绍一下各个功能的实现。</p>
-<h2 id="hexo-clean"><a href="#hexo-clean" class="headerlink" title="hexo clean"></a><code>hexo clean</code></h2><p>这条指令可以简写为<code>hexo cl</code>，用于清空缓存区，每次进行修改操作要上传之前，都需要先清理缓存区。</p>
-<h2 id="hexo-generate"><a href="#hexo-generate" class="headerlink" title="hexo generate"></a><code>hexo generate</code></h2><p>这条指令可以简写为<code>hexo g</code>，用于生成修改后的整个博客系统。</p>
-<h2 id="hexo-server"><a href="#hexo-server" class="headerlink" title="hexo server"></a><code>hexo server</code></h2><p>这条指令可以简写为<code>hexo s</code>，用于生成一个本地链接以供预览修改的效果，默认端口号为4000。使用<code>hexo s -p 端口号</code>指令可以暂时指定本地生成的端口号。</p>
-<h2 id="hexo-deploy"><a href="#hexo-deploy" class="headerlink" title="hexo deploy"></a><code>hexo deploy</code></h2><p>这条指令可以简写为<code>hexo d</code>，用于将生成的博客系统部署到github上的远程站点，之后通过之前设置好的网址即可远程访问博客系统。</p>
-<h2 id="hexo-new-文章名"><a href="#hexo-new-文章名" class="headerlink" title="hexo new 文章名"></a><code>hexo new 文章名</code></h2><p>这条指令可以简写为<code>hexo n 文章名</code>，用于新建一篇markdown格式的博客，新建之后可在本地的source文件夹中找到相应文件并进行修改。</p>
-]]></content>
-      <categories>
-        <category>介绍</category>
-      </categories>
-      <tags>
-        <tag>简介</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c++引用</title>
-    <url>/post/92ec66fa.html</url>
-    <content><![CDATA[<h1 id="C-–移动构造函数-移动赋值运算符"><a href="#C-–移动构造函数-移动赋值运算符" class="headerlink" title="C++–移动构造函数&#x2F;移动赋值运算符"></a>C++–移动构造函数&#x2F;移动赋值运算符</h1><h2 id="什么是移动语义？"><a href="#什么是移动语义？" class="headerlink" title="什么是移动语义？"></a>什么是移动语义？</h2><blockquote>
-<p>在C++11中，移动语义是一个重要的新特性，它可以使程序在内存管理方面更加高效，同时也提高了程序的性能</p>
-</blockquote>
-<p>它允许将一个对象的所有权从一个对象转移到另一个对象，而不需要进行数据的拷贝。</p>
-<h3 id="通俗理解"><a href="#通俗理解" class="headerlink" title="通俗理解"></a>通俗理解</h3><p>我有一份材料，A同学找我借，那我把材料复印一份，把复印件给他，这叫做数据拷贝；而我如果把材料的所有权转让给他，那么他现在直接拥有原始的那份材料，这叫做移动语义。</p>
-<h2 id="为什么需要移动语义？"><a href="#为什么需要移动语义？" class="headerlink" title="为什么需要移动语义？"></a>为什么需要移动语义？</h2><h2 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h2><blockquote>
-<p>要理解为什么我们需要移动语义，那我们就需要理解拷贝的操作</p>
-</blockquote>
-<p>C++中有拷贝构造函数和拷贝复制运算符。拷贝，顾名思义就是重新申请一块新的内存空间，然后将需要的数据复制一份放到里面。</p>
-<p>如果要复制的对象中涉及到了其他对象或者是指针数据的话，那么拷贝操作就是一项耗时的过程。</p>
-<p>我们通过一个例子来演示一下是如果进行拷贝的：</p>
-<p>定义一个简单的类：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Myclass</span><br><span class="line">&#123;</span><br><span class="line">    public:</span><br><span class="line">    Myclass(const std::string&amp; s):str(s)&#123;&#125;;</span><br><span class="line">    private:</span><br><span class="line">    std::string str;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>当新建一个对象A时，传递一个参数”hello,world”，A中的成员变量会存储该字符串，也就是会申请一个新的内存空间去存储该字符串：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass A(&quot;hello,world&quot;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>当我们定义一个新的对象B，并将A赋值给B时：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass B=A;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>同样，B也会申请一段空间，并将A中存储的字符串拷贝过来</p>
-<h3 id="需要移动语义的情况"><a href="#需要移动语义的情况" class="headerlink" title="需要移动语义的情况"></a>需要移动语义的情况</h3><blockquote>
-<p>从拷贝的操作不难看出，这样的操作是耗时的，那在什么情况下，拷贝操作不是必要的呢？</p>
-</blockquote>
-<p>同样还是延续上面的例子，这里我们定义一个容器以及一个对象tmp，然后将其装入到容器中：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">std::vector&lt;Myclass&gt; myClasses;</span><br><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>每次将对象添加到容器中都会发生一次拷贝操作。</p>
-<p>我们现在假设tmp对象在被添加到容器中两次之后就不再需要了，那第二次添加的时候是不是可以让容器直接取tmp对象的数据呢？这就是移动语义的意义，减少不必要的数据拷贝，提高程序的性能。</p>
-<p>假设Myclass类已经实现了移动语义，我们就可以使用<code>std::move</code> 让myClasses容器直接转移tmp对象的数据为己用。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="移动语义的实现"><a href="#移动语义的实现" class="headerlink" title="移动语义的实现"></a>移动语义的实现</h2><p>我们需要先了解右值引用</p>
-<h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><blockquote>
-<p>我们都知道C++有一个操作叫引用，实际上默认指的是左值引用，也就是对一个左值进行引用。那右值引用就是对右值的引用</p>
-</blockquote>
-<p>通过<code>&amp;&amp;</code> 声明，同时：</p>
-<ol>
-<li>右值引用只能绑定到一个右值，不能绑定到左值；</li>
-<li>右值引用可以通过<code>std::move()</code> 将一个左值转换成右值引用</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a=0;</span><br><span class="line">int&amp;&amp; tmp=a;   //error,不能引用左值</span><br><span class="line">int&amp;&amp; tmp2=0;  //correct</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="移动构造函数"><a href="#移动构造函数" class="headerlink" title="移动构造函数"></a>移动构造函数</h3><p>还是接着上面的例子，当向容器添加一个新元素时，如果是通过拷贝的方法，那么对应执行的就是<strong>拷贝构造函数</strong>，而如果是通过移动的方式，那对应的就是<strong>移动构造函数</strong>。</p>
-<p>下面我们就为Myclass定义移动构造函数，其中string类型本身就实现了移动构造函数，所以可以直接使用<code>std::move</code> ：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass(Myclass&amp;&amp; rValue) noexcept</span><br><span class="line">    :str(std::move(rValue.str))</span><br><span class="line">    &#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在移动构造函数中，我们要做的就是转移成员数据str。</p>
-<p>我们就可以使用移动构造函数去创建新的对象而无需拷贝复制了：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">Myclass A(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>如果我们的类成员数据需要我们自己实现数据转移的话，也很简单，就是把数据拿过来，并将原先对象的数据清楚：</p>
-<p>假设这个类有两个成员变量int 和 char*类型：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Myclass2</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    int data;</span><br><span class="line">    char* str;</span><br><span class="line">public:</span><br><span class="line">    Myclass2()</span><br><span class="line">    :data(30)</span><br><span class="line">    &#123;</span><br><span class="line">        str=&quot;mrdc&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    ;</span><br><span class="line">    Myclass2(Myclass2&amp;&amp; rValue) noexcept</span><br><span class="line">    :data(std::move(rValue.data))</span><br><span class="line">    &#123;</span><br><span class="line">        rValue.data=0;  //delete data</span><br><span class="line">        str=rValue.str; //transfer</span><br><span class="line">        rValue.str=nullptr; //delete str</span><br><span class="line">    &#125;</span><br><span class="line">    ~Myclass2()</span><br><span class="line">    &#123;</span><br><span class="line">        if(str!=nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            delete str;</span><br><span class="line">            str=nullptr;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>通过移动构造函数创建对象B：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MyClass A&#123;&#125;;</span><br><span class="line">MyClass B&#123; std::move(A) &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>内存中的布局：<br><img src="https://img2024.cnblogs.com/blog/2808158/202406/2808158-20240608170517534-1624419800.png" alt="内存布局"></p>
-<h3 id="移动赋值运算符"><a href="#移动赋值运算符" class="headerlink" title="移动赋值运算符"></a>移动赋值运算符</h3><p>和移动构造函数的实现类似：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 移动赋值运算符</span><br><span class="line">MyClass&amp; operator=(MyClass&amp;&amp; myClass) noexcept</span><br><span class="line">&#123;</span><br><span class="line">    val = myClass.val;</span><br><span class="line">    myClass.val = 0;</span><br><span class="line">    name = myClass.name;</span><br><span class="line">    myClass.name = nullptr;</span><br><span class="line">    return *this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>c++</category>
-      </categories>
-      <tags>
-        <tag>引用</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++--移动构造函数</title>
-    <url>/post/30200779.html</url>
-    <content><![CDATA[<h1 id="C-–移动构造函数-移动赋值运算符"><a href="#C-–移动构造函数-移动赋值运算符" class="headerlink" title="C++–移动构造函数&#x2F;移动赋值运算符"></a>C++–移动构造函数&#x2F;移动赋值运算符</h1><h2 id="什么是移动语义？"><a href="#什么是移动语义？" class="headerlink" title="什么是移动语义？"></a>什么是移动语义？</h2><blockquote>
-<p>在C++11中，移动语义是一个重要的新特性，它可以使程序在内存管理方面更加高效，同时也提高了程序的性能</p>
-</blockquote>
-<p>它允许将一个对象的所有权从一个对象转移到另一个对象，而不需要进行数据的拷贝。</p>
-<h3 id="通俗理解"><a href="#通俗理解" class="headerlink" title="通俗理解"></a>通俗理解</h3><p>我有一份材料，A同学找我借，那我把材料复印一份，把复印件给他，这叫做数据拷贝；而我如果把材料的所有权转让给他，那么他现在直接拥有原始的那份材料，这叫做移动语义。</p>
-<h2 id="为什么需要移动语义？"><a href="#为什么需要移动语义？" class="headerlink" title="为什么需要移动语义？"></a>为什么需要移动语义？</h2><h2 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h2><blockquote>
-<p>要理解为什么我们需要移动语义，那我们就需要理解拷贝的操作</p>
-</blockquote>
-<p>C++中有拷贝构造函数和拷贝复制运算符。拷贝，顾名思义就是重新申请一块新的内存空间，然后将需要的数据复制一份放到里面。</p>
-<p>如果要复制的对象中涉及到了其他对象或者是指针数据的话，那么拷贝操作就是一项耗时的过程。</p>
-<p>我们通过一个例子来演示一下是如果进行拷贝的：</p>
-<p>定义一个简单的类：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Myclass</span><br><span class="line">&#123;</span><br><span class="line">    public:</span><br><span class="line">    Myclass(const std::string&amp; s):str(s)&#123;&#125;;</span><br><span class="line">    private:</span><br><span class="line">    std::string str;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>当新建一个对象A时，传递一个参数”hello,world”，A中的成员变量会存储该字符串，也就是会申请一个新的内存空间去存储该字符串：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass A(&quot;hello,world&quot;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>当我们定义一个新的对象B，并将A赋值给B时：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass B=A;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>同样，B也会申请一段空间，并将A中存储的字符串拷贝过来</p>
-<h3 id="需要移动语义的情况"><a href="#需要移动语义的情况" class="headerlink" title="需要移动语义的情况"></a>需要移动语义的情况</h3><blockquote>
-<p>从拷贝的操作不难看出，这样的操作是耗时的，那在什么情况下，拷贝操作不是必要的呢？</p>
-</blockquote>
-<p>同样还是延续上面的例子，这里我们定义一个容器以及一个对象tmp，然后将其装入到容器中：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">std::vector&lt;Myclass&gt; myClasses;</span><br><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>每次将对象添加到容器中都会发生一次拷贝操作。</p>
-<p>我们现在假设tmp对象在被添加到容器中两次之后就不再需要了，那第二次添加的时候是不是可以让容器直接取tmp对象的数据呢？这就是移动语义的意义，减少不必要的数据拷贝，提高程序的性能。</p>
-<p>假设Myclass类已经实现了移动语义，我们就可以使用<code>std::move</code> 让myClasses容器直接转移tmp对象的数据为己用。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="移动语义的实现"><a href="#移动语义的实现" class="headerlink" title="移动语义的实现"></a>移动语义的实现</h2><p>我们需要先了解右值引用</p>
-<h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><blockquote>
-<p>我们都知道C++有一个操作叫引用，实际上默认指的是左值引用，也就是对一个左值进行引用。那右值引用就是对右值的引用</p>
-</blockquote>
-<p>通过<code>&amp;&amp;</code> 声明，同时：</p>
-<ol>
-<li>右值引用只能绑定到一个右值，不能绑定到左值；</li>
-<li>右值引用可以通过<code>std::move()</code> 将一个左值转换成右值引用</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a=0;</span><br><span class="line">int&amp;&amp; tmp=a;   //error,不能引用左值</span><br><span class="line">int&amp;&amp; tmp2=0;  //correct</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="移动构造函数"><a href="#移动构造函数" class="headerlink" title="移动构造函数"></a>移动构造函数</h3><p>还是接着上面的例子，当向容器添加一个新元素时，如果是通过拷贝的方法，那么对应执行的就是<strong>拷贝构造函数</strong>，而如果是通过移动的方式，那对应的就是<strong>移动构造函数</strong>。</p>
-<p>下面我们就为Myclass定义移动构造函数，其中string类型本身就实现了移动构造函数，所以可以直接使用<code>std::move</code> ：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass(Myclass&amp;&amp; rValue) noexcept</span><br><span class="line">    :str(std::move(rValue.str))</span><br><span class="line">    &#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在移动构造函数中，我们要做的就是转移成员数据str。</p>
-<p>我们就可以使用移动构造函数去创建新的对象而无需拷贝复制了：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">Myclass A(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>如果我们的类成员数据需要我们自己实现数据转移的话，也很简单，就是把数据拿过来，并将原先对象的数据清楚：</p>
-<p>假设这个类有两个成员变量int 和 char*类型：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Myclass2</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    int data;</span><br><span class="line">    char* str;</span><br><span class="line">public:</span><br><span class="line">    Myclass2()</span><br><span class="line">    :data(30)</span><br><span class="line">    &#123;</span><br><span class="line">        str=&quot;mrdc&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    ;</span><br><span class="line">    Myclass2(Myclass2&amp;&amp; rValue) noexcept</span><br><span class="line">    :data(std::move(rValue.data))</span><br><span class="line">    &#123;</span><br><span class="line">        rValue.data=0;  //delete data</span><br><span class="line">        str=rValue.str; //transfer</span><br><span class="line">        rValue.str=nullptr; //delete str</span><br><span class="line">    &#125;</span><br><span class="line">    ~Myclass2()</span><br><span class="line">    &#123;</span><br><span class="line">        if(str!=nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            delete str;</span><br><span class="line">            str=nullptr;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>通过移动构造函数创建对象B：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MyClass A&#123;&#125;;</span><br><span class="line">MyClass B&#123; std::move(A) &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>内存中的布局：<br><img src="https://img2024.cnblogs.com/blog/2808158/202406/2808158-20240608170517534-1624419800.png" alt="内存布局"></p>
-<h3 id="移动赋值运算符"><a href="#移动赋值运算符" class="headerlink" title="移动赋值运算符"></a>移动赋值运算符</h3><p>和移动构造函数的实现类似：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 移动赋值运算符</span><br><span class="line">MyClass&amp; operator=(MyClass&amp;&amp; myClass) noexcept</span><br><span class="line">&#123;</span><br><span class="line">    val = myClass.val;</span><br><span class="line">    myClass.val = 0;</span><br><span class="line">    name = myClass.name;</span><br><span class="line">    myClass.name = nullptr;</span><br><span class="line">    return *this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>c++</category>
-      </categories>
-      <tags>
-        <tag>函数</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>c++指针</title>
     <url>/post/28e39982.html</url>
     <content><![CDATA[<h1 id="指针的概念"><a href="#指针的概念" class="headerlink" title="指针的概念"></a><strong>指针的概念</strong></h1><p>指针是一个特殊的变量，它里面存储的数值被解释成为内存里的一个地址。要搞清一个指针需要搞清指针的四方面的内容：指针的类型，指针所指向的类型，指针的值或者叫指针所指向的内存区，还有指针本身所占据的内存区。让我们分别说明。   </p>
@@ -397,6 +324,79 @@
       </categories>
       <tags>
         <tag>指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++--移动构造函数</title>
+    <url>/post/30200779.html</url>
+    <content><![CDATA[<h1 id="C-–移动构造函数-移动赋值运算符"><a href="#C-–移动构造函数-移动赋值运算符" class="headerlink" title="C++–移动构造函数&#x2F;移动赋值运算符"></a>C++–移动构造函数&#x2F;移动赋值运算符</h1><h2 id="什么是移动语义？"><a href="#什么是移动语义？" class="headerlink" title="什么是移动语义？"></a>什么是移动语义？</h2><blockquote>
+<p>在C++11中，移动语义是一个重要的新特性，它可以使程序在内存管理方面更加高效，同时也提高了程序的性能</p>
+</blockquote>
+<p>它允许将一个对象的所有权从一个对象转移到另一个对象，而不需要进行数据的拷贝。</p>
+<h3 id="通俗理解"><a href="#通俗理解" class="headerlink" title="通俗理解"></a>通俗理解</h3><p>我有一份材料，A同学找我借，那我把材料复印一份，把复印件给他，这叫做数据拷贝；而我如果把材料的所有权转让给他，那么他现在直接拥有原始的那份材料，这叫做移动语义。</p>
+<h2 id="为什么需要移动语义？"><a href="#为什么需要移动语义？" class="headerlink" title="为什么需要移动语义？"></a>为什么需要移动语义？</h2><h2 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h2><blockquote>
+<p>要理解为什么我们需要移动语义，那我们就需要理解拷贝的操作</p>
+</blockquote>
+<p>C++中有拷贝构造函数和拷贝复制运算符。拷贝，顾名思义就是重新申请一块新的内存空间，然后将需要的数据复制一份放到里面。</p>
+<p>如果要复制的对象中涉及到了其他对象或者是指针数据的话，那么拷贝操作就是一项耗时的过程。</p>
+<p>我们通过一个例子来演示一下是如果进行拷贝的：</p>
+<p>定义一个简单的类：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Myclass</span><br><span class="line">&#123;</span><br><span class="line">    public:</span><br><span class="line">    Myclass(const std::string&amp; s):str(s)&#123;&#125;;</span><br><span class="line">    private:</span><br><span class="line">    std::string str;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当新建一个对象A时，传递一个参数”hello,world”，A中的成员变量会存储该字符串，也就是会申请一个新的内存空间去存储该字符串：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass A(&quot;hello,world&quot;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当我们定义一个新的对象B，并将A赋值给B时：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass B=A;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>同样，B也会申请一段空间，并将A中存储的字符串拷贝过来</p>
+<h3 id="需要移动语义的情况"><a href="#需要移动语义的情况" class="headerlink" title="需要移动语义的情况"></a>需要移动语义的情况</h3><blockquote>
+<p>从拷贝的操作不难看出，这样的操作是耗时的，那在什么情况下，拷贝操作不是必要的呢？</p>
+</blockquote>
+<p>同样还是延续上面的例子，这里我们定义一个容器以及一个对象tmp，然后将其装入到容器中：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">std::vector&lt;Myclass&gt; myClasses;</span><br><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>每次将对象添加到容器中都会发生一次拷贝操作。</p>
+<p>我们现在假设tmp对象在被添加到容器中两次之后就不再需要了，那第二次添加的时候是不是可以让容器直接取tmp对象的数据呢？这就是移动语义的意义，减少不必要的数据拷贝，提高程序的性能。</p>
+<p>假设Myclass类已经实现了移动语义，我们就可以使用<code>std::move</code> 让myClasses容器直接转移tmp对象的数据为己用。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="移动语义的实现"><a href="#移动语义的实现" class="headerlink" title="移动语义的实现"></a>移动语义的实现</h2><p>我们需要先了解右值引用</p>
+<h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><blockquote>
+<p>我们都知道C++有一个操作叫引用，实际上默认指的是左值引用，也就是对一个左值进行引用。那右值引用就是对右值的引用</p>
+</blockquote>
+<p>通过<code>&amp;&amp;</code> 声明，同时：</p>
+<ol>
+<li>右值引用只能绑定到一个右值，不能绑定到左值；</li>
+<li>右值引用可以通过<code>std::move()</code> 将一个左值转换成右值引用</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a=0;</span><br><span class="line">int&amp;&amp; tmp=a;   //error,不能引用左值</span><br><span class="line">int&amp;&amp; tmp2=0;  //correct</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="移动构造函数"><a href="#移动构造函数" class="headerlink" title="移动构造函数"></a>移动构造函数</h3><p>还是接着上面的例子，当向容器添加一个新元素时，如果是通过拷贝的方法，那么对应执行的就是<strong>拷贝构造函数</strong>，而如果是通过移动的方式，那对应的就是<strong>移动构造函数</strong>。</p>
+<p>下面我们就为Myclass定义移动构造函数，其中string类型本身就实现了移动构造函数，所以可以直接使用<code>std::move</code> ：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass(Myclass&amp;&amp; rValue) noexcept</span><br><span class="line">    :str(std::move(rValue.str))</span><br><span class="line">    &#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在移动构造函数中，我们要做的就是转移成员数据str。</p>
+<p>我们就可以使用移动构造函数去创建新的对象而无需拷贝复制了：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">Myclass A(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果我们的类成员数据需要我们自己实现数据转移的话，也很简单，就是把数据拿过来，并将原先对象的数据清楚：</p>
+<p>假设这个类有两个成员变量int 和 char*类型：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Myclass2</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    int data;</span><br><span class="line">    char* str;</span><br><span class="line">public:</span><br><span class="line">    Myclass2()</span><br><span class="line">    :data(30)</span><br><span class="line">    &#123;</span><br><span class="line">        str=&quot;mrdc&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    ;</span><br><span class="line">    Myclass2(Myclass2&amp;&amp; rValue) noexcept</span><br><span class="line">    :data(std::move(rValue.data))</span><br><span class="line">    &#123;</span><br><span class="line">        rValue.data=0;  //delete data</span><br><span class="line">        str=rValue.str; //transfer</span><br><span class="line">        rValue.str=nullptr; //delete str</span><br><span class="line">    &#125;</span><br><span class="line">    ~Myclass2()</span><br><span class="line">    &#123;</span><br><span class="line">        if(str!=nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            delete str;</span><br><span class="line">            str=nullptr;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过移动构造函数创建对象B：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MyClass A&#123;&#125;;</span><br><span class="line">MyClass B&#123; std::move(A) &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>内存中的布局：<br><img src="https://img2024.cnblogs.com/blog/2808158/202406/2808158-20240608170517534-1624419800.png" alt="内存布局"></p>
+<h3 id="移动赋值运算符"><a href="#移动赋值运算符" class="headerlink" title="移动赋值运算符"></a>移动赋值运算符</h3><p>和移动构造函数的实现类似：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 移动赋值运算符</span><br><span class="line">MyClass&amp; operator=(MyClass&amp;&amp; myClass) noexcept</span><br><span class="line">&#123;</span><br><span class="line">    val = myClass.val;</span><br><span class="line">    myClass.val = 0;</span><br><span class="line">    name = myClass.name;</span><br><span class="line">    myClass.name = nullptr;</span><br><span class="line">    return *this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>c++</category>
+      </categories>
+      <tags>
+        <tag>函数</tag>
       </tags>
   </entry>
   <entry>
