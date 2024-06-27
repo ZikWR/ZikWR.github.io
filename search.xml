@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Welcome</title>
-    <url>/post/f876582f.html</url>
-    <content><![CDATA[<h3 id="欢迎来到朱艺杭，周豪，葛权设计的博客系统！"><a href="#欢迎来到朱艺杭，周豪，葛权设计的博客系统！" class="headerlink" title="欢迎来到朱艺杭，周豪，葛权设计的博客系统！"></a>欢迎来到朱艺杭，周豪，葛权设计的博客系统！</h3><p>这是一个使用 hexo 部署的博客系统，可以通过 git 来实现从本地提交到网络站点，与 github 建立连接后还可以直接同步到 github，通过一些 git 命令就可以实现远程访问站点。下面简单介绍一下各个功能的实现。</p>
-<h2 id="hexo-clean"><a href="#hexo-clean" class="headerlink" title="hexo clean"></a><code>hexo clean</code></h2><p>这条指令可以简写为<code>hexo cl</code>，用于清空缓存区，每次进行修改操作要上传之前，都需要先清理缓存区。</p>
-<h2 id="hexo-generate"><a href="#hexo-generate" class="headerlink" title="hexo generate"></a><code>hexo generate</code></h2><p>这条指令可以简写为<code>hexo g</code>，用于生成修改后的整个博客系统。</p>
-<h2 id="hexo-server"><a href="#hexo-server" class="headerlink" title="hexo server"></a><code>hexo server</code></h2><p>这条指令可以简写为<code>hexo s</code>，用于生成一个本地链接以供预览修改的效果，默认端口号为4000。使用<code>hexo s -p 端口号</code>指令可以暂时指定本地生成的端口号。</p>
-<h2 id="hexo-deploy"><a href="#hexo-deploy" class="headerlink" title="hexo deploy"></a><code>hexo deploy</code></h2><p>这条指令可以简写为<code>hexo d</code>，用于将生成的博客系统部署到github上的远程站点，之后通过之前设置好的网址即可远程访问博客系统。</p>
-<h2 id="hexo-new-文章名"><a href="#hexo-new-文章名" class="headerlink" title="hexo new 文章名"></a><code>hexo new 文章名</code></h2><p>这条指令可以简写为<code>hexo n 文章名</code>，用于新建一篇markdown格式的博客，新建之后可在本地的source文件夹中找到相应文件并进行修改。</p>
-]]></content>
-      <categories>
-        <category>介绍</category>
-      </categories>
-      <tags>
-        <tag>简介</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>c++STL</title>
     <url>/post/a11c5604.html</url>
     <content><![CDATA[<p><strong>以下内容来源网上 经过整合STL而成</strong></p>
@@ -141,6 +124,23 @@
       </categories>
       <tags>
         <tag>STL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Welcome</title>
+    <url>/post/f876582f.html</url>
+    <content><![CDATA[<h3 id="欢迎来到朱艺杭，周豪，葛权设计的博客系统！"><a href="#欢迎来到朱艺杭，周豪，葛权设计的博客系统！" class="headerlink" title="欢迎来到朱艺杭，周豪，葛权设计的博客系统！"></a>欢迎来到朱艺杭，周豪，葛权设计的博客系统！</h3><p>这是一个使用 hexo 部署的博客系统，可以通过 git 来实现从本地提交到网络站点，与 github 建立连接后还可以直接同步到 github，通过一些 git 命令就可以实现远程访问站点。下面简单介绍一下各个功能的实现。</p>
+<h2 id="hexo-clean"><a href="#hexo-clean" class="headerlink" title="hexo clean"></a><code>hexo clean</code></h2><p>这条指令可以简写为<code>hexo cl</code>，用于清空缓存区，每次进行修改操作要上传之前，都需要先清理缓存区。</p>
+<h2 id="hexo-generate"><a href="#hexo-generate" class="headerlink" title="hexo generate"></a><code>hexo generate</code></h2><p>这条指令可以简写为<code>hexo g</code>，用于生成修改后的整个博客系统。</p>
+<h2 id="hexo-server"><a href="#hexo-server" class="headerlink" title="hexo server"></a><code>hexo server</code></h2><p>这条指令可以简写为<code>hexo s</code>，用于生成一个本地链接以供预览修改的效果，默认端口号为4000。使用<code>hexo s -p 端口号</code>指令可以暂时指定本地生成的端口号。</p>
+<h2 id="hexo-deploy"><a href="#hexo-deploy" class="headerlink" title="hexo deploy"></a><code>hexo deploy</code></h2><p>这条指令可以简写为<code>hexo d</code>，用于将生成的博客系统部署到github上的远程站点，之后通过之前设置好的网址即可远程访问博客系统。</p>
+<h2 id="hexo-new-文章名"><a href="#hexo-new-文章名" class="headerlink" title="hexo new 文章名"></a><code>hexo new 文章名</code></h2><p>这条指令可以简写为<code>hexo n 文章名</code>，用于新建一篇markdown格式的博客，新建之后可在本地的source文件夹中找到相应文件并进行修改。</p>
+]]></content>
+      <categories>
+        <category>介绍</category>
+      </categories>
+      <tags>
+        <tag>简介</tag>
       </tags>
   </entry>
   <entry>
