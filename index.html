@@ -149,18 +149,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -255,6 +255,1510 @@
 <h2 id="hexo-server"><a href="#hexo-server" class="headerlink" title="hexo server"></a><code>hexo server</code></h2><p>这条指令可以简写为<code>hexo s</code>，用于生成一个本地链接以供预览修改的效果，默认端口号为4000。使用<code>hexo s -p 端口号</code>指令可以暂时指定本地生成的端口号。</p>
 <h2 id="hexo-deploy"><a href="#hexo-deploy" class="headerlink" title="hexo deploy"></a><code>hexo deploy</code></h2><p>这条指令可以简写为<code>hexo d</code>，用于将生成的博客系统部署到github上的远程站点，之后通过之前设置好的网址即可远程访问博客系统。</p>
 <h2 id="hexo-new-文章名"><a href="#hexo-new-文章名" class="headerlink" title="hexo new 文章名"></a><code>hexo new 文章名</code></h2><p>这条指令可以简写为<code>hexo n 文章名</code>，用于新建一篇markdown格式的博客，新建之后可在本地的source文件夹中找到相应文件并进行修改。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://theme-next.js.org/post/a11c5604.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zyh gq zh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZGZ的博客系统">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | ZGZ的博客系统">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/post/a11c5604.html" class="post-title-link" itemprop="url">c++STL</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-26 00:00:00" itemprop="dateCreated datePublished" datetime="2024-06-26T00:00:00+08:00">2024-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-27 23:00:05" itemprop="dateModified" datetime="2024-06-27T23:00:05+08:00">2024-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/c/" itemprop="url" rel="index"><span itemprop="name">c++</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><strong>以下内容来源网上 经过整合STL而成</strong></p>
+<p><strong>一、一般介绍</strong></p>
+<p>      STL（Standard Template Library），即标准模板库，是一个具有工业强度的，高效的C++程序库。它被容纳于C++标准程序库（C++ Standard Library）中，是ANSI&#x2F;ISO C++标准中最新的也是极具革命性的一部分。该库包含了诸多在计算机科学领域里所常用的基本数据结构和基本算法。为广大C++程序员们提供了一个可扩展的应用框架，高度体现了软件的可复用性。</p>
+<p>      从逻辑层次来看，在STL中体现了泛型化程序设计的思想（generic programming），引入了诸多新的名词，比如像需求（requirements），概念（concept），模型（model），容器（container），算法（algorithmn），迭代子（iterator）等。与OOP（object-oriented programming）中的多态（polymorphism）一样，泛型也是一种软件的复用技术；</p>
+<p>       从实现层次看，整个STL是以一种类型参数化（type parameterized）的方式实现的，这种方式基于一个在早先C++标准中没有出现的语言特性–模板（template）。如果查阅任何一个版本的STL源代码，你就会发现，模板作为构成整个STL的基石是一件千真万确的事情。除此之外，还有许多C++的新特性为STL的实现提供了方便；</p>
+<p><strong>二、STL的六大组件</strong></p>
+<ul>
+<li><strong>容器（Container），是一种数据结构，如list，vector，和deques ，以模板类的方法提供。为了访问容器中的数据，可以使用由容器类输出的迭代器；</strong></li>
+<li><strong>迭代器（Iterator），提供了访问容器中对象的方法。例如，可以使用一对迭代器指定list或vector中的一定范围的对象。迭代器就如同一个指针。事实上，C++的指针也是一种迭代器。但是，迭代器也可以是那些定义了operator*()以及其他类似于指针的操作符地方法的类对象；</strong></li>
+<li><strong>算法（Algorithm），是用来操作容器中的数据的模板函数。例如，STL用sort()来对一个vector中的数据进行排序，用find()来搜索一个list中的对象，函数本身与他们操作的数据的结构和类型无关，因此他们可以在从简单数组到高度复杂容器的任何数据结构上使用；</strong></li>
+<li><strong>仿函数（Function object，仿函数(functor)又称之为函数对象（function object），其实就是重载了()操作符的struct，没有什么特别的地方</strong></li>
+<li><strong>迭代适配器（Adaptor）</strong></li>
+<li><strong>空间配制器（allocator）其中主要工作包括两部分1.对象的创建与销毁    2.内存的获取与释放</strong></li>
+</ul>
+<p>以下主要讨论：容器，迭代器，算法，适配器。如欲详加了解 参见C++ Primer </p>
+<p><strong>1.STL容器</strong></p>
+<p><strong>1）序列式容器（Sequence containers</strong>），每个元素都有固定位置－－取决于插入时机和地点，和元素值无关，vector、deque、list；</p>
+<p>   <strong>Vectors：</strong>将元素置于一个动态数组中加以管理，可以随机存取元素（用索引直接存取），数组尾部添加或移除元素非常快速。但是在中部或头部安插元素比较费时；</p>
+<p>   <strong>Deques</strong>：是“double-ended queue”的缩写，可以随机存取元素（用索引直接存取），数组头部和尾部添加或移除元素都非常快速。但是在中部或头部安插元素比较费时；</p>
+<p>   <strong>Lists：</strong>双向链表，不提供随机存取（按顺序走到需存取的元素，O(n)），在任何位置上执行插入或删除动作都非常迅速，内部只需调整一下指针；</p>
+<p><strong>2）关联式容器（Associated containers</strong>），元素位置取决于特定的排序准则，和插入顺序无关，set、multiset、map、multimap；</p>
+<p>   <strong>Sets&#x2F;Multisets</strong>：内部的元素依据其值自动排序，Set内的相同数值的元素只能出现一次，Multisets内可包含多个数值相同的元素，内部由二叉树实现（实际上基于红黑树(RB-tree）实现），便于查找；</p>
+<p>   <strong>Maps&#x2F;Multimaps</strong>：Map的元素是成对的键值&#x2F;实值，内部的元素依据其值自动排序，Map内的相同数值的元素只能出现一次，Multimaps内可包含多个数值相同的元素，内部由二叉树实现（实际上基于红黑树(RB-tree）实现），便于查找；</p>
+<p>另外有其他容器hash_map,hash_set,hash_multiset,hash_multimap。</p>
+<p>  容器的比较：</p>
+<table style="width: 524px" border="1" cellspacing="0" cellpadding="2" align="center"><tbody><tr><td valign="top" width="91"><span style="font-size: 15px">&nbsp;</span></td><td valign="top" width="60"><span style="font-size: 15px">Vector</span></td><td valign="top" width="97"><span style="font-size: 15px">Deque</span></td><td valign="top" width="39"><span style="font-size: 15px">List</span></td><td valign="top" width="44"><span style="font-size: 15px">Set</span></td><td valign="top" width="63"><span style="font-size: 15px">MultiSet</span></td><td valign="top" width="71"><span style="font-size: 15px">Map</span></td><td valign="top" width="57"><span style="font-size: 15px">MultiMap</span></td></tr><tr><td valign="top" width="91"><span style="font-size: 15px">内部结构</span></td><td valign="top" width="60"><span style="font-size: 15px">dynamic array</span></td><td valign="top" width="97"><span style="font-size: 15px">array of arrays</span></td><td valign="top" width="39"><span style="font-size: 15px">double linked list</span></td><td valign="top" width="44"><span style="font-size: 15px">binary tree</span></td><td valign="top" width="63"><span style="font-size: 15px">binary tree</span></td><td valign="top" width="71"><span style="font-size: 15px">binary tree</span></td><td valign="top" width="57"><span style="font-size: 15px">binary tree</span></td></tr><tr><td valign="top" width="91"><span style="font-size: 15px">随机存取</span></td><td valign="top" width="60"><span style="font-size: 15px">Yes</span></td><td valign="top" width="97"><span style="font-size: 15px">Yes</span></td><td valign="top" width="39"><span style="font-size: 15px">No</span></td><td valign="top" width="44"><span style="font-size: 15px">No</span></td><td valign="top" width="63"><span style="font-size: 15px">No</span></td><td valign="top" width="71"><span style="font-size: 15px">Yes(key)</span></td><td valign="top" width="57"><span style="font-size: 15px">No</span></td></tr><tr><td valign="top" width="91"><span style="font-size: 15px">搜索速度</span></td><td valign="top" width="60"><span style="font-size: 15px">慢</span></td><td valign="top" width="97"><span style="font-size: 15px">慢</span></td><td valign="top" width="39"><span style="font-size: 15px">很慢</span></td><td valign="top" width="44"><span style="font-size: 15px">快</span></td><td valign="top" width="63"><span style="font-size: 15px">快</span></td><td valign="top" width="71"><span style="font-size: 15px">快</span></td><td valign="top" width="57"><span style="font-size: 15px">快</span></td></tr><tr><td valign="top" width="91"><span style="font-size: 15px">快速插入移除</span></td><td valign="top" width="60"><span style="font-size: 15px">尾部</span></td><td valign="top" width="97"><span style="font-size: 15px">首尾</span></td><td valign="top" width="39"><span style="font-size: 15px">任何位置</span></td><td valign="top" width="44"><span style="font-size: 15px">--</span></td><td valign="top" width="63"><span style="font-size: 15px">--</span></td><td valign="top" width="71"><span style="font-size: 15px">--</span></td><td valign="top" width="57"><span style="font-size: 15px">--</span></td></tr></tbody></table>
+
+<p><strong>2.STL迭代器</strong> </p>
+<p>Iterator（迭代器）模式又称Cursor（游标）模式，用于提供一种方法顺序访问一个聚合对象中各个元素,<br>而又不需暴露该对象的内部表示。或者这样说可能更容易理解：Iterator模式是运用于聚合对象的一种模式，通过运用该模式，使得我们可以在不知道对象内部表示的情况下，按照一定顺序（由iterator提供的方法）访问聚合对象中的各个元素。</p>
+<p>迭代器的作用：能够让迭代器与算法不干扰的相互发展，最后又能无间隙的粘合起来，重载了*，＋＋，＝＝，！＝，＝运算符。用以操作复杂的数据结构，容器提供迭代器，算法使用迭代器；</p>
+<p>常见的一些迭代器类型：iterator、const_iterator、reverse_iterator和const_reverse_iterator</p>
+<p>迭代器一般声明使用示例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;T&gt;::iterator it;</span><br><span class="line">list&lt;T&gt;::iterator it;</span><br><span class="line">deque&lt;T&gt;::iterator it；</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic002.cnblogs.com/images/2012/426620/2012072210005964.jpg"></p>
+<p>            input         output</p>
+<p>              \            &#x2F;  </p>
+<p>                forward</p>
+<p>                     |</p>
+<p>                bidirectional</p>
+<p>                     |</p>
+<p>               random access                                       </p>
+<table border="0" cellspacing="0" cellpadding="0" align="right"><tbody><tr><td>&nbsp;</td></tr><tr><td>&nbsp;</td></tr></tbody></table>
+
+<p>要注意，上面这图表并不是表明它们之间的继承关系：而只是描述了迭代器的种类和接口。处于图表下层的迭代器都是相对于处于图表上层迭代器的扩张集。例如：forward迭代器不但拥有input和output迭代器的所有功能，还拥有更多的功能。</p>
+<p>各个迭代器的功能如下：</p>
+<table style="width: 100%" border="1" cellpadding="0"><tbody><tr><td width="8%"><p align="left"><span style="font-size: 15px">迭代器类别</span></p></td><td width="90%"><p align="left"><span style="font-size: 15px">说明</span></p></td></tr><tr><td width="8%"><p align="left"><span style="font-size: 15px">输入</span></p></td><td width="90%"><p align="left"><span style="font-size: 15px">从容器中读取元素。输入迭代器只能一次读入一个元素向前移动，输入迭代器只支持一遍算法，同一个输入迭代器不能两遍遍历一个序列</span></p></td></tr><tr><td width="8%"><p align="left"><span style="font-size: 15px">输出</span></p></td><td width="90%"><p align="left"><span style="font-size: 15px">向容器中写入元素。输出迭代器只能一次一个元素向前移动。输出迭代器只支持一遍算法，统一输出迭代器不能两次遍历一个序列</span></p></td></tr><tr><td width="8%"><p align="left"><span style="font-size: 15px">正向</span></p></td><td width="90%"><p align="left"><span style="font-size: 15px">组合输入迭代器和输出迭代器的功能，并保留在容器中的位置</span></p></td></tr><tr><td width="8%"><p align="left"><span style="font-size: 15px">双向</span></p></td><td width="90%"><p align="left"><span style="font-size: 15px">组合正向迭代器和逆向迭代器的功能，支持多遍算法</span></p></td></tr><tr><td width="8%"><p align="left"><span style="font-size: 15px">随机访问</span></p></td><td width="90%"><p align="left"><span style="font-size: 15px">组合双向迭代器的功能与直接访问容器中任何元素的功能，即可向前向后跳过任意个元素</span></p></td></tr></tbody></table>
+
+<p>迭代器的操作：</p>
+<p>每种迭代器均可进行包括表中前一种迭代器可进行的操作。</p>
+<table style="width: 100%" border="1" cellpadding="0"><tbody><tr><td><p align="left"><span style="font-size: 15px">迭代器操作</span></p></td><td><p align="left"><span style="font-size: 15px">说明</span></p></td></tr><tr><td colspan="2"><p align="left"><span style="font-size: 15px">所有迭代器</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">p++</span></p></td><td><p align="left"><span style="font-size: 15px">后置自增迭代器</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">++p</span></p></td><td><p align="left"><span style="font-size: 15px">前置自增迭代器</span></p></td></tr><tr><td colspan="2"><p align="left"><span style="font-size: 15px">输入迭代器</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">*p</span></p></td><td><p align="left"><span style="font-size: 15px">复引用迭代器，作为右值</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">p=p1</span></p></td><td><p align="left"><span style="font-size: 15px">将一个迭代器赋给另一个迭代器</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">p==p1</span></p></td><td><p align="left"><span style="font-size: 15px">比较迭代器的相等性</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">p!=p1</span></p></td><td><p align="left"><span style="font-size: 15px">比较迭代器的不等性</span></p></td></tr><tr><td colspan="2"><p align="left"><span style="font-size: 15px">输出迭代器</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">*p</span></p></td><td><p align="left"><span style="font-size: 15px">复引用迭代器，作为左值</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">p=p1</span></p></td><td><p align="left"><span style="font-size: 15px">将一个迭代器赋给另一个迭代器</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">正向迭代器</span></p></td><td><p align="left"><span style="font-size: 15px">提供输入输出迭代器的所有功能</span></p></td></tr><tr><td colspan="2"><p align="left"><span style="font-size: 15px">双向迭代器</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">--p</span></p></td><td><p align="left"><span style="font-size: 15px">前置自减迭代器</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">p--</span></p></td><td><p align="left"><span style="font-size: 15px">后置自减迭代器</span></p></td></tr><tr><td colspan="2"><p align="left"><span style="font-size: 15px">随机迭代器</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">p+=i</span></p></td><td><p align="left"><span style="font-size: 15px">将迭代器递增i位</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">p-=i</span></p></td><td><p align="left"><span style="font-size: 15px">将迭代器递减i位</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">p+i</span></p></td><td><p align="left"><span style="font-size: 15px">在p位加i位后的迭代器</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">p-i</span></p></td><td><p align="left"><span style="font-size: 15px">在p位减i位后的迭代器</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">p[i]</span></p></td><td><p align="left"><span style="font-size: 15px">返回p位元素偏离i位的元素引用</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">p&lt;p1</span></p></td><td><p align="left"><span style="font-size: 15px">如果迭代器p的位置在p1前，返回true，否则返回false</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">p&lt;=p1</span></p></td><td><p align="left"><span style="font-size: 15px">p的位置在p1的前面或同一位置时返回true，否则返回false</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">p&gt;p1</span></p></td><td><p align="left"><span style="font-size: 15px">如果迭代器p的位置在p1后，返回true，否则返回false</span></p></td></tr><tr><td><p align="left"><span style="font-size: 15px">p&gt;=p1</span></p></td><td><p align="left"><span style="font-size: 15px">p的位置在p1的后面或同一位置时返回true，否则返回false</span></p></td></tr></tbody></table>
+
+<p>只有顺序容器和关联容器支持迭代器遍历，各容器支持的迭代器的类别如下：</p>
+<table style="width: 100%" border="1" cellpadding="0"><tbody><tr><td width="21%"><p align="left"><span style="font-size: 15px">容器</span></p></td><td width="12%"><p align="left"><span style="font-size: 15px">支持的迭代器类别</span></p></td><td valign="top" width="64%"><p align="left"><span style="font-size: 15px">说明</span></p></td></tr><tr><td width="21%"><p align="left"><span style="font-size: 15px">vector</span></p></td><td width="12%"><p align="left"><span style="font-size: 15px">随机访问</span></p></td><td valign="top" width="64%"><p align="left"><span style="font-size: 15px">一种随机访问的数组类型，提供了对数组元素进行快速随机访问以及在序列尾部进行快速的插入和删除操作的功能。可以再需要的时候修改其自身的大小</span></p></td></tr><tr><td width="21%"><p align="left"><span style="font-size: 15px">deque</span></p></td><td width="12%"><p align="left"><span style="font-size: 15px">随机访问</span></p></td><td valign="top" width="64%"><p align="left"><span style="font-size: 15px">一种随机访问的数组类型，提供了序列两端快速进行插入和删除操作的功能。可以再需要的时候修改其自身的大小</span></p></td></tr><tr><td width="21%"><p align="left"><span style="font-size: 15px">list</span></p></td><td width="12%"><p align="left"><span style="font-size: 15px">双向</span></p></td><td valign="top" width="64%"><p align="left"><span style="font-size: 15px">一种不支持随机访问的数组类型，插入和删除所花费的时间是固定的，与位置无关。</span></p></td></tr><tr><td width="21%"><p align="left"><span style="font-size: 15px">set</span></p></td><td width="12%"><p align="left"><span style="font-size: 15px">双向</span></p></td><td valign="top" width="64%"><p align="left"><span style="font-size: 15px">一种随机存取的容器，其关键字和数据元素是同一个值。所有元素都必须具有惟一值。</span></p></td></tr><tr><td width="21%"><p align="left"><span style="font-size: 15px">multiset</span></p></td><td width="12%"><p align="left"><span style="font-size: 15px">双向</span></p></td><td valign="top" width="64%"><p align="left"><span style="font-size: 15px">一种随机存取的容器，其关键字和数据元素是同一个值。可以包含重复的元素。</span></p></td></tr><tr><td width="21%"><p align="left"><span style="font-size: 15px">map</span></p></td><td width="12%"><p align="left"><span style="font-size: 15px">双向</span></p></td><td valign="top" width="64%"><p align="left"><span style="font-size: 15px">一种包含成对数值的容器，一个值是实际数据值，另一个是用来寻找数据的关键字。一个特定的关键字只能与一个元素关联。</span></p></td></tr><tr><td width="21%"><p align="left"><span style="font-size: 15px">multimap</span></p></td><td width="12%"><p align="left"><span style="font-size: 15px">双向</span></p></td><td valign="top" width="64%"><p align="left"><span style="font-size: 15px">一种包含成对数值的容器，一个值是实际数据值，另一个是用来寻找数据的关键字。一个关键字可以与多个数据元素关联。</span></p></td></tr><tr><td width="21%"><p align="left"><span style="font-size: 15px">stack</span></p></td><td width="12%"><p align="left"><span style="font-size: 15px">不支持</span></p></td><td valign="top" width="64%"><p align="left"><span style="font-size: 15px">适配器容器类型，用vector，deque或list对象创建了一个先进后出容器</span></p></td></tr><tr><td width="21%"><p align="left"><span style="font-size: 15px">queue</span></p></td><td width="12%"><p align="left"><span style="font-size: 15px">不支持</span></p></td><td valign="top" width="64%"><p align="left"><span style="font-size: 15px">适配器容器类型，用deque或list对象创建了一个先进先出容器</span></p></td></tr><tr><td width="21%"><p align="left"><span style="font-size: 15px">priority_queue</span></p></td><td width="12%"><p align="left"><span style="font-size: 15px">不支持</span></p></td><td valign="top" width="64%"><p align="left"><span style="font-size: 15px">适配器容器类型，用vector或deque对象创建了一个排序队列</span></p></td></tr></tbody></table>
+
+<p> <strong>3.STL算法</strong></p>
+<p>STL算法部分主要由头文件<algorithm>,<numeric>,<functional>组成。要使用 STL中的算法函数必须包含头文件<algorithm>，对于数值算法须包含<numeric>，<functional>中则定义了一些模板类，用来声明函数对象。<br>STL中算法大致分为四类：<br>1）、非可变序列算法：指不直接修改其所操作的容器内容的算法。<br>2）、可变序列算法：指可以修改它们所操作的容器内容的算法。<br>3）、排序算法：包括对序列进行排序和合并的算法、搜索算法以及有序序列上的集合操作。<br>4）、数值算法：对容器内容进行数值计算。</p>
+<p>以下对所有算法进行细致分类并标明功能：<br>    <strong>&lt;一&gt;查找算法(13个)：</strong>判断容器中是否包含某个值<br>    adjacent_find:            在iterator对标识元素范围内，查找一对相邻重复元素，找到则返回指向这对元素的第一个元素的ForwardIterator。否则返回last。重载版本使用输入的二元操作符代替相等的判断。<br>    binary_search:            在有序序列中查找value，找到返回true。重载的版本实用指定的比较函数对象或函数指针来判断相等。<br>    count:                    利用等于操作符，把标志范围内的元素与输入值比较，返回相等元素个数。<br>    count_if:                 利用输入的操作符，对标志范围内的元素进行操作，返回结果为true的个数。<br>    equal_range:              功能类似equal，返回一对iterator，第一个表示lower_bound，第二个表示upper_bound。<br>    find:                     利用底层元素的等于操作符，对指定范围内的元素与输入值进行比较。当匹配时，结束搜索，返回该元素的一个InputIterator。<br>    find_end:                 在指定范围内查找”由输入的另外一对iterator标志的第二个序列”的最后一次出现。找到则返回最后一对的第一个ForwardIterator，否则返回输入的”另外一对”的第一个ForwardIterator。重载版本使用用户输入的操作符代替等于操作。<br>    find_first_of:            在指定范围内查找”由输入的另外一对iterator标志的第二个序列”中任意一个元素的第一次出现。重载版本中使用了用户自定义操作符。<br>    find_if:                  使用输入的函数代替等于操作符执行find。<br>    lower_bound:              返回一个ForwardIterator，指向在有序序列范围内的可以插入指定值而不破坏容器顺序的第一个位置。重载函数使用自定义比较操作。<br>    upper_bound:              返回一个ForwardIterator，指向在有序序列范围内插入value而不破坏容器顺序的最后一个位置，该位置标志一个大于value的值。重载函数使用自定义比较操作。<br>    search:                   给出两个范围，返回一个ForwardIterator，查找成功指向第一个范围内第一次出现子序列(第二个范围)的位置，查找失败指向last1。重载版本使用自定义的比较操作。<br>    search_n:                 在指定范围内查找val出现n次的子序列。重载版本使用自定义的比较操作。<br> <br>    <strong>&lt;二&gt;排序和通用算法(14个)：</strong>提供元素排序策略<br>    inplace_merge:            合并两个有序序列，结果序列覆盖两端范围。重载版本使用输入的操作进行排序。<br>    merge:                    合并两个有序序列，存放到另一个序列。重载版本使用自定义的比较。<br>    nth_element:              将范围内的序列重新排序，使所有小于第n个元素的元素都出现在它前面，而大于它的都出现在后面。重载版本使用自定义的比较操作。<br>    partial_sort:             对序列做部分排序，被排序元素个数正好可以被放到范围内。重载版本使用自定义的比较操作。<br>    partial_sort_copy:        与partial_sort类似，不过将经过排序的序列复制到另一个容器。<br>    partition:                对指定范围内元素重新排序，使用输入的函数，把结果为true的元素放在结果为false的元素之前。<br>    random_shuffle:           对指定范围内的元素随机调整次序。重载版本输入一个随机数产生操作。<br>    reverse:                  将指定范围内元素重新反序排序。<br>    reverse_copy:             与reverse类似，不过将结果写入另一个容器。<br>    rotate:                   将指定范围内元素移到容器末尾，由middle指向的元素成为容器第一个元素。<br>    rotate_copy:              与rotate类似，不过将结果写入另一个容器。<br>    sort:                     以升序重新排列指定范围内的元素。重载版本使用自定义的比较操作。<br>    stable_sort:              与sort类似，不过保留相等元素之间的顺序关系。<br>    stable_partition:         与partition类似，不过不保证保留容器中的相对顺序。<br> <br>    <strong>&lt;三&gt;删除和替换算法(15个)</strong><br>    copy:                     复制序列<br>    copy_backward:            与copy相同，不过元素是以相反顺序被拷贝。<br>    iter_swap:                交换两个ForwardIterator的值。<br>    remove:                   删除指定范围内所有等于指定元素的元素。注意，该函数不是真正删除函数。内置函数不适合使用remove和remove_if函数。<br>    remove_copy:              将所有不匹配元素复制到一个制定容器，返回OutputIterator指向被拷贝的末元素的下一个位置。<br>    remove_if:                删除指定范围内输入操作结果为true的所有元素。<br>    remove_copy_if:           将所有不匹配元素拷贝到一个指定容器。<br>    replace:                  将指定范围内所有等于vold的元素都用vnew代替。<br>    replace_copy:             与replace类似，不过将结果写入另一个容器。<br>    replace_if:               将指定范围内所有操作结果为true的元素用新值代替。<br>    replace_copy_if:          与replace_if，不过将结果写入另一个容器。<br>    swap:                     交换存储在两个对象中的值。<br>    swap_range:               将指定范围内的元素与另一个序列元素值进行交换。<br>    unique:                   清除序列中重复元素，和remove类似，它也不能真正删除元素。重载版本使用自定义比较操作。<br>    unique_copy:              与unique类似，不过把结果输出到另一个容器。<br> <br>    <strong>&lt;四&gt;排列组合算法(2个)：</strong>提供计算给定集合按一定顺序的所有可能排列组合<br>    next_permutation:         取出当前范围内的排列，并重新排序为下一个排列。重载版本使用自定义的比较操作。<br>    prev_permutation:         取出指定范围内的序列并将它重新排序为上一个序列。如果不存在上一个序列则返回false。重载版本使用自定义的比较操作。  
+ </p>
+<p>    <strong>&lt;五&gt;算术算法(4个)</strong><br>    accumulate:               iterator对标识的序列段元素之和，加到一个由val指定的初始值上。重载版本不再做加法，而是传进来的二元操作符被应用到元素上。<br>    partial_sum:              创建一个新序列，其中每个元素值代表指定范围内该位置前所有元素之和。重载版本使用自定义操作代替加法。<br>    inner_product:            对两个序列做内积(对应元素相乘，再求和)并将内积加到一个输入的初始值上。重载版本使用用户定义的操作。<br>    adjacent_difference:      创建一个新序列，新序列中每个新值代表当前元素与上一个元素的差。重载版本用指定二元操作计算相邻元素的差。<br> <br>    <strong>&lt;六&gt;生成和异变算法(6个)</strong><br>    fill:                     将输入值赋给标志范围内的所有元素。<br>    fill_n:                   将输入值赋给first到first+n范围内的所有元素。<br>    for_each:                 用指定函数依次对指定范围内所有元素进行迭代访问，返回所指定的函数类型。该函数不得修改序列中的元素。<br>    generate:                 连续调用输入的函数来填充指定的范围。<br>    generate_n:               与generate函数类似，填充从指定iterator开始的n个元素。<br>    transform:                将输入的操作作用与指定范围内的每个元素，并产生一个新的序列。重载版本将操作作用在一对元素上，另外一个元素来自输入的另外一个序列。结果输出到指定容器。  
+ </p>
+<p>    <strong>&lt;七&gt;关系算法(8个)</strong><br>    equal:                    如果两个序列在标志范围内元素都相等，返回true。重载版本使用输入的操作符代替默认的等于操作符。<br>    includes:                 判断第一个指定范围内的所有元素是否都被第二个范围包含，使用底层元素的&lt;操作符，成功返回true。重载版本使用用户输入的函数。<br>    lexicographical_compare:  比较两个序列。重载版本使用用户自定义比较操作。<br>    max:                      返回两个元素中较大一个。重载版本使用自定义比较操作。<br>    max_element:              返回一个ForwardIterator，指出序列中最大的元素。重载版本使用自定义比较操作。<br>    min:                      返回两个元素中较小一个。重载版本使用自定义比较操作。<br>    min_element:              返回一个ForwardIterator，指出序列中最小的元素。重载版本使用自定义比较操作。<br>    mismatch:                 并行比较两个序列，指出第一个不匹配的位置，返回一对iterator，标志第一个不匹配元素位置。如果都匹配，返回每个容器的last。重载版本使用自定义的比较操作。  
+ </p>
+<p>    <strong>&lt;八&gt;集合算法(4个)</strong><br>    set_union:                构造一个有序序列，包含两个序列中所有的不重复元素。重载版本使用自定义的比较操作。<br>    set_intersection:         构造一个有序序列，其中元素在两个序列中都存在。重载版本使用自定义的比较操作。<br>    set_difference:           构造一个有序序列，该序列仅保留第一个序列中存在的而第二个中不存在的元素。重载版本使用自定义的比较操作。<br>    set_symmetric_difference: 构造一个有序序列，该序列取两个序列的对称差集(并集-交集)。  
+ </p>
+<p>   <strong>&lt;九&gt;堆算法(4个)</strong><br>    make_heap:                把指定范围内的元素生成一个堆。重载版本使用自定义比较操作。<br>    pop_heap:                 并不真正把最大元素从堆中弹出，而是重新排序堆。它把first和last-1交换，然后重新生成一个堆。可使用容器的back来访问被”弹出”的元素或者使用pop_back进行真正的删除。重载版本使用自定义的比较操作。<br>    push_heap:                假设first到last-1是一个有效堆，要被加入到堆的元素存放在位置last-1，重新生成堆。在指向该函数前，必须先把元素插入容器后。重载版本使用指定的比较操作。<br>    sort_heap:                对指定范围内的序列重新排序，它假设该序列是个有序堆。重载版本使用自定义比较操作。</p>
+<p><strong>4.适配器</strong></p>
+<p>STL提供了三个容器适配器：queue、priority_queue、stack。这些适配器都是包装了vector、list、deque中某个顺序容器的包装器。注意：适配器没有提供迭代器，也不能同时插入或删除多个元素。下面对各个适配器进行概括总结。</p>
+<p><strong>（1）stack用法</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stack&gt;</span><br><span class="line">template &lt; typename T, typename Container=deque &gt; class stack;</span><br></pre></td></tr></table></figure>
+
+<p>可以使用三个标准顺序容器vecotr、deque(默认)、list中的任何一个作为stack的底层模型。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bool stack&lt;T&gt;::empty()                               //判断堆栈是否为空</span><br><span class="line">void stack&lt;T&gt;::pop()                                 //弹出栈顶数据</span><br><span class="line">stack&lt;T&gt;::push(T x)                                  //压入一个数据</span><br><span class="line">stack&lt;T&gt;::size\_type stack&lt;T&gt;::size()                 //返回堆栈长度</span><br><span class="line">T stack&lt;T&gt;::top()                                    //得到栈顶数据</span><br></pre></td></tr></table></figure>
+
+<p> 代码示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">stack&lt;int\&gt; intDequeStack;  </span><br><span class="line">stack&lt;int,vector&lt;int\&gt;&gt; intVectorStack;  </span><br><span class="line">stack&lt;int,list&lt;int\&gt;&gt; intListStack; </span><br></pre></td></tr></table></figure>
+
+<p><strong>（2）queue用法</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;queue&gt;</span><br><span class="line">template&lt;typename T, typename Container = deque&lt;T&gt; &gt; class  queue;</span><br></pre></td></tr></table></figure>
+
+<p>第一个参数指定要在queue中存储的类型，第二个参数规定queue适配的底层容器，可供选择的容器只有dequeue和list。对大多数用途使用默认的dequeue。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">queue&lt;T&gt;::push(T x)</span><br><span class="line">void queue&lt;T&gt;::pop()</span><br><span class="line">T queue&lt;T&gt;::back()</span><br><span class="line">T queue&lt;T&gt;::front()</span><br><span class="line">queue&lt;T&gt;::size\_type </span><br><span class="line">queue&lt;T&gt;::size()</span><br><span class="line">bool queue&lt;T&gt;::empty()</span><br></pre></td></tr></table></figure>
+
+<p>代码示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">queue&lt;int\&gt; intDequeQueue;    </span><br><span class="line">queue&lt;int,list&lt;int\&gt;&gt; intListQueue;</span><br></pre></td></tr></table></figure>
+
+<p><strong>（3）priority_queue用法</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;queue&gt;</span><br><span class="line">template &lt;typename T, typename Container = vector&lt;T&gt;, typename Compare = less&lt;T&gt; &gt; class priority\_queue;</span><br></pre></td></tr></table></figure>
+
+<p>priority_queue也是一个队列，其元素按有序顺序排列。其不采用严格的FIFO顺序，给定时刻位于队头的元素正是有最高优先级的元素。如果两个元素有相同的优先级，那么它们在队列中的顺序就遵循FIFO语义。默认适配的底层容器是vector，也可以使用deque，list不能用，因为priority_queue要求能对元素随机访问以便进行排序。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">priority\_queue&lt;T&gt;::push(T x)</span><br><span class="line">void priority\_queue&lt;T&gt;::pop()</span><br><span class="line">T priority\_queue&lt;T&gt;::top()</span><br><span class="line">priority\_queue&lt;T&gt;::size\_type </span><br><span class="line">priority\_queue&lt;T&gt;::size()</span><br><span class="line">bool priority\_queue&lt;T&gt;::empty()</span><br></pre></td></tr></table></figure>
+
+<p>代码示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">priority\_queue&lt; int, vector&lt;int\&gt;, greater&lt;int\&gt; &gt;</span><br><span class="line">priority\_queue&lt; int, list&lt;int\&gt;, greater&lt;int\&gt; &gt;</span><br></pre></td></tr></table></figure>
+
+<p>标准库默认使用元素类型的&lt;操作符来确定它们之间的优先级关系，用法有三：（下文转自<a target="_blank" rel="noopener" href="http://www.cnblogs.com/vvilp/articles/1504436.html%EF%BC%89">http://www.cnblogs.com/vvilp/articles/1504436.html）</a></p>
+<p>优先队列第一种用法，通过默认使用的&lt;操作符可知在整数中元素大的优先级高。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">priority\_queue&lt;int\&gt; qi; </span><br></pre></td></tr></table></figure>
+
+<p>示例中输出结果为：9 6 5 3 2</p>
+<p>优先队列第二种用法，建立priority_queue时传入一个比较函数，使用functional.h函数对象作为比较函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">priority\_queue&lt;int, vector&lt;int\&gt;, greater&lt;int\&gt; &gt;qi2;</span><br></pre></td></tr></table></figure>
+
+<p>示例2中输出结果为：2 3 5 6 9</p>
+<p>优先队列第三种用法，是自定义优先级。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">struct node </span><br><span class="line">&#123;</span><br><span class="line">     friend bool operator&lt; (node n1, node n2)</span><br><span class="line">     &#123;</span><br><span class="line">         return n1.priority &lt; n2.priority;</span><br><span class="line">     &#125; </span><br><span class="line">     int priority;</span><br><span class="line">     int value; </span><br><span class="line">&#125;; </span><br><span class="line">priority\_queue&lt;node&gt; qn; </span><br></pre></td></tr></table></figure>
+
+<p>在示例3中输出结果为：</p>
+<p>优先级  值</p>
+<p>9          5</p>
+<p>8          2</p>
+<p>6          1</p>
+<p>2          3</p>
+<p>1          4</p>
+<p>在该结构中，value为值，priority为优先级。通过自定义operator&lt;操作符来比较元素中的优先级。注意：必须是自定义&lt;操作符才行，把上述的结构中的&lt;操作符改成&gt;编译不通过。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://theme-next.js.org/post/92ec66fa.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zyh gq zh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZGZ的博客系统">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | ZGZ的博客系统">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/post/92ec66fa.html" class="post-title-link" itemprop="url">c++引用</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-26 00:00:00" itemprop="dateCreated datePublished" datetime="2024-06-26T00:00:00+08:00">2024-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-27 23:13:25" itemprop="dateModified" datetime="2024-06-27T23:13:25+08:00">2024-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/c/" itemprop="url" rel="index"><span itemprop="name">c++</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="C-–移动构造函数-移动赋值运算符"><a href="#C-–移动构造函数-移动赋值运算符" class="headerlink" title="C++–移动构造函数&#x2F;移动赋值运算符"></a>C++–移动构造函数&#x2F;移动赋值运算符</h1><h2 id="什么是移动语义？"><a href="#什么是移动语义？" class="headerlink" title="什么是移动语义？"></a>什么是移动语义？</h2><blockquote>
+<p>在C++11中，移动语义是一个重要的新特性，它可以使程序在内存管理方面更加高效，同时也提高了程序的性能</p>
+</blockquote>
+<p>它允许将一个对象的所有权从一个对象转移到另一个对象，而不需要进行数据的拷贝。</p>
+<h3 id="通俗理解"><a href="#通俗理解" class="headerlink" title="通俗理解"></a>通俗理解</h3><p>我有一份材料，A同学找我借，那我把材料复印一份，把复印件给他，这叫做数据拷贝；而我如果把材料的所有权转让给他，那么他现在直接拥有原始的那份材料，这叫做移动语义。</p>
+<h2 id="为什么需要移动语义？"><a href="#为什么需要移动语义？" class="headerlink" title="为什么需要移动语义？"></a>为什么需要移动语义？</h2><h2 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h2><blockquote>
+<p>要理解为什么我们需要移动语义，那我们就需要理解拷贝的操作</p>
+</blockquote>
+<p>C++中有拷贝构造函数和拷贝复制运算符。拷贝，顾名思义就是重新申请一块新的内存空间，然后将需要的数据复制一份放到里面。</p>
+<p>如果要复制的对象中涉及到了其他对象或者是指针数据的话，那么拷贝操作就是一项耗时的过程。</p>
+<p>我们通过一个例子来演示一下是如果进行拷贝的：</p>
+<p>定义一个简单的类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Myclass</span><br><span class="line">&#123;</span><br><span class="line">    public:</span><br><span class="line">    Myclass(const std::string&amp; s):str(s)&#123;&#125;;</span><br><span class="line">    private:</span><br><span class="line">    std::string str;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当新建一个对象A时，传递一个参数”hello,world”，A中的成员变量会存储该字符串，也就是会申请一个新的内存空间去存储该字符串：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Myclass A(&quot;hello,world&quot;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当我们定义一个新的对象B，并将A赋值给B时：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Myclass B=A;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>同样，B也会申请一段空间，并将A中存储的字符串拷贝过来</p>
+<h3 id="需要移动语义的情况"><a href="#需要移动语义的情况" class="headerlink" title="需要移动语义的情况"></a>需要移动语义的情况</h3><blockquote>
+<p>从拷贝的操作不难看出，这样的操作是耗时的，那在什么情况下，拷贝操作不是必要的呢？</p>
+</blockquote>
+<p>同样还是延续上面的例子，这里我们定义一个容器以及一个对象tmp，然后将其装入到容器中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;Myclass&gt; myClasses;</span><br><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>每次将对象添加到容器中都会发生一次拷贝操作。</p>
+<p>我们现在假设tmp对象在被添加到容器中两次之后就不再需要了，那第二次添加的时候是不是可以让容器直接取tmp对象的数据呢？这就是移动语义的意义，减少不必要的数据拷贝，提高程序的性能。</p>
+<p>假设Myclass类已经实现了移动语义，我们就可以使用<code>std::move</code> 让myClasses容器直接转移tmp对象的数据为己用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="移动语义的实现"><a href="#移动语义的实现" class="headerlink" title="移动语义的实现"></a>移动语义的实现</h2><p>我们需要先了解右值引用</p>
+<h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><blockquote>
+<p>我们都知道C++有一个操作叫引用，实际上默认指的是左值引用，也就是对一个左值进行引用。那右值引用就是对右值的引用</p>
+</blockquote>
+<p>通过<code>&amp;&amp;</code> 声明，同时：</p>
+<ol>
+<li>右值引用只能绑定到一个右值，不能绑定到左值；</li>
+<li>右值引用可以通过<code>std::move()</code> 将一个左值转换成右值引用</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int a=0;</span><br><span class="line">int&amp;&amp; tmp=a;   //error,不能引用左值</span><br><span class="line">int&amp;&amp; tmp2=0;  //correct</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="移动构造函数"><a href="#移动构造函数" class="headerlink" title="移动构造函数"></a>移动构造函数</h3><p>还是接着上面的例子，当向容器添加一个新元素时，如果是通过拷贝的方法，那么对应执行的就是<strong>拷贝构造函数</strong>，而如果是通过移动的方式，那对应的就是<strong>移动构造函数</strong>。</p>
+<p>下面我们就为Myclass定义移动构造函数，其中string类型本身就实现了移动构造函数，所以可以直接使用<code>std::move</code> ：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Myclass(Myclass&amp;&amp; rValue) noexcept</span><br><span class="line">    :str(std::move(rValue.str))</span><br><span class="line">    &#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在移动构造函数中，我们要做的就是转移成员数据str。</p>
+<p>我们就可以使用移动构造函数去创建新的对象而无需拷贝复制了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">Myclass A(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果我们的类成员数据需要我们自己实现数据转移的话，也很简单，就是把数据拿过来，并将原先对象的数据清楚：</p>
+<p>假设这个类有两个成员变量int 和 char*类型：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Myclass2</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    int data;</span><br><span class="line">    char* str;</span><br><span class="line">public:</span><br><span class="line">    Myclass2()</span><br><span class="line">    :data(30)</span><br><span class="line">    &#123;</span><br><span class="line">        str=&quot;mrdc&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    ;</span><br><span class="line">    Myclass2(Myclass2&amp;&amp; rValue) noexcept</span><br><span class="line">    :data(std::move(rValue.data))</span><br><span class="line">    &#123;</span><br><span class="line">        rValue.data=0;  //delete data</span><br><span class="line">        str=rValue.str; //transfer</span><br><span class="line">        rValue.str=nullptr; //delete str</span><br><span class="line">    &#125;</span><br><span class="line">    ~Myclass2()</span><br><span class="line">    &#123;</span><br><span class="line">        if(str!=nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            delete str;</span><br><span class="line">            str=nullptr;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过移动构造函数创建对象B：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MyClass A&#123;&#125;;</span><br><span class="line">MyClass B&#123; std::move(A) &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>内存中的布局：<br><img src="https://img2024.cnblogs.com/blog/2808158/202406/2808158-20240608170517534-1624419800.png" alt="内存布局"></p>
+<h3 id="移动赋值运算符"><a href="#移动赋值运算符" class="headerlink" title="移动赋值运算符"></a>移动赋值运算符</h3><p>和移动构造函数的实现类似：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 移动赋值运算符</span><br><span class="line">MyClass&amp; operator=(MyClass&amp;&amp; myClass) noexcept</span><br><span class="line">&#123;</span><br><span class="line">    val = myClass.val;</span><br><span class="line">    myClass.val = 0;</span><br><span class="line">    name = myClass.name;</span><br><span class="line">    myClass.name = nullptr;</span><br><span class="line">    return *this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://theme-next.js.org/post/30200779.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zyh gq zh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZGZ的博客系统">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | ZGZ的博客系统">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/post/30200779.html" class="post-title-link" itemprop="url">C++--移动构造函数</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-26 00:00:00" itemprop="dateCreated datePublished" datetime="2024-06-26T00:00:00+08:00">2024-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-27 23:13:25" itemprop="dateModified" datetime="2024-06-27T23:13:25+08:00">2024-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/c/" itemprop="url" rel="index"><span itemprop="name">c++</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="C-–移动构造函数-移动赋值运算符"><a href="#C-–移动构造函数-移动赋值运算符" class="headerlink" title="C++–移动构造函数&#x2F;移动赋值运算符"></a>C++–移动构造函数&#x2F;移动赋值运算符</h1><h2 id="什么是移动语义？"><a href="#什么是移动语义？" class="headerlink" title="什么是移动语义？"></a>什么是移动语义？</h2><blockquote>
+<p>在C++11中，移动语义是一个重要的新特性，它可以使程序在内存管理方面更加高效，同时也提高了程序的性能</p>
+</blockquote>
+<p>它允许将一个对象的所有权从一个对象转移到另一个对象，而不需要进行数据的拷贝。</p>
+<h3 id="通俗理解"><a href="#通俗理解" class="headerlink" title="通俗理解"></a>通俗理解</h3><p>我有一份材料，A同学找我借，那我把材料复印一份，把复印件给他，这叫做数据拷贝；而我如果把材料的所有权转让给他，那么他现在直接拥有原始的那份材料，这叫做移动语义。</p>
+<h2 id="为什么需要移动语义？"><a href="#为什么需要移动语义？" class="headerlink" title="为什么需要移动语义？"></a>为什么需要移动语义？</h2><h2 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h2><blockquote>
+<p>要理解为什么我们需要移动语义，那我们就需要理解拷贝的操作</p>
+</blockquote>
+<p>C++中有拷贝构造函数和拷贝复制运算符。拷贝，顾名思义就是重新申请一块新的内存空间，然后将需要的数据复制一份放到里面。</p>
+<p>如果要复制的对象中涉及到了其他对象或者是指针数据的话，那么拷贝操作就是一项耗时的过程。</p>
+<p>我们通过一个例子来演示一下是如果进行拷贝的：</p>
+<p>定义一个简单的类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Myclass</span><br><span class="line">&#123;</span><br><span class="line">    public:</span><br><span class="line">    Myclass(const std::string&amp; s):str(s)&#123;&#125;;</span><br><span class="line">    private:</span><br><span class="line">    std::string str;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当新建一个对象A时，传递一个参数”hello,world”，A中的成员变量会存储该字符串，也就是会申请一个新的内存空间去存储该字符串：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Myclass A(&quot;hello,world&quot;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当我们定义一个新的对象B，并将A赋值给B时：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Myclass B=A;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>同样，B也会申请一段空间，并将A中存储的字符串拷贝过来</p>
+<h3 id="需要移动语义的情况"><a href="#需要移动语义的情况" class="headerlink" title="需要移动语义的情况"></a>需要移动语义的情况</h3><blockquote>
+<p>从拷贝的操作不难看出，这样的操作是耗时的，那在什么情况下，拷贝操作不是必要的呢？</p>
+</blockquote>
+<p>同样还是延续上面的例子，这里我们定义一个容器以及一个对象tmp，然后将其装入到容器中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;Myclass&gt; myClasses;</span><br><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>每次将对象添加到容器中都会发生一次拷贝操作。</p>
+<p>我们现在假设tmp对象在被添加到容器中两次之后就不再需要了，那第二次添加的时候是不是可以让容器直接取tmp对象的数据呢？这就是移动语义的意义，减少不必要的数据拷贝，提高程序的性能。</p>
+<p>假设Myclass类已经实现了移动语义，我们就可以使用<code>std::move</code> 让myClasses容器直接转移tmp对象的数据为己用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="移动语义的实现"><a href="#移动语义的实现" class="headerlink" title="移动语义的实现"></a>移动语义的实现</h2><p>我们需要先了解右值引用</p>
+<h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><blockquote>
+<p>我们都知道C++有一个操作叫引用，实际上默认指的是左值引用，也就是对一个左值进行引用。那右值引用就是对右值的引用</p>
+</blockquote>
+<p>通过<code>&amp;&amp;</code> 声明，同时：</p>
+<ol>
+<li>右值引用只能绑定到一个右值，不能绑定到左值；</li>
+<li>右值引用可以通过<code>std::move()</code> 将一个左值转换成右值引用</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int a=0;</span><br><span class="line">int&amp;&amp; tmp=a;   //error,不能引用左值</span><br><span class="line">int&amp;&amp; tmp2=0;  //correct</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="移动构造函数"><a href="#移动构造函数" class="headerlink" title="移动构造函数"></a>移动构造函数</h3><p>还是接着上面的例子，当向容器添加一个新元素时，如果是通过拷贝的方法，那么对应执行的就是<strong>拷贝构造函数</strong>，而如果是通过移动的方式，那对应的就是<strong>移动构造函数</strong>。</p>
+<p>下面我们就为Myclass定义移动构造函数，其中string类型本身就实现了移动构造函数，所以可以直接使用<code>std::move</code> ：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Myclass(Myclass&amp;&amp; rValue) noexcept</span><br><span class="line">    :str(std::move(rValue.str))</span><br><span class="line">    &#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在移动构造函数中，我们要做的就是转移成员数据str。</p>
+<p>我们就可以使用移动构造函数去创建新的对象而无需拷贝复制了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">Myclass A(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果我们的类成员数据需要我们自己实现数据转移的话，也很简单，就是把数据拿过来，并将原先对象的数据清楚：</p>
+<p>假设这个类有两个成员变量int 和 char*类型：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Myclass2</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    int data;</span><br><span class="line">    char* str;</span><br><span class="line">public:</span><br><span class="line">    Myclass2()</span><br><span class="line">    :data(30)</span><br><span class="line">    &#123;</span><br><span class="line">        str=&quot;mrdc&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    ;</span><br><span class="line">    Myclass2(Myclass2&amp;&amp; rValue) noexcept</span><br><span class="line">    :data(std::move(rValue.data))</span><br><span class="line">    &#123;</span><br><span class="line">        rValue.data=0;  //delete data</span><br><span class="line">        str=rValue.str; //transfer</span><br><span class="line">        rValue.str=nullptr; //delete str</span><br><span class="line">    &#125;</span><br><span class="line">    ~Myclass2()</span><br><span class="line">    &#123;</span><br><span class="line">        if(str!=nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            delete str;</span><br><span class="line">            str=nullptr;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过移动构造函数创建对象B：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MyClass A&#123;&#125;;</span><br><span class="line">MyClass B&#123; std::move(A) &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>内存中的布局：<br><img src="https://img2024.cnblogs.com/blog/2808158/202406/2808158-20240608170517534-1624419800.png" alt="内存布局"></p>
+<h3 id="移动赋值运算符"><a href="#移动赋值运算符" class="headerlink" title="移动赋值运算符"></a>移动赋值运算符</h3><p>和移动构造函数的实现类似：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 移动赋值运算符</span><br><span class="line">MyClass&amp; operator=(MyClass&amp;&amp; myClass) noexcept</span><br><span class="line">&#123;</span><br><span class="line">    val = myClass.val;</span><br><span class="line">    myClass.val = 0;</span><br><span class="line">    name = myClass.name;</span><br><span class="line">    myClass.name = nullptr;</span><br><span class="line">    return *this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://theme-next.js.org/post/28e39982.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zyh gq zh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZGZ的博客系统">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | ZGZ的博客系统">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/post/28e39982.html" class="post-title-link" itemprop="url">c++指针</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-26 00:00:00" itemprop="dateCreated datePublished" datetime="2024-06-26T00:00:00+08:00">2024-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-27 22:52:23" itemprop="dateModified" datetime="2024-06-27T22:52:23+08:00">2024-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/c/" itemprop="url" rel="index"><span itemprop="name">c++</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="指针的概念"><a href="#指针的概念" class="headerlink" title="指针的概念"></a><strong>指针的概念</strong></h1><p>指针是一个特殊的变量，它里面存储的数值被解释成为内存里的一个地址。要搞清一个指针需要搞清指针的四方面的内容：指针的类型，指针所指向的类型，指针的值或者叫指针所指向的内存区，还有指针本身所占据的内存区。让我们分别说明。   </p>
+<p>先声明几个指针放着做例子：    </p>
+<p>例一：    </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int \*ptr;    </span><br><span class="line">char \*ptr;    </span><br><span class="line">int \*\*ptr;    </span><br><span class="line">int (\*ptr)\[3\];    </span><br><span class="line">int \*(\*ptr)\[4\];  </span><br></pre></td></tr></table></figure>
+
+<h1 id="指针的类型"><a href="#指针的类型" class="headerlink" title="指针的类型"></a><strong>指针的类型</strong></h1><p>从语法的角度看，你只要把指针声明语句里的指针名字去掉，剩下的部分就是这个指针的类型。这是指针本身所具有的类型。让我们看看例一中各个指针的类型：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int \*ptr; //指针的类型是int \*    </span><br><span class="line">char \*ptr; //指针的类型是char \*    </span><br><span class="line">int \*\*ptr; //指针的类型是 int \*\*    </span><br><span class="line">int (\*ptr)\[3\]; //指针的类型是 int(\*)\[3\]    </span><br><span class="line">int \*(\*ptr)\[4\]; //指针的类型是 int \*(\*)\[4\]  </span><br></pre></td></tr></table></figure>
+
+<p>怎么样？找出指针的类型的方法是不是很简单？  </p>
+<h1 id="指针所指向的类型"><a href="#指针所指向的类型" class="headerlink" title="指针所指向的类型"></a><strong>指针所指向的类型</strong></h1><p>当你通过指针来访问指针所指向的内存区时，指针所指向的类型决定了编译器将把那片内存区里的内容当做什么来看待。  </p>
+<p>从语法上看，你只须把指针声明语句中的指针名字和名字左边的指针声明符*去掉，剩下的就是指针所指向的类型。例如：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int \*ptr; //指针所指向的类型是int    </span><br><span class="line">char \*ptr; //指针所指向的的类型是char    </span><br><span class="line">int \*\*ptr; //指针所指向的的类型是 int \*    </span><br><span class="line">int (\*ptr)\[3\]; //指针所指向的的类型是 int()\[3\]    </span><br><span class="line">int \*(\*ptr)\[4\]; //指针所指向的的类型是 int \*()\[4\]  </span><br></pre></td></tr></table></figure>
+
+<p>在指针的算术运算中，指针所指向的类型有很大的作用。    </p>
+<p>指针的类型(即指针本身的类型)和指针所指向的类型是两个概念。当你对C越来越熟悉时，你会发现，把与指针搅和在一起的“类型”这个概念分成“指针的类型”和“指针所指向的类型”两个概念，是精通指针的关键点之一。我看了不少书，发现有些写得差的书中，就把指针的这两个概念搅在一起了，所以看起书来前后矛盾，越看越糊涂。</p>
+<h1 id="指针的值"><a href="#指针的值" class="headerlink" title=" 指针的值"></a> <strong>指针的值</strong></h1><p>指针的值是指针本身存储的数值，这个值将被编译器当作一个地址，而不是一个一般的数值。在32位程序里，所有类型的指针的值都是一个32位整数，因为32位程序里内存地址全都是32位长。   </p>
+<p>指针所指向的内存区就是从指针的值所代表的那个内存地址开始，长度为sizeof(指针所指向的类型)的一片内存区。以后，我们说一个指针的值是XX，就相当于说该指针指向了以XX为首地址的一片内存区域；我们说一个指针指向了某块内存区域，就相当于说该指针的值是这块内存区域的首地址。   </p>
+<p>指针所指向的内存区和指针所指向的类型是两个完全不同的概念。在例一中，指针所指向的类型已经有了，但由于指针还未初始化，所以它所指向的内存区是不存在的，或者说是无意义的。   </p>
+<p>以后，每遇到一个指针，都应该问问：这个指针的类型是什么？指针指向的类型是什么？该指针指向了哪里？  </p>
+<h1 id="指针本身所占据的内存区"><a href="#指针本身所占据的内存区" class="headerlink" title="指针本身所占据的内存区"></a><strong>指针本身所占据的内存区</strong></h1><p>指针本身占了多大的内存？你只要用函数sizeof(指针的类型)测一下就知道了。在32位平台里，指针本身占据了4个字节的长度。  </p>
+<p>指针本身占据的内存这个概念在判断一个指针表达式是否是左值时很有用。 　</p>
+<h1 id="指针的算术运算"><a href="#指针的算术运算" class="headerlink" title="指针的算术运算"></a><strong>指针的算术运算</strong></h1><p>指针可以加上或减去一个整数。指针的这种运算的意义和通常的数值的加减运算的意义是不一样的。例如：  <br>例二：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> char a\[20\];    </span><br><span class="line"> int \*ptr=a;    </span><br><span class="line">...    </span><br><span class="line">...    </span><br><span class="line"> ptr++;  </span><br></pre></td></tr></table></figure>
+
+<p>在上例中，指针ptr的类型是int*,它指向的类型是int，它被初始化为指向整形变量a。接下来的第3句中，指针ptr被加了1，编译器是这样处理的：它把指针ptr的值加上了sizeof(int)，在32位程序中，是被加上了4。由于地址是用字节做单位的，故ptr所指向的地址由原来的变量a的地址向高地址方向增加了4个字节。<br>由于char类型的长度是一个字节，所以，原来ptr是指向数组a的第0号单元开始的四个字节，此时指向了数组a中从第4号单元开始的四个字节。<br>我们可以用一个指针和一个循环来遍历一个数组，看例子：  <br>例三：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int array\[20\];    </span><br><span class="line">int \*ptr=array;    </span><br><span class="line">...    </span><br><span class="line">//此处略去为整型数组赋值的代码。    </span><br><span class="line">...    </span><br><span class="line">for(i=0;i&lt;20;i++)    </span><br><span class="line">&#123;    </span><br><span class="line">    (\*ptr)++;    </span><br><span class="line">    ptr++；    </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>这个例子将整型数组中各个单元的值加1。由于每次循环都将指针ptr加1，所以每次循环都能访问数组的下一个单元。再看例子：    </p>
+<p>例四：    </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">char a\[20\];    </span><br><span class="line">int \*ptr = a;    </span><br><span class="line">...    </span><br><span class="line">...    </span><br><span class="line">ptr += 5;  </span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，ptr被加上了5，编译器是这样处理的：将指针ptr的值加上5乘sizeof(int)，在32位程序中就是加上了5乘4&#x3D;20。由于地址的单位是字节，故现在的ptr所指向的地址比起加5后的ptr所指向的地址来说，向高地址方向移动了20个字节。在这个例子中，没加5前的ptr指向数组a的第0号单元开始的四个字节，加5后，ptr已经指向了数组a的合法范围之外了。虽然这种情况在应用上会出问题，但在语法上却是可以的。这也体现出了指针的灵活性。   </p>
+<p>如果上例中，ptr是被减去5，那么处理过程大同小异，只不过ptr的值是被减去5乘sizeof(int)，新的ptr指向的地址将比原来的ptr所指向的地址向低地址方向移动了20个字节。   </p>
+<p>总结一下，一个指针ptrold加上一个整数n后，结果是一个新的指针ptrnew，ptrnew的类型和ptrold的类型相同，ptrnew所指向的类型和ptrold所指向的类型也相同。ptrnew的值将比ptrold的值增加了n乘sizeof(ptrold所指向的类型)个字节。就是说，ptrnew所指向的内存区将比ptrold所指向的内存区向高地址方向移动了n乘sizeof(ptrold所指向的类型)个字节。一个指针ptrold减去一个整数n后，结果是一个新的指针ptrnew，ptrnew的类型和ptrold的类型相同，ptrnew所指向的类型和ptrold所指向的类型也相同。ptrnew的值将比ptrold的值减少了n乘sizeof(ptrold所指向的类型)个字节，就是说，ptrnew所指向的内存区将比ptrold所指向的内存区向低地址方向移动了n乘sizeof(ptrold所指向的类型)个字节。</p>
+<h1 id="运算符-和"><a href="#运算符-和" class="headerlink" title="运算符&amp;和*"></a><strong>运算符&amp;和*</strong></h1><p>这里&amp;是取地址运算符，*是…书上叫做“间接运算符”。&amp;a的运算结果是一个指针，指针的类型是a的类型加个*，指针所指向的类型是a的类型，指针所指向的地址嘛，那就是a的地址。*p的运算结果就五花八门了。总之*p的结果是p所指向的东西，这个东西有这些特点：它的类型是p指向的类型，它所占用的地址是p所指向的地址。  </p>
+<p>例五：    </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">int a=12;    </span><br><span class="line">int b;    </span><br><span class="line">int \*p;    </span><br><span class="line">int \*\*ptr;    </span><br><span class="line">p=&amp;a;//&amp;a的结果是一个指针，类型是int\*，指向的类型是int，指向的地址是a的地址。    </span><br><span class="line">\*p=24;//\*p的结果，在这里它的类型是int，它所占用的地址是p所指向的地址，显然，\*p就是变量a。  </span><br><span class="line">ptr=&amp;p;//&amp;p的结果是个指针，该指针的类型是p的类型加个\*，在这里是int\*\*。该指针所指向的类型是p的类型，这里是int\*。该指针所指向的地址就是指针p自己的地址。   </span><br><span class="line">\*ptr=&amp;b;//\*ptr是个指针，&amp;b的结果也是个指针，且这两个指针的类型和所指向的类型是一样的，所以?amp;b来给\*ptr赋值就是毫无问题的了。  </span><br><span class="line">\*\*ptr=34;//\*ptr的结果是ptr所指向的东西，在这里是一个指针，对这个指针再做一次\*运算，结果就是一个int类型的变量。</span><br></pre></td></tr></table></figure>
+
+<h1 id="指针表达式"><a href="#指针表达式" class="headerlink" title="指针表达式"></a><strong>指针表达式</strong></h1><p>一个表达式的最后结果如果是一个指针，那么这个表达式就叫指针表达式。下面是一些指针表达式的例子：    </p>
+<p>例六：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int a,b;    </span><br><span class="line">int array\[10\];    </span><br><span class="line">int \*pa;    </span><br><span class="line">pa=&amp;a;//&amp;a是一个指针表达式。    </span><br><span class="line">int \*\*ptr=&amp;pa;//&amp;pa也是一个指针表达式。    </span><br><span class="line">\*ptr=&amp;b;//\*ptr和&amp;b都是指针表达式。    </span><br><span class="line">pa=array;    </span><br><span class="line">pa++;//这也是指针表达式。</span><br></pre></td></tr></table></figure>
+
+<p>例七：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">char \*arr\[20\];    </span><br><span class="line">char \*\*parr=arr;//如果把arr看作指针的话，arr也是指针表达式    </span><br><span class="line">char \*str;    </span><br><span class="line">str=\*parr;//\*parr是指针表达式    </span><br><span class="line">str=\*(parr+1);//\*(parr+1)是指针表达式    </span><br><span class="line">str=\*(parr+2);//\*(parr+2)是指针表达式  </span><br></pre></td></tr></table></figure>
+
+<p>由于指针表达式的结果是一个指针，所以指针表达式也具有指针所具有的四个要素：指针的类型，指针所指向的类型，指针指向的内存区，指针自身占据的内存。  </p>
+<p>好了，当一个指针表达式的结果指针已经明确地具有了指针自身占据的内存的话，这个指针表达式就是一个左值，否则就不是一个左值。 在例七中，&amp;a不是一个左值，因为它还没有占据明确的内存。*ptr是一个左值，因为*ptr这个指针已经占据了内存，其实*ptr就是指针pa，既然pa已经在内存中有了自己的位置，那么*ptr当然也有了自己的位置。</p>
+<h1 id="数组和指针的关系"><a href="#数组和指针的关系" class="headerlink" title="数组和指针的关系"></a><strong>数组和指针的关系</strong></h1><p>如果对声明数组的语句不太明白的话，请参阅我前段时间贴出的文章&lt;&lt;如何理解c和c++的复杂类型声明&gt;&gt;。 数组的数组名其实可以看作一个指针。看下例：    </p>
+<p>例八：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int array\[10\]=&#123;0,1,2,3,4,5,6,7,8,9&#125;,value;    </span><br><span class="line">...    </span><br><span class="line">...    </span><br><span class="line">value=array\[0\];//也可写成：value=\*array;    </span><br><span class="line">value=array\[3\];//也可写成：value=\*(array+3);    </span><br><span class="line">value=array\[4\];//也可写成：value=\*(array+4);  </span><br></pre></td></tr></table></figure>
+
+<p>上例中，一般而言数组名array代表数组本身，类型是int [10]，但如果把array看做指针的话，它指向数组的第0个单元，类型是int *，所指向的类型是数组单元的类型即int。因此*array等于0就一点也不奇怪了。同理，array+3是一个指向数组第3个单元的指针，所以*(array+3)等于3。其它依此类推。   </p>
+<p>例九：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">char \*str\[3\]=&#123;    </span><br><span class="line">&quot;Hello,this is a sample!&quot;,    </span><br><span class="line">&quot;Hi,good morning.&quot;,    </span><br><span class="line">&quot;Hello world&quot;    </span><br><span class="line">&#125;;    </span><br><span class="line">char s\[80\]；    </span><br><span class="line">strcpy(s,str\[0\]);//也可写成strcpy(s,\*str);    </span><br><span class="line">strcpy(s,str\[1\]);//也可写成strcpy(s,\*(str+1));    </span><br><span class="line">strcpy(s,str\[2\]);//也可写成strcpy(s,\*(str+2));  </span><br></pre></td></tr></table></figure>
+
+<p>上例中，str是一个三单元的数组，该数组的每个单元都是一个指针，这些指针各指向一个字符串。把指针数组名str当作一个指针的话，它指向数组的第0号单元，它的类型是char**，它指向的类型是char *。  </p>
+<p>*str也是一个指针，它的类型是char*，它所指向的类型是char，它指向的地址是字符串”Hello,this is a sample!”的第一个字符的地址，即’H’的地址。 str+1也是一个指针，它指向数组的第1号单元，它的类型是char**，它指向的类型是char *。   </p>
+<p>*(str+1)也是一个指针，它的类型是char*，它所指向的类型是char，它指向”Hi,good morning.”的第一个字符’H’，等等。    </p>
+<p>下面总结一下数组的数组名的问题。声明了一个数组TYPE array[n]，则数组名称array就有了两重含义：第一，它代表整个数组，它的类型是TYPE [n]；第二，它是一个指针，该指针的类型是TYPE*，该指针指向的类型是TYPE，也就是数组单元的类型，该指针指向的内存区就是数组第0号单元，该指针自己占有单独的内存区，注意它和数组第0号单元占据的内存区是不同的。该指针的值是不能修改的，即类似array++的表达式是错误的。   </p>
+<p>在不同的表达式中数组名array可以扮演不同的角色。    </p>
+<p>在表达式sizeof(array)中，数组名array代表数组本身，故这时sizeof函数测出的是整个数组的大小。    </p>
+<p>在表达式*array中，array扮演的是指针，因此这个表达式的结果就是数组第0号单元的值。sizeof(*array)测出的是数组单元的大小。    </p>
+<p>表达式array+n（其中n&#x3D;0，1，2，….。）中，array扮演的是指针，故array+n的结果是一个指针，它的类型是TYPE*，它指向的类型是TYPE，它指向数组第n号单元。故sizeof(array+n)测出的是指针类型的大小。   </p>
+<p>例十：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int array\[10\];    </span><br><span class="line">int (\*ptr)\[10\];    </span><br><span class="line">ptr=&amp;array;  </span><br></pre></td></tr></table></figure>
+
+<p>上例中ptr是一个指针，它的类型是int (*)[10]，他指向的类型是int [10]，我们用整个数组的首地址来初始化它。在语句ptr&#x3D;&amp;array中，array代表数组本身。   </p>
+<p>本节中提到了函数sizeof()，那么我来问一问，sizeof(指针名称)测出的究竟是指针自身类型的大小呢还是指针所指向的类型的大小？答案是前者。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int (\*ptr)\[10\];  </span><br></pre></td></tr></table></figure>
+
+<p>则在32位程序中，有：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sizeof(int(\*)\[10\])==4    </span><br><span class="line">sizeof(int \[10\])==40    </span><br><span class="line">sizeof(ptr)==4  </span><br></pre></td></tr></table></figure>
+
+<p>实际上，sizeof(对象)测出的都是对象自身的类型的大小，而不是别的什么类型的大小。 　</p>
+<h1 id="指针和结构类型的关系"><a href="#指针和结构类型的关系" class="headerlink" title="指针和结构类型的关系"></a><strong>指针和结构类型的关系</strong></h1><p>可以声明一个指向结构类型对象的指针。    </p>
+<p>例十一：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">struct MyStruct    </span><br><span class="line">&#123;    </span><br><span class="line">int a;    </span><br><span class="line">int b;    </span><br><span class="line">int c;    </span><br><span class="line">&#125;    </span><br><span class="line">  </span><br><span class="line">MyStruct ss=&#123;20,30,40&#125;;//声明了结构对象ss，并把ss的三个成员初始化为20，30和40。  </span><br><span class="line">MyStruct \*ptr=&amp;ss;//声明了一个指向结构对象ss的指针。它的类型是  </span><br><span class="line">MyStruct\*,它指向的类型是MyStruct。  </span><br><span class="line">int \*pstr=(int\*)&amp;ss;//声明了一个指向结构对象ss的指针。但是它的类型和它指向的类型和ptr是不同的。</span><br></pre></td></tr></table></figure>
+
+<p>请问怎样通过指针ptr来访问ss的三个成员变量？    </p>
+<p>答案：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ptr-&gt;a;    </span><br><span class="line">ptr-&gt;b;    </span><br><span class="line">ptr-&gt;c;  </span><br></pre></td></tr></table></figure>
+
+<p>又请问怎样通过指针pstr来访问ss的三个成员变量？  <br>答案：    
+ </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\*pstr；//访问了ss的成员a。    </span><br><span class="line">\*(pstr+1);//访问了ss的成员b。    </span><br><span class="line">\*(pstr+2)//访问了ss的成员c。 </span><br></pre></td></tr></table></figure>
+
+<p>呵呵，虽然我在我的MSVC++6.0上调式过上述代码，但是要知道，这样使用pstr来访问结构成员是不正规的，为了说明为什么不正规，让我们看看怎样通过指针来访问数组的各个单元： <br>例十二：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int array\[3\]=&#123;35,56,37&#125;;    </span><br><span class="line">int \*pa=array;  </span><br></pre></td></tr></table></figure>
+
+<p>通过指针pa访问数组array的三个单元的方法是：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\*pa;//访问了第0号单元    </span><br><span class="line">\*(pa+1);//访问了第1号单元    </span><br><span class="line">\*(pa+2);//访问了第2号单元  </span><br></pre></td></tr></table></figure>
+
+<p>从格式上看倒是与通过指针访问结构成员的不正规方法的格式一样。  </p>
+<p>所有的C&#x2F;C++编译器在排列数组的单元时，总是把各个数组单元存放在连续的存储区里，单元和单元之间没有空隙。但在存放结构对象的各个成员时，在某种编译环境下，可能会需要字对齐或双字对齐或者是别的什么对齐，需要在相邻两个成员之间加若干个“填充字节”，这就导致各个成员之间可能会有若干个字节的空隙。  </p>
+<p>所以，在例十二中，即使*pstr访问到了结构对象ss的第一个成员变量a，也不能保证*(pstr+1)就一定能访问到结构成员b。因为成员a和成员b之间可能会有若干填充字节，说不定*(pstr+1)就正好访问到了这些填充字节呢。这也证明了指针的灵活性。要是你的目的就是想看看各个结构成员之间到底有没有填充字节，嘿，这倒是个不错的方法。   </p>
+<p>通过指针访问结构成员的正确方法应该是象例十二中使用指针ptr的方法。</p>
+<h1 id="指针和函数的关系"><a href="#指针和函数的关系" class="headerlink" title="指针和函数的关系"></a><strong>指针和函数的关系</strong></h1><p>可以把一个指针声明成为一个指向函数的指针。  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int fun1(char\*,int);    </span><br><span class="line">int (\*pfun1)(char\*,int);    </span><br><span class="line">pfun1=fun1;    </span><br><span class="line">....    </span><br><span class="line">....    </span><br><span class="line">int a=(\*pfun1)(&quot;abcdefg&quot;,7);//通过函数指针调用函数。  </span><br></pre></td></tr></table></figure>
+
+<p>可以把指针作为函数的形参。在函数调用语句中，可以用指针表达式来作为实参。  </p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://theme-next.js.org/post/757b002.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zyh gq zh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZGZ的博客系统">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | ZGZ的博客系统">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/post/757b002.html" class="post-title-link" itemprop="url">Java Stream流</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-26 00:00:00" itemprop="dateCreated datePublished" datetime="2024-06-26T00:00:00+08:00">2024-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-27 23:13:25" itemprop="dateModified" datetime="2024-06-27T23:13:25+08:00">2024-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Stream流"><a href="#Stream流" class="headerlink" title="Stream流"></a>Stream流</h1><p>Java 8 API添加了一个**<code>新的抽象称为流Stream</code>**，可以让你以一种声明的方式处理数据。</p>
+<p>结合Lambda表达式来完成某种功能的实现</p>
+<p>Stream 使用一种类似用 SQL 语句从数据库查询数据的直观方式来提供一种对 Java 集合运算和表达的高阶抽象。</p>
+<p>Stream API可以极大提高Java程序员的生产力，让程序员写出高效率、干净、简洁的代码。</p>
+<p>这种风格将要处理的元素集合看作一种流， 流在管道中传输， 并且可以在管道的节点上进行处理， 比如筛选， 排序，聚合等。</p>
+<p>元素流在管道中经过中间操作（intermediate operation）的处理，最后由最终操作(terminal operation)得到前面处理的结果。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+--------------------+       +------+   +------+   +---+   +-------+</span><br><span class="line">| stream of elements +-----&gt; |filter+-&gt; |sorted+-&gt; |map+-&gt; |collect|</span><br><span class="line">+--------------------+       +------+   +------+   +---+   +-------+</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>以上流程转化为Java代码为:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; transactionsIds = </span><br><span class="line">widgets.stream()</span><br><span class="line">             .filter(b -&gt; b.getColor() == RED)</span><br><span class="line">             .sorted((x,y) -&gt; x.getWeight() - y.getWeight())</span><br><span class="line">             .mapToInt(Widget::getWeight)</span><br><span class="line">             .sum();</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="什么是Stream"><a href="#什么是Stream" class="headerlink" title="什么是Stream?"></a>什么是Stream?</h2><p>Stream（流）是一个来自数据源的元素队列并支持聚合操作</p>
+<ul>
+<li>元素是特定类型的对象，形成一个<strong>队列</strong>。 Java中的Stream并不会存储元素，而是按需计算。</li>
+<li><strong>数据源</strong> 流的来源。 可以是集合，数组，I&#x2F;O channel， 产生器generator 等。</li>
+<li><strong>聚合操作</strong> 类似SQL语句一样的操作， 比如filter, map, reduce, find, match, sorted等。</li>
+</ul>
+<p>和以前的Collection操作不同， Stream操作还有两个基础的特征：</p>
+<ul>
+<li><strong>Pipelining</strong>: 中间操作都会返回流对象本身。 这样多个操作可以串联成一个管道， 如同流式风格（fluent style）。 这样做可以对操作进行优化， 比如延迟执行(laziness)和短路( short-circuiting)。</li>
+<li><strong>内部迭代</strong>： 以前对集合遍历都是通过Iterator或者For-Each的方式, 显式的在集合外部进行迭代， 这叫做外部迭代。 Stream提供了内部迭代的方式， 通过访问者模式(Visitor)实现。</li>
+</ul>
+<h2 id="生成流"><a href="#生成流" class="headerlink" title="生成流"></a>生成流</h2><p>在 Java 8 中, 集合接口有两个方法来生成流：</p>
+<ul>
+<li><strong><code>stream()</code></strong> − 为集合创建<strong>串行流</strong>。(单线程)</li>
+<li><strong><code>parallelStream()</code>− 为集合创建</strong>并行流。(多线程)</li>
+</ul>
+<p>举个例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; strings = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">List&lt;String&gt; filtered = strings.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.toList());</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604221707954.png" alt="image-20240604221707954"></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="Stream"><a href="#Stream" class="headerlink" title="Stream()"></a>Stream()</h3><p>生成流</p>
+<h3 id="forEach"><a href="#forEach" class="headerlink" title="forEach()"></a>forEach()</h3><p><code>void forEach(Consumer&lt;? super String&gt; action)</code></p>
+<ul>
+<li>用来遍历集合或者数组….</li>
+</ul>
+<p><code>Consumer</code>这个接口下一篇进行介绍,简单字面意思就是,你给它传什么的,他就消费什么(就是输出)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; strings3 = Arrays.asList(&quot;cwy&quot;,&quot;cwy&quot;,&quot;wst&quot;,&quot;wst&quot;,&quot;cwy&quot;);</span><br><span class="line">//遍历strings3</span><br><span class="line">strings3.forEach(System.out::println);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604223021420.png" alt="image-20240604223021420"></p>
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604222353301.png" alt="image-20240604222353301"></p>
+<h3 id="map"><a href="#map" class="headerlink" title="map()"></a>map()</h3><p><code>&lt; R&gt; Stream&lt; R&gt; map(Function&lt;? super T, ? extends R&gt; mapper);</code></p>
+<ul>
+<li><strong>map 方法用于映射每个元素到对应的结果</strong></li>
+</ul>
+<p>,嗯…有点类似于<code>一元函数映射</code></p>
+<p>Function 接口是一个功能型接口，它的一个作用就是转换作用，将输入数据转换成另一种形式的输出数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//        把xList中的数值  进行平方运算映射在yList</span><br><span class="line">List&lt;Integer&gt; xList = Arrays.asList(1,2,3,4,5,6,7,8,9);</span><br><span class="line">List&lt;Integer&gt; yList = xList.stream().map(integer -&gt; integer*integer).distinct().collect(Collectors.toList());</span><br><span class="line">System.out.println(yList);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604224900043.png" alt="image-20240604224900043"></p>
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter()"></a>filter()</h3><p><code>Stream&lt;T&gt; filter(Predicate&lt;? super T&gt; predicate);</code></p>
+<p>filter 方法用于通过设置的条件过滤出元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//        获取空字符串的数量</span><br><span class="line">long count = strings4.stream().filter(String::isEmpty).count();</span><br><span class="line">System.out.println(count);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604232504042.png" alt="image-20240604232504042"></p>
+<h3 id="limit"><a href="#limit" class="headerlink" title="limit()"></a>limit()</h3><p><code>Stream&lt;T&gt; limit(long maxSize);</code></p>
+<p>limit 方法用于获取指定数量的流。 以下代码片段使用 limit 方法打印出 10 条数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//      取出集合前两个元素</span><br><span class="line">List&lt;String&gt; strings5 = Arrays.asList(&quot;cwy&quot;,&quot;cwy&quot;,&quot;wst&quot;,&quot;wst&quot;,&quot;cwy&quot;);</span><br><span class="line">strings5.stream().limit(2).forEach(System.out::println);</span><br><span class="line">//        or</span><br><span class="line">List&lt;String&gt; limits =strings5.stream().limit(2).collect(Collectors.toList());</span><br><span class="line">System.out.println(limits);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604233019073.png" alt="image-20240604233019073"></p>
+<h3 id="sorted"><a href="#sorted" class="headerlink" title="sorted()"></a>sorted()</h3><p>sorted 方法用于对流进行排序。</p>
+<p><code>IntStream sorted();</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//        使用 sorted 方法对输出的 10 个随机数进行排序：</span><br><span class="line">Random random = new Random();</span><br><span class="line">random.ints().limit(10).sorted().forEach(System.out::println);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="ints"><a href="#ints" class="headerlink" title="ints()"></a>ints()</h3><p>源码 用来生成整数流</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public IntStream ints() &#123;</span><br><span class="line">        return StreamSupport.intStream</span><br><span class="line">                (new RandomIntsSpliterator</span><br><span class="line">                         (this, 0L, Long.MAX_VALUE, Integer.MAX_VALUE, 0),</span><br><span class="line">                 false);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="并行-parallel-程序"><a href="#并行-parallel-程序" class="headerlink" title="并行(parallel)程序"></a>并行(parallel)程序</h3><p><strong><code>parallelStream</code></strong> 是流并行处理程序的代替方法。以下实例我们使用 parallelStream 来输出空字符串的数量：(使用的是多线程)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; strings = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">// 获取空字符串的数量</span><br><span class="line">long count = strings.parallelStream().filter(string -&gt; string.isEmpty()).count();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>使用并行的程序可以提升处理速度</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//        获取空字符串的数量</span><br><span class="line">long date1 = new Date().getTime();</span><br><span class="line">long count = strings4.stream().filter(String::isEmpty).count();</span><br><span class="line">long date2 = new Date().getTime();</span><br><span class="line">System.out.println(count+&quot;所用时间&quot;+(date2-date1));</span><br><span class="line"></span><br><span class="line">//          获取空字符串的数量</span><br><span class="line">long date3 = new Date().getTime();</span><br><span class="line">List&lt;String&gt; strings6 = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">long date4 = new Date().getTime();</span><br><span class="line">long count2 = strings6.parallelStream().filter(String::isEmpty).count();</span><br><span class="line">System.out.println(count2+&quot;所用时间&quot;+(date4-date3));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604234153199.png" alt="image-20240604234153199"></p>
+<p><strong>建议：数据量不大的情况下建议使用stream即可，不要盲目大量使用parallelStream,因为parallelStream是多线程异步的，也就是说会产生多线程，消耗内存不说，说不定还会更慢，并非一定会更快更好。</strong></p>
+<h3 id="Collectors"><a href="#Collectors" class="headerlink" title="Collectors"></a>Collectors</h3><p>Collectors 类实现了很多归约操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//        Collectors</span><br><span class="line">List&lt;String&gt;strings7 = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">List&lt;String&gt; filtered7 = strings7.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.toList());</span><br><span class="line">System.out.println(&quot;筛选列表: &quot; + filtered);</span><br><span class="line">String mergedString = strings7.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.joining(&quot;, &quot;));</span><br><span class="line">System.out.println(&quot;合并字符串: &quot; + mergedString);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604234940132.png" alt="image-20240604234940132"></p>
+<h3 id="统计相关函数"><a href="#统计相关函数" class="headerlink" title="统计相关函数"></a>统计相关函数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);</span><br><span class="line"></span><br><span class="line">IntSummaryStatistics stats = numbers.stream().mapToInt((x) -&gt; x).summaryStatistics();</span><br><span class="line">System.out.println(&quot;列表中最大的数 : &quot; + stats.getMax());</span><br><span class="line">System.out.println(&quot;列表中最小的数 : &quot; + stats.getMin());</span><br><span class="line">System.out.println(&quot;所有数之和 : &quot; + stats.getSum());</span><br><span class="line">System.out.println(&quot;平均数 : &quot; + stats.getAverage());</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604235321302.png" alt="image-20240604235321302"></p>
+<h2 id="完整实例"><a href="#完整实例" class="headerlink" title="完整实例"></a>完整实例</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">import java.util.*;</span><br><span class="line">import java.util.stream.Collectors;</span><br><span class="line"></span><br><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(&quot;Hello world!&quot;);</span><br><span class="line">//        写Stream流</span><br><span class="line">        List&lt;String&gt; strings = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">        List&lt;String&gt; filtered = strings.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.toList());</span><br><span class="line">        System.out.println(filtered);</span><br><span class="line">//        过滤cwy</span><br><span class="line">        List&lt;String&gt; strings1 = Arrays.asList(&quot;cwy&quot;,&quot;cwy&quot;,&quot;wst&quot;,&quot;wst&quot;,&quot;cwy&quot;);</span><br><span class="line">        List&lt;String&gt; collect = strings1.stream()</span><br><span class="line">                        .filter(s -&gt; s.equals(&quot;wst&quot;)).collect(Collectors.toList());</span><br><span class="line">        System.out.println(collect);</span><br><span class="line">//        forEach</span><br><span class="line">        List&lt;String&gt; strings3 = Arrays.asList(&quot;cwy&quot;,&quot;cwy&quot;,&quot;wst&quot;,&quot;wst&quot;,&quot;cwy&quot;);</span><br><span class="line">        strings3.forEach(System.out::println);</span><br><span class="line">//        map</span><br><span class="line">//        把xList中的数值  进行平方运算映射在yList</span><br><span class="line">        List&lt;Integer&gt; xList = Arrays.asList(1,2,3,4,5,6,7,8,9);</span><br><span class="line">        List&lt;Integer&gt; yList = xList.stream().map(integer -&gt; integer*integer).distinct().collect(Collectors.toList());</span><br><span class="line">        System.out.println(yList);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//      取出集合前两个元素</span><br><span class="line">        List&lt;String&gt; strings5 = Arrays.asList(&quot;cwy&quot;,&quot;cwy&quot;,&quot;wst&quot;,&quot;wst&quot;,&quot;cwy&quot;);</span><br><span class="line">        strings5.stream().limit(2).forEach(System.out::println);</span><br><span class="line">//        or</span><br><span class="line">        List&lt;String&gt; limits = strings5.stream().limit(2).collect(Collectors.toList());</span><br><span class="line">        System.out.println(limits);</span><br><span class="line">//        使用 sorted 方法对输出的 10 个随机数进行排序：</span><br><span class="line">        Random random = new Random();</span><br><span class="line">        random.ints().limit(10).sorted().forEach(System.out::println);</span><br><span class="line"></span><br><span class="line">        //        获取空字符串的数量</span><br><span class="line">        long date1 = new Date().getTime();</span><br><span class="line">        List&lt;String&gt;strings4 = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">        long count = strings4.stream().filter(String::isEmpty).count();</span><br><span class="line">        long date2 = new Date().getTime();</span><br><span class="line">        System.out.println(count+&quot;所用时间&quot;+(date2-date1));</span><br><span class="line"></span><br><span class="line">        //          获取空字符串的数量</span><br><span class="line">        long date3 = new Date().getTime();</span><br><span class="line">        List&lt;String&gt; strings6 = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">        long date4 = new Date().getTime();</span><br><span class="line">        long count2 = strings6.parallelStream().filter(String::isEmpty).count();</span><br><span class="line">        System.out.println(count2+&quot;所用时间&quot;+(date4-date3));</span><br><span class="line">//        Collectors</span><br><span class="line">        List&lt;String&gt;strings7 = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">        List&lt;String&gt; filtered7 = strings7.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;筛选列表: &quot; + filtered);</span><br><span class="line">        String mergedString = strings7.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.joining(&quot;, &quot;));</span><br><span class="line">        System.out.println(&quot;合并字符串: &quot; + mergedString);</span><br><span class="line"></span><br><span class="line">        List&lt;Integer&gt; numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);</span><br><span class="line"></span><br><span class="line">        IntSummaryStatistics stats = numbers.stream().mapToInt((x) -&gt; x).summaryStatistics();</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;列表中最大的数 : &quot; + stats.getMax());</span><br><span class="line">        System.out.println(&quot;列表中最小的数 : &quot; + stats.getMin());</span><br><span class="line">        System.out.println(&quot;所有数之和 : &quot; + stats.getSum());</span><br><span class="line">        System.out.println(&quot;平均数 : &quot; + stats.getAverage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://theme-next.js.org/post/6219a80d.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zyh gq zh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZGZ的博客系统">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | ZGZ的博客系统">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/post/6219a80d.html" class="post-title-link" itemprop="url">java异常处理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-26 00:00:00" itemprop="dateCreated datePublished" datetime="2024-06-26T00:00:00+08:00">2024-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-27 22:59:31" itemprop="dateModified" datetime="2024-06-27T22:59:31+08:00">2024-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="异常的概念"><a href="#异常的概念" class="headerlink" title="异常的概念"></a>异常的概念</h2><p>异常是程序中的一些错误，但并不是所有的错误都是异常，并且错误有时候是可以避免的。</p>
+<p>比如说，你的代码少了一个分号，那么运行出来结果是提示是错误<code>java.lang.Error</code>；如果你用<code>System.out.println(11/0)</code>，那么你是因为你用0做了除数，会抛出<code>java.lang.ArithmeticException</code>的异常。</p>
+<p>异常发生的原因有很多，通常包含以下几大类：</p>
+<ul>
+<li>用户输入了非法数据。</li>
+<li>要打开的文件不存在。</li>
+<li>网络通信时连接中断，或者JVM内存溢出。</li>
+</ul>
+<p>这些异常有的是因为用户错误引起，有的是程序错误引起的，还有其它一些是因为物理错误引起的。-</p>
+<p>要理解Java异常处理是如何工作的，你需要掌握以下三种类型的异常：</p>
+<ul>
+<li><strong>检查性异常：</strong>最具代表的检查性异常是用户错误或问题引起的异常，这是程序员无法预见的。例如要打开一个不存在文件时，一个异常就发生了，这些异常在编译时不能被简单地忽略。</li>
+<li><strong>运行时异常：</strong> 运行时异常是可能被程序员避免的异常。与检查性异常相反，运行时异常可以在编译时被忽略。</li>
+<li><strong>错误：</strong> 错误不是异常，而是脱离程序员控制的问题。错误在代码中通常被忽略。例如，当栈溢出时，一个错误就发生了，它们在编译也检查不到的。</li>
+</ul>
+<p>异常指不期而至的各种状况，如：文件找不到、网络连接失败、除0操作、非法参数等。异常是一个事件，它发生在程序运行期间，干扰了正常的指令流程。</p>
+<p>Java语言在设计的当初就考虑到这些问题，提出异常处理的框架的方案，所有的异常都可以用一个异常类来表示，不同类型的异常对应不同的子类异常（目前我们所说的异常包括错误概念），定义异常处理的规范，在<code>JDK1.4</code>版本以后增加了异常链机制，从而便于跟踪异常。</p>
+<p>Java异常是一个描述在代码段中发生异常的对象，当发生异常情况时，一个代表该异常的对象被创建并且在导致该异常的方法中被抛出，而该方法可以选择自己处理异常或者传递该异常。</p>
+<h2 id="异常的体系结构"><a href="#异常的体系结构" class="headerlink" title="异常的体系结构"></a>异常的体系结构</h2><p>Java把异常当作对象来处理，并定义一个基类<code>java.lang.Throwable</code>作为所有异常的超类。</p>
+<p>在Java API中已经定义了许多异常类，这些异常类分为两大类，**错误<code>Error</code>和异常<code>Exception</code>**。</p>
+<p>Java异常层次结构图如下图所示：</p>
+<p><img src="https://images2015.cnblogs.com/blog/690102/201607/690102-20160728164909622-1770558953.png"></p>
+<p>从图中可以看出所有异常类型都是内置类<code>Throwable</code>的子类，因而<code>Throwable</code>在异常类的层次结构的顶层。</p>
+<p>接下来<code>Throwable</code>分成了两个不同的分支，<strong>一个分支是<code>Error</code>，它表示不希望被程序捕获或者是程序无法处理的错误</strong>。<strong>另一个分支是<code>Exception</code>，它表示用户程序可能捕捉的异常情况或者说是程序可以处理的异常</strong>。其中异常类<code>Exception</code>又分为运行时异常(<code>RuntimeException</code>)和非运行时异常。</p>
+<p>Java异常又可以分为不受检查异常（<code>Unchecked Exception</code>）和检查异常（<code>Checked Exception</code>）。</p>
+<p>下面将详细讲述这些异常之间的区别与联系：</p>
+<ul>
+<li>**<code>Error</code>**：<code>Error</code>类对象由 Java 虚拟机生成并抛出，大多数错误与代码编写者所执行的操作无关。例如，Java虚拟机运行错误（<code>Virtual MachineError</code>），当JVM不再有继续执行操作所需的内存资源时，将出现 <code>OutOfMemoryError</code>。这些异常发生时，Java虚拟机（JVM）一般会选择线程终止；还有发生在虚拟机试图执行应用时，如类定义错误（<code>NoClassDefFoundError</code>）、链接错误（<code>LinkageError</code>）。这些错误是不可查的，因为它们在应用程序的控制和处理能力之 外，而且绝大多数是程序运行时不允许出现的状况。对于设计合理的应用程序来说，即使确实发生了错误，本质上也不应该试图去处理它所引起的异常状况。在Java中，错误通常是使用<code>Error</code>的子类描述。</li>
+<li>**<code>Exception</code>**：在<code>Exception</code>分支中有一个重要的子类<code>RuntimeException</code>（运行时异常），该类型的异常自动为你所编写的程序定义<code>ArrayIndexOutOfBoundsException</code>（数组下标越界）、<code>NullPointerException</code>（空指针异常）、<code>ArithmeticException</code>（算术异常）、<code>MissingResourceException</code>（丢失资源）、<code>ClassNotFoundException</code>（找不到类）等异常，这些异常是不检查异常，程序中可以选择捕获处理，也可以不处理。这些异常一般是由程序逻辑错误引起的，程序应该从逻辑角度尽可能避免这类异常的发生；而<code>RuntimeException</code>之外的异常我们统称为非运行时异常，类型上属于<code>Exception</code>类及其子类，从程序语法角度讲是必须进行处理的异常，如果不处理，程序就不能编译通过。如<code>IOException</code>、<code>SQLException</code>等以及用户自定义的<code>Exception</code>异常，一般情况下不自定义检查异常。</li>
+</ul>
+<blockquote>
+<p> <img src="https://images2015.cnblogs.com/blog/690102/201607/690102-20160728170617356-848311160.png">注意</p>
+<p><code>Error</code>和<code>Exception</code>的区别：<code>Error</code>通常是灾难性的致命的错误，是程序无法控制和处理的，当出现这些异常时，Java虚拟机（JVM）一般会选择终止线程；<code>Exception</code>通常情况下是可以被程序处理的，并且在程序中应该尽可能的去处理这些异常。</p>
+</blockquote>
+<ul>
+<li>**<code>检查异常</code>**：在正确的程序运行过程中，很容易出现的、情理可容的异常状况，在一定程度上这种异常的发生是可以预测的，并且一旦发生该种异常，就必须采取某种方式进行处理。</li>
+</ul>
+<blockquote>
+<p>♠提示</p>
+<p><strong>除了<code>RuntimeException</code>及其子类以外，其他的<code>Exception</code>类及其子类都属于检查异常</strong>，当程序中可能出现这类异常，<strong>要么使用<code>try-catch</code>语句进行捕获，要么用<code>throws</code>子句抛出</strong>，否则编译无法通过。</p>
+</blockquote>
+<ul>
+<li>**<code>不受检查异常</code><strong>：</strong>包括<code>RuntimeException</code>及其子类和<code>Error</code>**。</li>
+</ul>
+<blockquote>
+<p>♠提示</p>
+<p><code>不受检查异常</code>为编译器不要求强制处理的异常，<code>检查异常</code>则是编译器要求必须处置的异常。</p>
+</blockquote>
+<h2 id="Java-异常的处理机制"><a href="#Java-异常的处理机制" class="headerlink" title="Java 异常的处理机制"></a>Java 异常的处理机制</h2><p>Java的异常处理本质上是<strong>抛出异常</strong>和<strong>捕获异常</strong>。</p>
+<ul>
+<li>**<code>抛出异常</code>**：要理解抛出异常，首先要明白什么是异常情形（exception condition），它是指阻止当前方法或作用域继续执行的问题。其次把异常情形和普通问题相区分，普通问题是指在当前环境下能得到足够的信息，总能处理这个错误。对于异常情形，已经无法继续下去了，因为在当前环境下无法获得必要的信息来解决问题，你所能做的就是从当前环境中跳出，并把问题提交给上一级环境，这就是抛出异常时所发生的事情。抛出异常后，会有几件事随之发生。首先，是像创建普通的java对象一样将使用<code>new</code>在堆上创建一个异常对象；然后，当前的执行路径（已经无法继续下去了）被终止，并且从当前环境中弹出对异常对象的引用。此时，异常处理机制接管程序，并开始寻找一个恰当的地方继续执行程序，这个恰当的地方就是异常处理程序或者异常处理器，它的任务是将程序从错误状态中恢复，以使程序要么换一种方式运行，要么继续运行下去。</li>
+</ul>
+<p>举个简单的例子，假使我们创建了一个学生对象Student的一个引用stu,在调用的时候可能还没有初始化。所以在使用这个对象引用调用其他方法之前，要先对它进行检查，可以创建一个代表错误信息的对象，并且将它从当前环境中抛出，这样就把错误信息传播到更大的环境中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(stu == null)&#123;</span><br><span class="line">    throw new NullPointerException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这就抛出了异常，它将在其他的地方得到执行或者处理，具体是哪个地方后面将很快介绍，代码中出现的 <code>throw</code> 是一个关键字，暂时先不做过多讲解，后面会详细讲解。</p>
+<ul>
+<li>**<code>捕获异常</code>**：在方法抛出异常之后，运行时系统将转为寻找合适的异常处理器（exception handler）。潜在的异常处理器是异常发生时依次存留在调用栈中的方法的集合。当异常处理器所能处理的异常类型与方法抛出的异常类型相符时，即为合适的异常处理器。运行时系统从发生异常的方法开始，依次回查调用栈中的方法，直至找到含有合适异常处理器的方法并执行。当运行时系统遍历调用栈而未找到合适的异常处理器，则运行时系统终止。同时，意味着Java程序的终止。</li>
+</ul>
+<blockquote>
+<p> 提示</p>
+<p>对于<code>运行时异常</code>、<code>错误</code>和<code>检查异常</code>，Java技术所要求的异常处理方式有所不同。</p>
+<p>由于运行时异常及其子类的不可查性，为了更合理、更容易地实现应用程序，Java规定，<strong>运行时异常将由Java运行时系统自动抛出，允许应用程序忽略运行时异常</strong>。</p>
+<p>对于方法运行中可能出现的<code>Error</code>，当运行方法不欲捕捉时，Java允许该方法不做任何抛出声明。因为，大多数<code>Error</code>异常属于永远不能被允许发生的状况，也属于合理的应用程序不该捕捉的异常。</p>
+<p>对于所有的检查异常，Java规定：一个方法必须捕捉，或者声明抛出方法之外。也就是说，当一个方法选择不捕捉检查异常时，它必须声明将抛出异常。</p>
+</blockquote>
+<p>Java异常处理涉及到五个关键字，分别是：<code>try</code>、<code>catch</code>、<code>finally</code>、<code>throw</code>、<code>throws</code>。下面将骤一介绍，通过认识这五个关键字，掌握基本异常处理知识。</p>
+<p>　　• <strong>try</strong>        – 用于监听。将要被监听的代码(可能抛出异常的代码)放在try语句块之内，当try语句块内发生异常时，异常就被抛出。<br>　　• <strong>catch</strong>   – 用于捕获异常。catch用来捕获try语句块中发生的异常。<br>　　• <strong>finally</strong>  – finally语句块总是会被执行。它主要用于回收在try块里打开的物力资源(如数据库连接、网络连接和磁盘文件)。只有finally块，执行完成之后，才会回来执行try或者catch块中的return或者throw语句，如果finally中使用了return或者throw等终止方法的语句，则就不会跳回执行，直接停止。<br>　　• <strong>throw</strong>   – 用于抛出异常。<br>　　• <strong>throws</strong> – 用在方法签名中，用于声明该方法可能抛出的异常。</p>
+<h2 id="异常处理的基本语法"><a href="#异常处理的基本语法" class="headerlink" title="异常处理的基本语法"></a>异常处理的基本语法</h2><h3 id="1-try-catch"><a href="#1-try-catch" class="headerlink" title="1. try-catch"></a>1. try-catch</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">    //code that might generate exceptions    </span><br><span class="line">&#125;catch(Exception e)&#123;</span><br><span class="line">    //the code of handling exception1</span><br><span class="line">&#125;catch(Exception e)&#123;</span><br><span class="line">    //the code of handling exception2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>要明白异常捕获，还要理解<code>监控区域</code>（guarded region）的概念。它是一段可能产生异常的代码，并且后面跟着处理这些异常的代码。</p>
+<p>因而可知，上述<code>try-catch</code>所描述的即是监控区域，关键词<code>try</code>后的一对大括号将一块可能发生异常的代码包起来，即为监控区域。Java方法在运行过程中发生了异常，则创建异常对象。将异常抛出监控区域之外，由Java运行时系统负责寻找匹配的<code>catch</code>子句来捕获异常。若有一个<code>catch</code>语句匹配到了，则执行该<code>catch</code>块中的异常处理代码，就不再尝试匹配别的<code>catch</code>块了。</p>
+<blockquote>
+<p>匹配的原则是：如果抛出的异常对象属于<code>catch</code>子句的异常类，或者属于该异常类的子类，则认为生成的异常对象与<code>catch</code>块捕获的异常类型相匹配。</p>
+</blockquote>
+<p>举个例子算术异常：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class TestException &#123;  </span><br><span class="line">    public static void main(String\[\] args) &#123;  </span><br><span class="line">        int a = 1;  </span><br><span class="line">        int b = 0;  </span><br><span class="line">        try &#123; // try监控区域               </span><br><span class="line">            if (b == 0) throw new ArithmeticException(); // 通过throw语句抛出异常  </span><br><span class="line">            System.out.println(&quot;a/b的值是：&quot; + a / b);  </span><br><span class="line">            System.out.println(&quot;this will not be printed!&quot;);</span><br><span class="line">        &#125;  </span><br><span class="line">        catch (ArithmeticException e) &#123; // catch捕捉异常  </span><br><span class="line">            System.out.println(&quot;程序出现异常，变量b不能为0！&quot;);  </span><br><span class="line">        &#125;  </span><br><span class="line">        System.out.println(&quot;程序正常结束。&quot;);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">D:\\java&gt;java TestException</span><br><span class="line"> </span><br><span class="line">程序出现异常，变量b不能为0！</span><br><span class="line"></span><br><span class="line">程序正常结束。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>显示一个异常的描述，<code>Throwable</code>重载了<code>toString()</code>方法（由<code>Object</code>定义），所以它将返回一个包含异常描述的字符串。例如，将前面的<code>catch</code>块重写成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">catch (ArithmeticException e) &#123; // catch捕捉异常  </span><br><span class="line">    System.out.println(&quot;程序出现异常&quot;+e);  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">D:\\java&gt;java TestException</span><br><span class="line"></span><br><span class="line">程序出现异常java.lang.ArithmeticException</span><br><span class="line"></span><br><span class="line">程序正常结束。</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>根据前面讲述的，算术异常属于运行时异常，因而实际上该异常不需要程序抛出，运行时系统自动抛出，将例子改为如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class TestException &#123;  </span><br><span class="line">    public static void main(String\[\] args) &#123;  </span><br><span class="line">        int a = 1;  </span><br><span class="line">        int b = 0;    </span><br><span class="line">        System.out.println(&quot;a/b的值是：&quot; + a / b);</span><br><span class="line">        System.out.println(&quot;this will not be printed!&quot;);</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">D:\\java&gt;java TestException</span><br><span class="line"></span><br><span class="line">Exception in thread &quot;main&quot; java.lang.ArithmeticException: / by zero</span><br><span class="line">    at TestException.main(TestException.java:7)</span><br></pre></td></tr></table></figure>
+
+<p>**<code>使用多重的catch语句</code>**：很多情况下，由单个的代码段可能引起多个异常。处理这种情况，我们需要定义两个或者更多的<code>catch</code>子句，每个子句捕获一种类型的异常，当异常被引发时，每个<code>catch</code>子句被依次检查，第一个匹配异常类型的子句执行，当一个<code>catch</code>子句执行以后，其他的子句将被旁路。</p>
+<p>编写多重catch语句块注意事项：</p>
+<p>　　顺序问题：先小后大，即先子类后父类</p>
+<p> <img src="https://images2015.cnblogs.com/blog/690102/201607/690102-20160729100020388-1471612369.jpg"></p>
+<blockquote>
+<p>Java通过异常类描述异常类型。对于有多个<code>catch</code>子句的异常程序而言，应该尽量将捕获底层异常类的<code>catch</code>子句放在前面，同时尽量将捕获相对高层的异常类的<code>catch</code>子句放在后面。否则，捕获底层异常类的<code>catch</code>子句将可能会被屏蔽。</p>
+<p><code>RuntimeException</code>异常类包括运行时各种常见的异常，<code>ArithmeticException</code>类和<code>ArrayIndexOutOfBoundsException</code>类都是它的子类。因此，<code>RuntimeException</code>异常类的<code>catch</code>子句应该放在最后面，否则可能会屏蔽其后的特定异常处理或引起编译错误。</p>
+</blockquote>
+<p>**<code>嵌套try语句</code>**：<code>try</code>语句可以被嵌套。也就是说，一个<code>try</code>语句可以在另一个<code>try</code>块的内部。每次进入<code>try</code>语句，异常的前后关系都会被推入堆栈。如果一个内部的<code>try</code>语句不含特殊异常的<code>catch</code>处理程序，堆栈将弹出，下一个<code>try</code>语句的<code>catch</code>处理程序将检查是否与之匹配。这个过程将继续直到一个<code>catch</code>语句被匹配成功，或者是直到所有的嵌套<code>try</code>语句被检查完毕。如果没有<code>catch</code>语句匹配，Java运行时系统将处理这个异常。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class NestTry&#123;</span><br><span class="line">    public static void main(String\[\] args)&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            int a = args.length;</span><br><span class="line">            int b = 42 / a;</span><br><span class="line">            System.out.println(&quot;a = &quot;+ a);</span><br><span class="line">            try&#123;</span><br><span class="line">                if(a == 1)&#123;</span><br><span class="line">                a \= a/(a-a);</span><br><span class="line">                &#125;</span><br><span class="line">                if(a == 2)&#123;</span><br><span class="line">                    int c\[\] = &#123;1&#125;;</span><br><span class="line">                    c\[42\] =99;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;catch(ArrayIndexOutOfBoundsException e)&#123;</span><br><span class="line">                System.out.println(&quot;ArrayIndexOutOfBounds :&quot;+e);</span><br><span class="line">            &#125;    </span><br><span class="line">        &#125;catch(ArithmeticException e)&#123;</span><br><span class="line">            System.out.println(&quot;Divide by 0&quot;+ e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>正如程序中所显示的，该程序在一个try块中嵌套了另一个<code>try</code>块。程序工作如下：当你在没有命令行参数的情况下执行该程序，外面的<code>try</code>块将产生一个被0除的异常。程序在有一个命令行参数条件下执行，由嵌套的<code>try</code>块产生一个被0除的异常，由于内部的<code>catch</code>块不匹配这个异常，它将把异常传给外部的<code>try</code>块，在外部异常被处理。如果你在具有两个命令行参数的条件下执行该程序，将由内部<code>try</code>块产生一个数组边界异常。</p>
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">D:\\java&gt;javac estTry.java</span><br><span class="line"></span><br><span class="line">D:\\java\&gt;&gt;java NestTry</span><br><span class="line"></span><br><span class="line">Divide by 0 java.lang.ArithmeticExceptio: / by zero</span><br><span class="line"></span><br><span class="line">D:\\java\&gt;java NestTry one</span><br><span class="line"></span><br><span class="line">a \= 1</span><br><span class="line"></span><br><span class="line">Divide by 0java.lang.ArithmeticException: / by zero</span><br><span class="line"></span><br><span class="line">D:\\java\&gt;java NestTry one two</span><br><span class="line"></span><br><span class="line">a \= 2</span><br><span class="line"></span><br><span class="line">ArrayIndexOutOfBounds :java.lang.ArrayIndexOutOfBoundsException: 42</span><br></pre></td></tr></table></figure>
+
+<p>注意：当有方法调用时，<code>try</code>语句的嵌套可以很隐蔽的发生。例如，我们可以将对方法的调用放在一个<code>try</code>块中。在该方法的内部，有另一个<code>try</code>语句。在这种情况下，方法内部的<code>try</code>仍然是嵌套在外部调用该方法的<code>try</code>块中的。下面我们将对上述例子进行修改，嵌套的<code>try</code>块移到方法nesttry()的内部：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class NestTry&#123;</span><br><span class="line">    static void nesttry(int a)&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            if(a == 1)&#123;</span><br><span class="line">                a \= a/(a-a);</span><br><span class="line">            &#125;</span><br><span class="line">            if(a == 2)&#123;</span><br><span class="line">                int c\[\] = &#123;1&#125;;</span><br><span class="line">                c\[42\] =99;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;catch(ArrayIndexOutOfBoundsException e)&#123;</span><br><span class="line">            System.out.println(&quot;ArrayIndexOutOfBounds :&quot;+e);</span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String\[\] args)&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            int a = args.length;</span><br><span class="line">            int b = 42 / a;</span><br><span class="line">            System.out.println(&quot;a = &quot;+ a);</span><br><span class="line">            nesttry(a);</span><br><span class="line">        &#125;catch(ArithmeticException e)&#123;</span><br><span class="line">            System.out.println(&quot;Divide by 0&quot;+ e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果输出与前面例子一致：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">D:\\java&gt;javac NestTry.java</span><br><span class="line"></span><br><span class="line">D:\\java\&gt;java NestTry</span><br><span class="line"></span><br><span class="line">Divide by 0java.lang.ArithmeticException: / by zero</span><br><span class="line"></span><br><span class="line">D:\\java\&gt;java NestTry one</span><br><span class="line"></span><br><span class="line">a \= 1</span><br><span class="line"></span><br><span class="line">Divide by 0java.lang.ArithmeticException: / by zero</span><br><span class="line"></span><br><span class="line">D:\\java\&gt;java NestTry one two</span><br><span class="line"></span><br><span class="line">a \= 2</span><br><span class="line"></span><br><span class="line">ArrayIndexOutOfBounds :java.lang.ArrayIndexOutOfBoundsException: 42</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-throw"><a href="#2-throw" class="headerlink" title="2. throw"></a>2. throw</h3><p>到目前为止，我们只是获取了被Java运行时系统引发的异常。然而，我们还可以用<code>throw</code>语句抛出明确的异常。<code>Throw</code>的语法形式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">throw ThrowableInstance;</span><br></pre></td></tr></table></figure>
+
+<p>这里的ThrowableInstance一定是<code>Throwable</code>类类型或者<code>Throwable</code>子类类型的一个对象。简单的数据类型，例如<code>int</code>，<code>char</code>,以及非<code>Throwable</code>类，例如<code>String</code>或<code>Object</code>，不能用作异常。有两种方法可以获取<code>Throwable</code>对象：在<code>catch</code>子句中使用参数或者使用<code>new</code>操作符创建。</p>
+<p>程序执行完<code>throw</code>语句之后立即停止；<code>throw</code>后面的任何语句不被执行，最邻近的<code>try</code>块用来检查它是否含有一个与异常类型匹配的<code>catch</code>语句。如果发现了匹配的块，控制转向该语句；如果没有发现，次包围的<code>try</code>块来检查，以此类推。如果没有发现匹配的<code>catch</code>块，默认异常处理程序中断程序的执行并且打印堆栈轨迹。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class TestThrow&#123;</span><br><span class="line">    static void proc()&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            throw new NullPointerException(&quot;demo&quot;);</span><br><span class="line">        &#125;catch(NullPointerException e)&#123;</span><br><span class="line">            System.out.println(&quot;Caught inside proc&quot;);</span><br><span class="line">            throw e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String \[\] args)&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            proc();</span><br><span class="line">        &#125;catch(NullPointerException e)&#123;</span><br><span class="line">            System.out.println(&quot;Recaught: &quot;+e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">D:\\java&gt;java TestThrow</span><br><span class="line"></span><br><span class="line">Caught inside proc</span><br><span class="line"></span><br><span class="line">Recaught: java.lang.NullPointerException: demo</span><br></pre></td></tr></table></figure>
+
+<p>该程序两次处理相同的错误，首先，<code>main()</code>方法设立了一个异常关系然后调用proc()。proc()方法设立了另一个异常处理关系并且立即抛出一个<code>NullPointerException</code>实例，<code>NullPointerException</code>在<code>main()</code>中被再次捕获。</p>
+<p>该程序阐述了怎样创建Java的标准异常对象，特别注意这一行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">throw new NullPointerException(&quot;demo&quot;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>此处<code>new</code>用来构造一个<code>NullPointerException</code>实例，所有的Java内置的运行时异常有两个构造方法：一个没有参数，一个带有一个字符串参数。当用第二种形式时，参数指定描述异常的字符串。如果对象用作<code>print()</code>或者<code>println()</code>的参数时，该字符串被显示。这同样可以通过调用getMessage()来实现，getMessage()是由<code>Throwable</code>定义的。</p>
+</blockquote>
+<h3 id="3-throws"><a href="#3-throws" class="headerlink" title="3. throws"></a>3. throws</h3><p>如果一个方法可以导致一个异常但不处理它，它必须指定这种行为以使方法的调用者可以保护它们自己而不发生异常。要做到这点，我们可以在方法声明中包含一个<code>throws</code>子句。一个<code>throws</code>子句列举了一个方法可能引发的所有异常类型。这对于除了<code>Error</code>或<code>RuntimeException</code>及它们子类以外类型的所有异常是必要的。一个方法可以引发的所有其他类型的异常必须在<code>throws</code>子句中声明，否则会导致编译错误。</p>
+<p>下面是<code>throws</code>子句的方法声明的通用形式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public void info() throws Exception</span><br><span class="line">&#123;</span><br><span class="line">   //body of method</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Exception 是该方法可能引发的所有的异常,也可以是异常列表，中间以逗号隔开。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class TestThrows&#123;</span><br><span class="line">    static void throw1()&#123;</span><br><span class="line">        System.out.println(&quot;Inside throw1 . &quot;);</span><br><span class="line">        throw new IllegalAccessException(&quot;demo&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String\[\] args)&#123;</span><br><span class="line">        throw1();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述例子中有两个地方存在错误，你能看出来吗？</p>
+<p>该例子中存在两个错误，首先，throw1()方法不想处理所导致的异常，因而它必须声明<code>throws</code>子句来列举可能引发的异常即<code>IllegalAccessException</code>；其次，<code>main()</code>方法必须定义<code>try/catch</code>语句来捕获该异常。</p>
+<p>正确例子如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class TestThrows&#123;</span><br><span class="line">    static void throw1() throws IllegalAccessException &#123;</span><br><span class="line">        System.out.println(&quot;Inside throw1 . &quot;);</span><br><span class="line">        throw new IllegalAccessException(&quot;demo&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String\[\] args)&#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            throw1();</span><br><span class="line">        &#125;catch(IllegalAccessException e )&#123;</span><br><span class="line">            System.out.println(&quot;Caught &quot; + e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>Throws</code>抛出异常的规则：</p>
+<ul>
+<li>如果是不受检查异常（<code>unchecked exception</code>），即<code>Error</code>、<code>RuntimeException</code>或它们的子类，那么可以不使用<code>throws</code>关键字来声明要抛出的异常，编译仍能顺利通过，但在运行时会被系统抛出。</li>
+<li>必须声明方法可抛出的任何检查异常（<code>checked exception</code>）。即如果一个方法可能出现受可查异常，要么用<code>try-catch</code>语句捕获，要么用<code>throws</code>子句声明将它抛出，否则会导致编译错误</li>
+<li>仅当抛出了异常，该方法的调用者才必须处理或者重新抛出该异常。当方法的调用者无力处理该异常的时候，应该继续抛出，而不是囫囵吞枣。</li>
+<li>调用方法必须遵循任何可查异常的处理和声明规则。若覆盖一个方法，则不能声明与覆盖方法不同的异常。声明的任何异常必须是被覆盖方法所声明异常的同类或子类。</li>
+</ul>
+</blockquote>
+<h3 id="4-finally"><a href="#4-finally" class="headerlink" title="4. finally"></a>4. finally</h3><p>当异常发生时，通常方法的执行将做一个陡峭的非线性的转向，它甚至会过早的导致方法返回。例如，如果一个方法打开了一个文件并关闭，然后退出，你不希望关闭文件的代码被异常处理机制旁路。<code>finally</code>关键字为处理这种意外而设计。</p>
+<p><code>finally</code>创建的代码块在<code>try/catch</code>块完成之后另一个<code>try/catch</code>出现之前执行。<code>finally</code>块无论有没有异常抛出都会执行。如果抛出异常，即使没有<code>catch</code>子句匹配，<code>finally</code>也会执行。一个方法将从一个<code>try/catch</code>块返回到调用程序的任何时候，经过一个未捕获的异常或者是一个明确的返回语句，<code>finally</code>子句在方法返回之前仍将执行。这在关闭文件句柄和释放任何在方法开始时被分配的其他资源是很有用。</p>
+<blockquote>
+<p><code>finally</code>子句是可选项，可以有也可以无，但是每个<code>try</code>语句至少需要一个<code>catch</code>或者<code>finally</code>子句。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">class TestFinally&#123;</span><br><span class="line">    static void proc1()&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            System.out.println(&quot;inside proc1&quot;);</span><br><span class="line">            throw new RuntimeException(&quot;demo&quot;);</span><br><span class="line">        &#125;finally&#123;</span><br><span class="line">            System.out.println(&quot;proc1&#x27;s finally&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    static void proc2()&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            System.out.println(&quot;inside proc2&quot;);</span><br><span class="line">            return ;</span><br><span class="line">        &#125; finally&#123;</span><br><span class="line">            System.out.println(&quot;proc2&#x27;s finally&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    static void proc3()&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            System.out.println(&quot;inside proc3&quot;);</span><br><span class="line">        &#125;finally&#123;</span><br><span class="line">            System.out.println(&quot;proc3&#x27;s finally&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String \[\] args)&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            proc1();</span><br><span class="line">        &#125;catch(Exception e)&#123;</span><br><span class="line">            System.out.println(&quot;Exception caught&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        proc2();</span><br><span class="line">        proc3();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该例子中，proc1()抛出了异常中断了<code>try</code>，它的<code>finally</code>子句在退出时执行。proc2的<code>try</code>语句通过<code>return</code>语句返回，但在返回之前<code>finally</code>语句执行。在proc3()中<code>try</code>语句正常执行，没有错误，<code>finally</code>语句也被执行。</p>
+<p>输出结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">D:\\java&gt;java TestFinally</span><br><span class="line"></span><br><span class="line">inside proc1</span><br><span class="line"></span><br><span class="line">proc1&#x27;s finally</span><br><span class="line">Exception caught</span><br><span class="line"></span><br><span class="line">inside proc2</span><br><span class="line"> </span><br><span class="line">proc2&#x27;s finally</span><br><span class="line"> </span><br><span class="line">inside proc3</span><br><span class="line"> </span><br><span class="line">proc3&#x27;s finally</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：如果<code>finally</code>块与一个<code>try</code>联合使用，<code>finally</code>块将在<code>try</code>结束之前执行。</p>
+</blockquote>
+<h3 id="问题扩展（面试题）："><a href="#问题扩展（面试题）：" class="headerlink" title="问题扩展（面试题）："></a><strong>问题扩展（面试题）</strong>：</h3><p><strong>1、try{} 里有一个 return 语句，那么紧跟在这个 try 后的 finally{} 里的 code 会不会被执行，什么时候被执行，在 return 前还是后?</strong></p>
+<p>答案：会执行，在方法返回调用者前执行。</p>
+<blockquote>
+<p><strong>注意：</strong>在finally中改变返回值的做法是不好的，因为如果存在finally代码块，try中的return语句不会立马返回调用者，而是记录下返回值待finally代码块执行完毕之后再向调用者返回其值，然后如果在finally中修改了返回值，就会返回修改后的值。显然，在finally中返回或者修改返回值会对程序造成很大的困扰，C#中直接用编译错误的方式来阻止程序员干这种龌龊的事情，Java中也可以通过提升编译器的语法检查级别来产生警告或错误，Eclipse中可以在如图所示的地方进行设置，强烈建议将此项设置为编译错误。</p>
+</blockquote>
+<p> <img src="https://images2015.cnblogs.com/blog/690102/201607/690102-20160729110647216-246845823.jpg"></p>
+<p><strong>2、Java语言如何进行异常处理，关键字：throws、throw、try、catch、finally分别如何使用？</strong></p>
+<p>答：Java通过面向对象的方法进行异常处理，把各种不同的异常进行分类，并提供了良好的接口。在Java中，每个异常都是一个对象，它是Throwable类或其子类的实例。当一个方法出现异常后便抛出一个异常对象，该对象中包含有异常信息，调用这个对象的方法可以捕获到这个异常并可以对其进行处理。Java的异常处理是通过5个关键词来实现的：try、catch、throw、throws和finally。一般情况下是用try来执行一段程序，如果系统会抛出（throw）一个异常对象，可以通过它的类型来捕获（catch）它，或通过总是执行代码块（finally）来处理；try用来指定一块预防所有异常的程序；catch子句紧跟在try块后面，用来指定你想要捕获的异常的类型；throw语句用来明确地抛出一个异常；throws用来声明一个方法可能抛出的各种异常（当然声明异常时允许无病呻吟）；finally为确保一段代码不管发生什么异常状况都要被执行；try语句可以嵌套，每当遇到一个try语句，异常的结构就会被放入异常栈中，直到所有的try语句都完成。如果下一级的try语句没有对某种异常进行处理，异常栈就会执行出栈操作，直到遇到有处理这种异常的try语句或者最终将异常抛给JVM。</p>
+<p><strong>3、运行时异常与受检异常有何异同？</strong> </p>
+<p>答：异常表示程序运行过程中可能出现的非正常状态，运行时异常表示虚拟机的通常操作中可能遇到的异常，是一种常见运行错误，只要程序设计得没有问题通常就不会发生。受检异常跟程序运行的上下文环境有关，即使程序设计无误，仍然可能因使用的问题而引发。Java编译器要求方法必须声明抛出可能发生的受检异常，但是并不要求必须声明抛出未被捕获的运行时异常。异常和继承一样，是面向对象程序设计中经常被滥用的东西，在_Effective Java_中对异常的使用给出了以下指导原则： <br>- 不要将异常处理用于正常的控制流（设计良好的API不应该强迫它的调用者为了正常的控制流而使用异常） <br>- 对可以恢复的情况使用受检异常，对编程错误使用运行时异常 <br>- 避免不必要的使用受检异常（可以通过一些状态检测手段来避免异常的发生） <br>- 优先使用标准的异常 <br>- 每个方法抛出的异常都要有文档 <br>- 保持异常的原子性 <br>- 不要在catch中忽略掉捕获到的异常</p>
+<p><strong>4、列出一些你常见的运行时异常？</strong> </p>
+<p>答： <br>- ArithmeticException（算术异常） <br>- ClassCastException （类转换异常） <br>- IllegalArgumentException （非法参数异常） <br>- IndexOutOfBoundsException （下标越界异常） <br>- NullPointerException （空指针异常） <br>- SecurityException （安全异常）</p>
+<p> <img src="https://images2015.cnblogs.com/blog/690102/201607/690102-20160729131101138-1250422700.jpg"></p>
+<h2 id="异常链"><a href="#异常链" class="headerlink" title="异常链"></a>异常链</h2><p>异常链顾名思义就是将异常发生的原因一个传一个串起来，即把底层的异常信息传给上层，这样逐层抛出。 Java API文档中给出了一个简单的模型：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">try &#123;   </span><br><span class="line">    lowLevelOp();   </span><br><span class="line">&#125; catch (LowLevelException le) &#123;   </span><br><span class="line">    throw (HighLevelException) new HighLevelException().initCause(le);   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当程序捕获到了一个底层异常，在处理部分选择了继续抛出一个更高级别的新异常给此方法的调用者。 这样异常的原因就会逐层传递。这样，位于高层的异常递归调用getCause()方法，就可以遍历各层的异常原因。 这就是<code>Java异常链</code>的原理。异常链的实际应用很少，发生异常时候逐层上抛不是个好注意， 上层拿到这些异常又能奈之何？而且异常逐层上抛会消耗大量资源， 因为要保存一个完整的异常链信息.</p>
+<h2 id="自定义异常"><a href="#自定义异常" class="headerlink" title="自定义异常"></a>自定义异常</h2><p>使用Java内置的异常类可以描述在编程时出现的大部分异常情况。除此之外，用户还可以自定义异常。用户自定义异常类，只需继承<code>Exception</code>类即可。</p>
+<p>在程序中使用自定义异常类，大体可分为以下几个步骤:</p>
+<ul>
+<li>创建自定义异常类。</li>
+<li>在方法中通过<code>throw</code>关键字抛出异常对象。</li>
+<li>如果在当前抛出异常的方法中处理异常，可以使用<code>try-catch</code>语句捕获并处理；否则在方法的声明处通过<code>throws</code>关键字指明要抛出给方法调用者的异常，继续进行下一步操作。</li>
+<li>在出现异常方法的调用者中捕获并处理异常。</li>
+</ul>
+<p>举例自定义异常：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class MyException extends Exception &#123;</span><br><span class="line">    private int detail;</span><br><span class="line">    MyException(int a)&#123;</span><br><span class="line">        detail \= a;</span><br><span class="line">    &#125;</span><br><span class="line">    public String toString()&#123;</span><br><span class="line">        return &quot;MyException \[&quot;+ detail + &quot;\]&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class TestMyException&#123;</span><br><span class="line">    static void compute(int a) throws MyException&#123;</span><br><span class="line">        System.out.println(&quot;Called compute(&quot; + a + &quot;)&quot;);</span><br><span class="line">        if(a &gt; 10)&#123;</span><br><span class="line">            throw new MyException(a);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;Normal exit!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String \[\] args)&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            compute(1);</span><br><span class="line">            compute(20);</span><br><span class="line">        &#125;catch(MyException me)&#123;</span><br><span class="line">            System.out.println(&quot;Caught &quot; + me);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该例子完全按照上述步骤。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">运行结果如下：</span><br><span class="line">D:\\java\&gt;java TestMyException</span><br><span class="line"></span><br><span class="line">Called compute(1)</span><br><span class="line"></span><br><span class="line">Normal exit!</span><br><span class="line"></span><br><span class="line">Called compute(20)</span><br><span class="line"></span><br><span class="line">Caught MyException \[20\]</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p> <img src="https://images2015.cnblogs.com/blog/690102/201607/690102-20160729105042231-937633681.jpg"></p>
+<p><img src="https://images2015.cnblogs.com/blog/690102/201607/690102-20160729100445981-600538221.jpg"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://theme-next.js.org/post/89b3a4e0.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zyh gq zh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZGZ的博客系统">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | ZGZ的博客系统">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/post/89b3a4e0.html" class="post-title-link" itemprop="url">java继承</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-26 00:00:00" itemprop="dateCreated datePublished" datetime="2024-06-26T00:00:00+08:00">2024-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-27 23:13:25" itemprop="dateModified" datetime="2024-06-27T23:13:25+08:00">2024-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="继承与合成基本概念"><a href="#继承与合成基本概念" class="headerlink" title="继承与合成基本概念"></a>继承与合成基本概念</h1><p><strong>继承：</strong>可以基于已经存在的类构造一个新类。继承已经存在的类就可以复用这些类的方法和域。在此基础上，可以添加新的方法和域，从而扩充了类的功能。</p>
+<p><strong>合成：</strong>在新类里创建原有的对象称为合成。这种方式可以重复利用现有的代码而不更改它的形式。</p>
+<h3 id="1-继承的语法"><a href="#1-继承的语法" class="headerlink" title="1.继承的语法"></a>1.继承的语法</h3><p>关键字<code>extends</code>表明新类派生于一个已经存在的类。已存在的类称为父类或基类，新类称为子类或派生类。例如:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Student extends Person &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>类Student继承了Person，Person类称为父类或基类，Student类称为子类或派生类。</p>
+<h3 id="2-合成的语法"><a href="#2-合成的语法" class="headerlink" title="2.合成的语法"></a>2.合成的语法</h3><p>合成比较简单，就是在一个类中创建一个已经存在的类。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Student &#123;</span><br><span class="line">    Dog dog;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="上溯造型"><a href="#上溯造型" class="headerlink" title="上溯造型"></a>上溯造型</h1><h3 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1.基本概念"></a>1.基本概念</h3><p>继承的作用在于代码的复用。由于继承意味着父类的所有方法亦可在子类中使用，所以发给父类的消息亦可发给衍生类。如果Person类中有一个eat方法，那么Student类中也会有这个方法，这意味着Student对象也是Person的一种类型。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    public void eat() &#123;</span><br><span class="line">        System.out.println(&quot;eat&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static void show(Person p) &#123;</span><br><span class="line">        p.eat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Student extends Person&#123;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Student s \= new Student();</span><br><span class="line">        Person.show(s);     // ①</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【运行结果】：<br>eat</p>
+<p>在Person中定义的show方法是用来接收Person句柄的，但是在①处接收的却是Student对象的引用。这是因为Student对象也是Person对象。在show方法中，传入的句柄(对象的引用)可以是Person对象以及Person的衍生类对象。这种将Student句柄转换成Person句柄的行为成为<strong>上溯造型</strong>。</p>
+<h3 id="2-为什么要上溯造型"><a href="#2-为什么要上溯造型" class="headerlink" title="2.为什么要上溯造型"></a>2.为什么要上溯造型</h3><p>为什么在调用eat是要有意忽略调用它的对象类型呢？如果让show方法简单地获取Student句柄似乎更加直观易懂，但是那样会使衍生自Person类的每一个新类都要实现专属自己的show方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">class Value &#123;</span><br><span class="line">    private int count = 1;</span><br><span class="line"></span><br><span class="line">    private Value(int count) &#123;</span><br><span class="line">        this.count = count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static final Value</span><br><span class="line">            v1 \= new Value(1),</span><br><span class="line">            v2 \= new Value(2),</span><br><span class="line">            v3 \= new Value(3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Person &#123;</span><br><span class="line"></span><br><span class="line">    public void eat(Value v) &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Teacher extends Person &#123;</span><br><span class="line">    public void eat(Value v) &#123;</span><br><span class="line">        System.out.println(&quot;Teacher.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Student extends Person &#123;</span><br><span class="line">    public void eat(Value v) &#123;</span><br><span class="line">        System.out.println(&quot;Student.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class UpcastingDemo &#123;</span><br><span class="line">    public static void show(Student s) &#123;</span><br><span class="line">        s.eat(Value.v1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void show(Teacher t) &#123;</span><br><span class="line">        t.eat(Value.v1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void show(Person p) &#123;</span><br><span class="line">        p.eat(Value.v1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Student s \= new Student();</span><br><span class="line">        Teacher t \= new Teacher();</span><br><span class="line">        Person p \= new Person();</span><br><span class="line">        show(s);</span><br><span class="line">        show(t);</span><br><span class="line">        show(p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种做法一个很明显的缺陷就是必须为每一个Person类的衍生类定义与之紧密相关的方法，产生了很多重复的代码。另一方面，对于如果忘记了方法的重载也不会报错。上例中的三个show方法完全可以合并为一个：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static void show(Person p) &#123;</span><br><span class="line">     p.eat(Value.v1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="动态绑定"><a href="#动态绑定" class="headerlink" title="动态绑定"></a>动态绑定</h1><p>当执行show(s)时,输出结果是Student.eat()，这确实是希望得到的结果，但是似乎没有按照我们希望的形式来执行，再来看一下show方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static void show(Person p) &#123;</span><br><span class="line">     p.eat(Value.v1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它接收的是Person句柄，当执行show(s)时，它是如何知道Person句柄指向的是一个Student对象而不是Teacher对象呢？编译器是无从得知的，这涉及到接下来要说明的绑定问题。</p>
+<h3 id="1-方法调用的绑定"><a href="#1-方法调用的绑定" class="headerlink" title="1.方法调用的绑定"></a>1.方法调用的绑定</h3><p>将一个方法同一个方法主体连接在一起就称为<strong>绑定(Binding)<strong>。若在运行运行前执行绑定，就称为“早期绑定”。上面的例子中，在只有一个Person句柄的情况下，编译器不知道具体调用哪个方法。Java实现了一种方法调用机制，可在运行期间判断对象的类型，然后调用相应的方法，这种在运行期间进行，以对象的类型为基础的绑定称为</strong>动态绑定</strong>。除非一个方法被声明为final，Java中的所有方法都是动态绑定的。</p>
+<p>用一张图表示上溯造型的继承关系：</p>
+<p><img src="https://images2015.cnblogs.com/blog/525435/201512/525435-20151203233242393-347102988.jpg"></p>
+<p>用代码概括为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Shape s = new Shape();</span><br></pre></td></tr></table></figure>
+
+<p>按照继承关系，将创建的Circle对象句柄赋给一个Shape是合法的，因为Circle属于Shape的一种。</p>
+<p>当调用其中一个基础类方法时：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Shape s = new Shape();</span><br></pre></td></tr></table></figure>
+
+<p>此时，调用的是Circle.draw(),这是由于动态绑定的原因。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    void eat() &#123;&#125;</span><br><span class="line">    void speak() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Girl extends Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static Person randPerson() &#123;</span><br><span class="line">        switch ((int)(Math.random() \* 2)) &#123;</span><br><span class="line">        default:</span><br><span class="line">        case 0:</span><br><span class="line">            return new Boy();</span><br><span class="line">        case 1:</span><br><span class="line">            return new Girl();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person\[\] p \= new Person\[4\];</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\] \= randPerson();    // 随机生成Boy或Girl</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\].eat();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对所有从Person衍生出来的类，Person建立了一个通用接口，所有衍生的类都有eat和speak两种行为。衍生类覆盖了这些定义，重新定义了这两种行为。在主类中，randPerson随机选择Person对象的句柄。**上诉造型是在return语句里发生的。**return语句取得一个Boy或Girl的句柄并将其作为Person类型返回，此时并不知道具体是什么类型，只知道是Person对象句柄。在main方法中调用randPerson方法为数组填入Person对象，但不知具体情况。当调用数组每个元素的eat方法时，动态绑定的作用就是执行对象的重新定义了的方法。</p>
+<p>然而，动态绑定是有前提的，<strong>绑定的方法必须存在于基类中</strong>，否则无法编译通过。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person p \= new Boy();</span><br><span class="line">        p.eat();</span><br><span class="line">        p.speak();  // The method speak() is undefined for the type Person</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果子类中没有定义覆盖方法，则会调用父类中的方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person p \= new Boy();</span><br><span class="line">        p.eat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【运行结果】: Person.eat()</p>
+<h3 id="2-静态方法的绑定"><a href="#2-静态方法的绑定" class="headerlink" title="2.静态方法的绑定"></a>2.静态方法的绑定</h3><p>将上面的方法都加上static关键字，变成静态方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    static void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    static void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Person.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">    static void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    static void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Girl extends Person &#123;</span><br><span class="line">    static void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    static void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static Person randPerson() &#123;</span><br><span class="line">        switch ((int)(Math.random() \* 2)) &#123;</span><br><span class="line">        default:</span><br><span class="line">        case 0:</span><br><span class="line">            return new Boy();</span><br><span class="line">        case 1:</span><br><span class="line">            return new Girl();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person\[\] p \= new Person\[4\];</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\] \= randPerson();    // 随机生成Boy或Girl</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\].eat();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【运行结果】： Person.eat() Person.eat() Person.eat() Person.eat() 观察结果，<strong>对于静态方法而言，不管父类引用指向的什么子类对象，调用的都是父类的方法。</strong></p>
+<blockquote>
+<p><strong>助记口诀</strong> - 静态方法:静态方法看父类 - 非静态方法：非静态方法看子类</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://theme-next.js.org/post/bc285c4.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zyh gq zh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZGZ的博客系统">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | ZGZ的博客系统">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/post/bc285c4.html" class="post-title-link" itemprop="url">Python中字符串格式判断</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-26 00:00:00" itemprop="dateCreated datePublished" datetime="2024-06-26T00:00:00+08:00">2024-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-27 23:13:25" itemprop="dateModified" datetime="2024-06-27T23:13:25+08:00">2024-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>在python编程中，我们经常要面临将字符串进行转换的情况，那么字符串是否符合转换的要求呢？python中内置了字符串类的方法供我们使用进行字符串格式的判断。</p>
+<h3 id="1-isalnum"><a href="#1-isalnum" class="headerlink" title="1.isalnum()"></a>1.isalnum()</h3><p>所有字符都是数字或者字母，为真返回 Ture，否则返回 False。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">i=&#x27;5566ccddFF&#x27;</span><br><span class="line">print(i.isalnum())</span><br><span class="line">i=&#x27;@!5d&#x27;</span><br><span class="line">print(i.isalnum())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行结果是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">True</span><br><span class="line">False</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-isalpha"><a href="#2-isalpha" class="headerlink" title="2.isalpha()"></a>2.isalpha()</h3><p>所有字符都是字母，为真返回 Ture，否则返回 False。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">i=&#x27;5566ccddFF&#x27;</span><br><span class="line">print(i.isalpha())</span><br><span class="line">i=&#x27;ccddFF&#x27;</span><br><span class="line">print(i.isalpha())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行结果是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">False</span><br><span class="line">True</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-isdigit"><a href="#3-isdigit" class="headerlink" title="3.isdigit()"></a>3.isdigit()</h3><p>所有字符都是数字，为真返回 Ture，否则返回 False。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">i=&#x27;5566&#x27;</span><br><span class="line">print(i.isdigit())</span><br><span class="line">i=&#x27;ccddFF&#x27;</span><br><span class="line">print(i.isdigit())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行结果是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">True</span><br><span class="line">False</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-islower"><a href="#4-islower" class="headerlink" title="4.islower()"></a>4.islower()</h3><p>所有字符都是小写，为真返回 Ture，否则返回 False。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">i=&#x27;5566&#x27;</span><br><span class="line">print(i.islower())</span><br><span class="line">i=&#x27;ccddFF&#x27;</span><br><span class="line">print(i.islower())</span><br><span class="line">i=&#x27;ccdd&#x27;</span><br><span class="line">print(i.islower())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行结果是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">False</span><br><span class="line">False</span><br><span class="line">True</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-isupper"><a href="#5-isupper" class="headerlink" title="5.isupper()"></a>5.isupper()</h3><p>所有字符都是大写，为真返回 Ture，否则返回 False。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">i=&#x27;ccddFF&#x27;</span><br><span class="line">print(i.isupper())</span><br><span class="line">i=&#x27;CCDD&#x27;</span><br><span class="line">print(i.isupper())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行结果是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">False</span><br><span class="line">True</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-istitle"><a href="#6-istitle" class="headerlink" title="6.istitle()"></a>6.istitle()</h3><p>所有单词都是首字母大写，为真返回 Ture，否则返回 False。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">i=&#x27;ccddFF&#x27;</span><br><span class="line">print(i.istitle())</span><br><span class="line">i=&#x27;Ccdd&#x27;</span><br><span class="line">print(i.istitle())</span><br><span class="line">#小编创建了一个Python学习交流群：725638078</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行结果是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">False</span><br><span class="line">True</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-isspace"><a href="#7-isspace" class="headerlink" title="7.isspace()"></a>7.isspace()</h3><p>所有字符都是空白字符，为真返回 Ture，否则返回 False。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">i=&#x27;ccddFF&#x27;</span><br><span class="line">print(i.isspace())</span><br><span class="line">i=&#x27;\n&#x27;</span><br><span class="line">print(i.isspace())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行结果是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">False</span><br><span class="line">True</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>“\n”是换行符，所以是空白字符。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://theme-next.js.org/post/2e0286d4.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zyh gq zh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZGZ的博客系统">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | ZGZ的博客系统">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/post/2e0286d4.html" class="post-title-link" itemprop="url">Python可迭代序列反转</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-26 00:00:00" itemprop="dateCreated datePublished" datetime="2024-06-26T00:00:00+08:00">2024-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-27 23:13:25" itemprop="dateModified" datetime="2024-06-27T23:13:25+08:00">2024-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="1-字符串反转"><a href="#1-字符串反转" class="headerlink" title="1.字符串反转"></a>1.字符串反转</h3><p>示例：s &#x3D; “hello”</p>
+<h4 id="方法一：使用切片"><a href="#方法一：使用切片" class="headerlink" title="方法一：使用切片"></a>方法一：使用切片</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def reversed_str(s):</span><br><span class="line">    return s[::-1]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="方法二：使用reversed"><a href="#方法二：使用reversed" class="headerlink" title="方法二：使用reversed"></a>方法二：使用reversed</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 字符串 -&gt; 反转迭代器 -&gt; 列表 -&gt; 反转后的字符串</span><br><span class="line">def reversed_str(s):</span><br><span class="line">    return &quot;&quot;.join(list(reversed(s)))	# 实际编码不要这样写，不容易理解</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="方法三：使用reverse"><a href="#方法三：使用reverse" class="headerlink" title="方法三：使用reverse"></a>方法三：使用reverse</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def reversed_str(s):</span><br><span class="line">    str_list = list(s)</span><br><span class="line">    # 注意list.reverse()和list.sort()一样，都是就地操作没有返回值</span><br><span class="line">    str_list.reverse()	</span><br><span class="line">    return &quot;&quot;.join(str_list)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="方法四：使用reduce"><a href="#方法四：使用reduce" class="headerlink" title="方法四：使用reduce"></a>方法四：使用reduce</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def reversed_str(s):</span><br><span class="line">    from functools import reduce</span><br><span class="line">    # reduce的第一个参数是函数，第二个参数是序列</span><br><span class="line">    return reduce(lambda x, y: y+x, s)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-列表反转"><a href="#2-列表反转" class="headerlink" title="2.列表反转"></a>2.列表反转</h3><p>示例：lst &#x3D; [1, 2, 3, 4, 5]</p>
+<h4 id="方法一：使用切片-1"><a href="#方法一：使用切片-1" class="headerlink" title="方法一：使用切片"></a>方法一：使用切片</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def reversed_list(lst):</span><br><span class="line">    return lst[::-1]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="方法二：使用reversed-1"><a href="#方法二：使用reversed-1" class="headerlink" title="方法二：使用reversed"></a>方法二：使用reversed</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def reversed_list(lst):</span><br><span class="line">    return list(reversed(lst))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="方法三：使用reverse-1"><a href="#方法三：使用reverse-1" class="headerlink" title="方法三：使用reverse"></a>方法三：使用reverse</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def reversed_list(lst):</span><br><span class="line">    lst.reverse()	# 就地反转</span><br><span class="line">    return lst</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="方法四：使用while循环和pop"><a href="#方法四：使用while循环和pop" class="headerlink" title="方法四：使用while循环和pop"></a>方法四：使用while循环和pop</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def reversed_list(lst):</span><br><span class="line">    reversed_lst = []</span><br><span class="line">    while len(lst) &gt; 0:</span><br><span class="line">        reversed_lst.append(lst.pop())</span><br><span class="line">	return reversed_lst</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>补充：元组的反转与列表类似，可以使用方法一和方法二，方法三和方法四需要稍加修改，这里就不赘述了</p>
 
       
     </div>

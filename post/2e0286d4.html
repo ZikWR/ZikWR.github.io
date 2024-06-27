@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"theme-next.js.org","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1.字符串反转示例：s &#x3D; “hello” 方法一：使用切片123def reversed_str(s):    return s[::-1]  方法二：使用reversed1234# 字符串 -&gt; 反转迭代器 -&gt; 列表 -&gt; 反转后的字符串def reversed_str(s):    return &quot;&quot;.join(list(reversed(s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python可迭代序列反转">
+<meta property="og:url" content="https://theme-next.js.org/post/2e0286d4.html">
+<meta property="og:site_name" content="ZGZ的博客系统">
+<meta property="og:description" content="1.字符串反转示例：s &#x3D; “hello” 方法一：使用切片123def reversed_str(s):    return s[::-1]  方法二：使用reversed1234# 字符串 -&gt; 反转迭代器 -&gt; 列表 -&gt; 反转后的字符串def reversed_str(s):    return &quot;&quot;.join(list(reversed(s">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-27T15:13:25.089Z">
+<meta property="article:author" content="zyh gq zh">
+<meta property="article:tag" content="可迭代序列">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://theme-next.js.org/post/2e0286d4.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://theme-next.js.org/post/2e0286d4.html","path":"post/2e0286d4.html","title":"Python可迭代序列反转"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Python可迭代序列反转 | ZGZ的博客系统</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ZGZ的博客系统</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">zgz</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8D%E8%BD%AC"><span class="nav-number">1.</span> <span class="nav-text">1.字符串反转</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E4%BD%BF%E7%94%A8%E5%88%87%E7%89%87"><span class="nav-number">1.1.</span> <span class="nav-text">方法一：使用切片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8reversed"><span class="nav-number">1.2.</span> <span class="nav-text">方法二：使用reversed</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89%EF%BC%9A%E4%BD%BF%E7%94%A8reverse"><span class="nav-number">1.3.</span> <span class="nav-text">方法三：使用reverse</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8reduce"><span class="nav-number">1.4.</span> <span class="nav-text">方法四：使用reduce</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%88%97%E8%A1%A8%E5%8F%8D%E8%BD%AC"><span class="nav-number">2.</span> <span class="nav-text">2.列表反转</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E4%BD%BF%E7%94%A8%E5%88%87%E7%89%87-1"><span class="nav-number">2.1.</span> <span class="nav-text">方法一：使用切片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8reversed-1"><span class="nav-number">2.2.</span> <span class="nav-text">方法二：使用reversed</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89%EF%BC%9A%E4%BD%BF%E7%94%A8reverse-1"><span class="nav-number">2.3.</span> <span class="nav-text">方法三：使用reverse</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8while%E5%BE%AA%E7%8E%AF%E5%92%8Cpop"><span class="nav-number">2.4.</span> <span class="nav-text">方法四：使用while循环和pop</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zyh gq zh</p>
+  <div class="site-description" itemprop="description">blog</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://theme-next.js.org/post/2e0286d4.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zyh gq zh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZGZ的博客系统">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Python可迭代序列反转 | ZGZ的博客系统">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python可迭代序列反转
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-26 00:00:00" itemprop="dateCreated datePublished" datetime="2024-06-26T00:00:00+08:00">2024-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-27 23:13:25" itemprop="dateModified" datetime="2024-06-27T23:13:25+08:00">2024-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+          
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="1-字符串反转"><a href="#1-字符串反转" class="headerlink" title="1.字符串反转"></a>1.字符串反转</h3><p>示例：s &#x3D; “hello”</p>
+<h4 id="方法一：使用切片"><a href="#方法一：使用切片" class="headerlink" title="方法一：使用切片"></a>方法一：使用切片</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def reversed_str(s):</span><br><span class="line">    return s[::-1]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="方法二：使用reversed"><a href="#方法二：使用reversed" class="headerlink" title="方法二：使用reversed"></a>方法二：使用reversed</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 字符串 -&gt; 反转迭代器 -&gt; 列表 -&gt; 反转后的字符串</span><br><span class="line">def reversed_str(s):</span><br><span class="line">    return &quot;&quot;.join(list(reversed(s)))	# 实际编码不要这样写，不容易理解</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="方法三：使用reverse"><a href="#方法三：使用reverse" class="headerlink" title="方法三：使用reverse"></a>方法三：使用reverse</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def reversed_str(s):</span><br><span class="line">    str_list = list(s)</span><br><span class="line">    # 注意list.reverse()和list.sort()一样，都是就地操作没有返回值</span><br><span class="line">    str_list.reverse()	</span><br><span class="line">    return &quot;&quot;.join(str_list)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="方法四：使用reduce"><a href="#方法四：使用reduce" class="headerlink" title="方法四：使用reduce"></a>方法四：使用reduce</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def reversed_str(s):</span><br><span class="line">    from functools import reduce</span><br><span class="line">    # reduce的第一个参数是函数，第二个参数是序列</span><br><span class="line">    return reduce(lambda x, y: y+x, s)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-列表反转"><a href="#2-列表反转" class="headerlink" title="2.列表反转"></a>2.列表反转</h3><p>示例：lst &#x3D; [1, 2, 3, 4, 5]</p>
+<h4 id="方法一：使用切片-1"><a href="#方法一：使用切片-1" class="headerlink" title="方法一：使用切片"></a>方法一：使用切片</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def reversed_list(lst):</span><br><span class="line">    return lst[::-1]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="方法二：使用reversed-1"><a href="#方法二：使用reversed-1" class="headerlink" title="方法二：使用reversed"></a>方法二：使用reversed</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def reversed_list(lst):</span><br><span class="line">    return list(reversed(lst))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="方法三：使用reverse-1"><a href="#方法三：使用reverse-1" class="headerlink" title="方法三：使用reverse"></a>方法三：使用reverse</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def reversed_list(lst):</span><br><span class="line">    lst.reverse()	# 就地反转</span><br><span class="line">    return lst</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="方法四：使用while循环和pop"><a href="#方法四：使用while循环和pop" class="headerlink" title="方法四：使用while循环和pop"></a>方法四：使用while循环和pop</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def reversed_list(lst):</span><br><span class="line">    reversed_lst = []</span><br><span class="line">    while len(lst) &gt; 0:</span><br><span class="line">        reversed_lst.append(lst.pop())</span><br><span class="line">	return reversed_lst</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>补充：元组的反转与列表类似，可以使用方法一和方法二，方法三和方法四需要稍加修改，这里就不赘述了</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%BA%8F%E5%88%97/" rel="tag"># 可迭代序列</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/bc285c4.html" rel="next" title="Python中字符串格式判断">
+                  Python中字符串格式判断 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">zyh gq zh</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
