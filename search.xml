@@ -3,32 +3,18 @@
   <entry>
     <title>Welcome</title>
     <url>/post/f876582f.html</url>
-    <content><![CDATA[<h2 id="欢迎来到朱艺杭，周豪，葛权设计的博客系统！"><a href="#欢迎来到朱艺杭，周豪，葛权设计的博客系统！" class="headerlink" title="欢迎来到朱艺杭，周豪，葛权设计的博客系统！"></a>欢迎来到朱艺杭，周豪，葛权设计的博客系统！</h2><p>这是一个使用 hexo 部署的博客系统，可以通过 git 来实现从本地提交到网络站点，与 github 建立连接后还可以直接同步到 github，通过一些 git 命令就可以实现远程访问站点。</p>
+    <content><![CDATA[<h3 id="欢迎来到朱艺杭，周豪，葛权设计的博客系统！"><a href="#欢迎来到朱艺杭，周豪，葛权设计的博客系统！" class="headerlink" title="欢迎来到朱艺杭，周豪，葛权设计的博客系统！"></a>欢迎来到朱艺杭，周豪，葛权设计的博客系统！</h3><p>这是一个使用 hexo 部署的博客系统，可以通过 git 来实现从本地提交到网络站点，与 github 建立连接后还可以直接同步到 github，通过一些 git 命令就可以实现远程访问站点。下面简单介绍一下各个功能的实现。</p>
+<h2 id="hexo-clean"><a href="#hexo-clean" class="headerlink" title="hexo clean"></a><code>hexo clean</code></h2><p>这条指令可以简写为<code>hexo cl</code>，用于清空缓存区，每次进行修改操作要上传之前，都需要先清理缓存区。</p>
+<h2 id="hexo-generate"><a href="#hexo-generate" class="headerlink" title="hexo generate"></a><code>hexo generate</code></h2><p>这条指令可以简写为<code>hexo g</code>，用于生成修改后的整个博客系统。</p>
+<h2 id="hexo-server"><a href="#hexo-server" class="headerlink" title="hexo server"></a><code>hexo server</code></h2><p>这条指令可以简写为<code>hexo s</code>，用于生成一个本地链接以供预览修改的效果，默认端口号为4000。使用<code>hexo s -p 端口号</code>指令可以暂时指定本地生成的端口号。</p>
+<h2 id="hexo-deploy"><a href="#hexo-deploy" class="headerlink" title="hexo deploy"></a><code>hexo deploy</code></h2><p>这条指令可以简写为<code>hexo d</code>，用于将生成的博客系统部署到github上的远程站点，之后通过之前设置好的网址即可远程访问博客系统。</p>
+<h2 id="hexo-new-文章名"><a href="#hexo-new-文章名" class="headerlink" title="hexo new 文章名"></a><code>hexo new 文章名</code></h2><p>这条指令可以简写为<code>hexo n 文章名</code>，用于新建一篇markdown格式的博客，新建之后可在本地的source文件夹中找到相应文件并进行修改。</p>
 ]]></content>
       <categories>
-        <category>666</category>
-        <category>8848</category>
+        <category>介绍</category>
       </categories>
       <tags>
-        <tag>zh666</tag>
+        <tag>简介</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/post/4a17b156.html</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
 </search>
