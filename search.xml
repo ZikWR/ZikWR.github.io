@@ -18,75 +18,119 @@
       </tags>
   </entry>
   <entry>
-    <title>c++引用</title>
-    <url>/post/92ec66fa.html</url>
-    <content><![CDATA[<h1 id="C-–移动构造函数-移动赋值运算符"><a href="#C-–移动构造函数-移动赋值运算符" class="headerlink" title="C++–移动构造函数&#x2F;移动赋值运算符"></a>C++–移动构造函数&#x2F;移动赋值运算符</h1><h2 id="什么是移动语义？"><a href="#什么是移动语义？" class="headerlink" title="什么是移动语义？"></a>什么是移动语义？</h2><blockquote>
-<p>在C++11中，移动语义是一个重要的新特性，它可以使程序在内存管理方面更加高效，同时也提高了程序的性能</p>
-</blockquote>
-<p>它允许将一个对象的所有权从一个对象转移到另一个对象，而不需要进行数据的拷贝。</p>
-<h3 id="通俗理解"><a href="#通俗理解" class="headerlink" title="通俗理解"></a>通俗理解</h3><p>我有一份材料，A同学找我借，那我把材料复印一份，把复印件给他，这叫做数据拷贝；而我如果把材料的所有权转让给他，那么他现在直接拥有原始的那份材料，这叫做移动语义。</p>
-<h2 id="为什么需要移动语义？"><a href="#为什么需要移动语义？" class="headerlink" title="为什么需要移动语义？"></a>为什么需要移动语义？</h2><h2 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h2><blockquote>
-<p>要理解为什么我们需要移动语义，那我们就需要理解拷贝的操作</p>
-</blockquote>
-<p>C++中有拷贝构造函数和拷贝复制运算符。拷贝，顾名思义就是重新申请一块新的内存空间，然后将需要的数据复制一份放到里面。</p>
-<p>如果要复制的对象中涉及到了其他对象或者是指针数据的话，那么拷贝操作就是一项耗时的过程。</p>
-<p>我们通过一个例子来演示一下是如果进行拷贝的：</p>
-<p>定义一个简单的类：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Myclass</span><br><span class="line">&#123;</span><br><span class="line">    public:</span><br><span class="line">    Myclass(const std::string&amp; s):str(s)&#123;&#125;;</span><br><span class="line">    private:</span><br><span class="line">    std::string str;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    <title>示例</title>
+    <url>/post/e32cbcd3.html</url>
+    <content><![CDATA[<h2 id="这是一个示例博客"><a href="#这是一个示例博客" class="headerlink" title="这是一个示例博客"></a>这是一个示例博客</h2>]]></content>
+  </entry>
+  <entry>
+    <title>c++指针</title>
+    <url>/post/28e39982.html</url>
+    <content><![CDATA[<h1 id="指针的概念"><a href="#指针的概念" class="headerlink" title="指针的概念"></a><strong>指针的概念</strong></h1><p>指针是一个特殊的变量，它里面存储的数值被解释成为内存里的一个地址。要搞清一个指针需要搞清指针的四方面的内容：指针的类型，指针所指向的类型，指针的值或者叫指针所指向的内存区，还有指针本身所占据的内存区。让我们分别说明。   </p>
+<p>先声明几个指针放着做例子：    </p>
+<p>例一：    </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int \*ptr;    </span><br><span class="line">char \*ptr;    </span><br><span class="line">int \*\*ptr;    </span><br><span class="line">int (\*ptr)\[3\];    </span><br><span class="line">int \*(\*ptr)\[4\];  </span><br></pre></td></tr></table></figure>
 
-<p>当新建一个对象A时，传递一个参数”hello,world”，A中的成员变量会存储该字符串，也就是会申请一个新的内存空间去存储该字符串：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass A(&quot;hello,world&quot;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="指针的类型"><a href="#指针的类型" class="headerlink" title="指针的类型"></a><strong>指针的类型</strong></h1><p>从语法的角度看，你只要把指针声明语句里的指针名字去掉，剩下的部分就是这个指针的类型。这是指针本身所具有的类型。让我们看看例一中各个指针的类型：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int \*ptr; //指针的类型是int \*    </span><br><span class="line">char \*ptr; //指针的类型是char \*    </span><br><span class="line">int \*\*ptr; //指针的类型是 int \*\*    </span><br><span class="line">int (\*ptr)\[3\]; //指针的类型是 int(\*)\[3\]    </span><br><span class="line">int \*(\*ptr)\[4\]; //指针的类型是 int \*(\*)\[4\]  </span><br></pre></td></tr></table></figure>
 
-<p>当我们定义一个新的对象B，并将A赋值给B时：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass B=A;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>怎么样？找出指针的类型的方法是不是很简单？  </p>
+<h1 id="指针所指向的类型"><a href="#指针所指向的类型" class="headerlink" title="指针所指向的类型"></a><strong>指针所指向的类型</strong></h1><p>当你通过指针来访问指针所指向的内存区时，指针所指向的类型决定了编译器将把那片内存区里的内容当做什么来看待。  </p>
+<p>从语法上看，你只须把指针声明语句中的指针名字和名字左边的指针声明符*去掉，剩下的就是指针所指向的类型。例如：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int \*ptr; //指针所指向的类型是int    </span><br><span class="line">char \*ptr; //指针所指向的的类型是char    </span><br><span class="line">int \*\*ptr; //指针所指向的的类型是 int \*    </span><br><span class="line">int (\*ptr)\[3\]; //指针所指向的的类型是 int()\[3\]    </span><br><span class="line">int \*(\*ptr)\[4\]; //指针所指向的的类型是 int \*()\[4\]  </span><br></pre></td></tr></table></figure>
 
-<p>同样，B也会申请一段空间，并将A中存储的字符串拷贝过来</p>
-<h3 id="需要移动语义的情况"><a href="#需要移动语义的情况" class="headerlink" title="需要移动语义的情况"></a>需要移动语义的情况</h3><blockquote>
-<p>从拷贝的操作不难看出，这样的操作是耗时的，那在什么情况下，拷贝操作不是必要的呢？</p>
-</blockquote>
-<p>同样还是延续上面的例子，这里我们定义一个容器以及一个对象tmp，然后将其装入到容器中：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">std::vector&lt;Myclass&gt; myClasses;</span><br><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在指针的算术运算中，指针所指向的类型有很大的作用。    </p>
+<p>指针的类型(即指针本身的类型)和指针所指向的类型是两个概念。当你对C越来越熟悉时，你会发现，把与指针搅和在一起的“类型”这个概念分成“指针的类型”和“指针所指向的类型”两个概念，是精通指针的关键点之一。我看了不少书，发现有些写得差的书中，就把指针的这两个概念搅在一起了，所以看起书来前后矛盾，越看越糊涂。</p>
+<h1 id="指针的值"><a href="#指针的值" class="headerlink" title=" 指针的值"></a> <strong>指针的值</strong></h1><p>指针的值是指针本身存储的数值，这个值将被编译器当作一个地址，而不是一个一般的数值。在32位程序里，所有类型的指针的值都是一个32位整数，因为32位程序里内存地址全都是32位长。   </p>
+<p>指针所指向的内存区就是从指针的值所代表的那个内存地址开始，长度为sizeof(指针所指向的类型)的一片内存区。以后，我们说一个指针的值是XX，就相当于说该指针指向了以XX为首地址的一片内存区域；我们说一个指针指向了某块内存区域，就相当于说该指针的值是这块内存区域的首地址。   </p>
+<p>指针所指向的内存区和指针所指向的类型是两个完全不同的概念。在例一中，指针所指向的类型已经有了，但由于指针还未初始化，所以它所指向的内存区是不存在的，或者说是无意义的。   </p>
+<p>以后，每遇到一个指针，都应该问问：这个指针的类型是什么？指针指向的类型是什么？该指针指向了哪里？  </p>
+<h1 id="指针本身所占据的内存区"><a href="#指针本身所占据的内存区" class="headerlink" title="指针本身所占据的内存区"></a><strong>指针本身所占据的内存区</strong></h1><p>指针本身占了多大的内存？你只要用函数sizeof(指针的类型)测一下就知道了。在32位平台里，指针本身占据了4个字节的长度。  </p>
+<p>指针本身占据的内存这个概念在判断一个指针表达式是否是左值时很有用。 　</p>
+<h1 id="指针的算术运算"><a href="#指针的算术运算" class="headerlink" title="指针的算术运算"></a><strong>指针的算术运算</strong></h1><p>指针可以加上或减去一个整数。指针的这种运算的意义和通常的数值的加减运算的意义是不一样的。例如：  <br>例二：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> char a\[20\];    </span><br><span class="line"> int \*ptr=a;    </span><br><span class="line">...    </span><br><span class="line">...    </span><br><span class="line"> ptr++;  </span><br></pre></td></tr></table></figure>
 
-<p>每次将对象添加到容器中都会发生一次拷贝操作。</p>
-<p>我们现在假设tmp对象在被添加到容器中两次之后就不再需要了，那第二次添加的时候是不是可以让容器直接取tmp对象的数据呢？这就是移动语义的意义，减少不必要的数据拷贝，提高程序的性能。</p>
-<p>假设Myclass类已经实现了移动语义，我们就可以使用<code>std::move</code> 让myClasses容器直接转移tmp对象的数据为己用。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在上例中，指针ptr的类型是int*,它指向的类型是int，它被初始化为指向整形变量a。接下来的第3句中，指针ptr被加了1，编译器是这样处理的：它把指针ptr的值加上了sizeof(int)，在32位程序中，是被加上了4。由于地址是用字节做单位的，故ptr所指向的地址由原来的变量a的地址向高地址方向增加了4个字节。<br>由于char类型的长度是一个字节，所以，原来ptr是指向数组a的第0号单元开始的四个字节，此时指向了数组a中从第4号单元开始的四个字节。<br>我们可以用一个指针和一个循环来遍历一个数组，看例子：  <br>例三：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int array\[20\];    </span><br><span class="line">int \*ptr=array;    </span><br><span class="line">...    </span><br><span class="line">//此处略去为整型数组赋值的代码。    </span><br><span class="line">...    </span><br><span class="line">for(i=0;i&lt;20;i++)    </span><br><span class="line">&#123;    </span><br><span class="line">    (\*ptr)++;    </span><br><span class="line">    ptr++；    </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
 
-<h2 id="移动语义的实现"><a href="#移动语义的实现" class="headerlink" title="移动语义的实现"></a>移动语义的实现</h2><p>我们需要先了解右值引用</p>
-<h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><blockquote>
-<p>我们都知道C++有一个操作叫引用，实际上默认指的是左值引用，也就是对一个左值进行引用。那右值引用就是对右值的引用</p>
-</blockquote>
-<p>通过<code>&amp;&amp;</code> 声明，同时：</p>
-<ol>
-<li>右值引用只能绑定到一个右值，不能绑定到左值；</li>
-<li>右值引用可以通过<code>std::move()</code> 将一个左值转换成右值引用</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a=0;</span><br><span class="line">int&amp;&amp; tmp=a;   //error,不能引用左值</span><br><span class="line">int&amp;&amp; tmp2=0;  //correct</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这个例子将整型数组中各个单元的值加1。由于每次循环都将指针ptr加1，所以每次循环都能访问数组的下一个单元。再看例子：    </p>
+<p>例四：    </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char a\[20\];    </span><br><span class="line">int \*ptr = a;    </span><br><span class="line">...    </span><br><span class="line">...    </span><br><span class="line">ptr += 5;  </span><br></pre></td></tr></table></figure>
 
-<h3 id="移动构造函数"><a href="#移动构造函数" class="headerlink" title="移动构造函数"></a>移动构造函数</h3><p>还是接着上面的例子，当向容器添加一个新元素时，如果是通过拷贝的方法，那么对应执行的就是<strong>拷贝构造函数</strong>，而如果是通过移动的方式，那对应的就是<strong>移动构造函数</strong>。</p>
-<p>下面我们就为Myclass定义移动构造函数，其中string类型本身就实现了移动构造函数，所以可以直接使用<code>std::move</code> ：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass(Myclass&amp;&amp; rValue) noexcept</span><br><span class="line">    :str(std::move(rValue.str))</span><br><span class="line">    &#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，ptr被加上了5，编译器是这样处理的：将指针ptr的值加上5乘sizeof(int)，在32位程序中就是加上了5乘4&#x3D;20。由于地址的单位是字节，故现在的ptr所指向的地址比起加5后的ptr所指向的地址来说，向高地址方向移动了20个字节。在这个例子中，没加5前的ptr指向数组a的第0号单元开始的四个字节，加5后，ptr已经指向了数组a的合法范围之外了。虽然这种情况在应用上会出问题，但在语法上却是可以的。这也体现出了指针的灵活性。   </p>
+<p>如果上例中，ptr是被减去5，那么处理过程大同小异，只不过ptr的值是被减去5乘sizeof(int)，新的ptr指向的地址将比原来的ptr所指向的地址向低地址方向移动了20个字节。   </p>
+<p>总结一下，一个指针ptrold加上一个整数n后，结果是一个新的指针ptrnew，ptrnew的类型和ptrold的类型相同，ptrnew所指向的类型和ptrold所指向的类型也相同。ptrnew的值将比ptrold的值增加了n乘sizeof(ptrold所指向的类型)个字节。就是说，ptrnew所指向的内存区将比ptrold所指向的内存区向高地址方向移动了n乘sizeof(ptrold所指向的类型)个字节。一个指针ptrold减去一个整数n后，结果是一个新的指针ptrnew，ptrnew的类型和ptrold的类型相同，ptrnew所指向的类型和ptrold所指向的类型也相同。ptrnew的值将比ptrold的值减少了n乘sizeof(ptrold所指向的类型)个字节，就是说，ptrnew所指向的内存区将比ptrold所指向的内存区向低地址方向移动了n乘sizeof(ptrold所指向的类型)个字节。</p>
+<h1 id="运算符-和"><a href="#运算符-和" class="headerlink" title="运算符&amp;和*"></a><strong>运算符&amp;和*</strong></h1><p>这里&amp;是取地址运算符，*是…书上叫做“间接运算符”。&amp;a的运算结果是一个指针，指针的类型是a的类型加个*，指针所指向的类型是a的类型，指针所指向的地址嘛，那就是a的地址。*p的运算结果就五花八门了。总之*p的结果是p所指向的东西，这个东西有这些特点：它的类型是p指向的类型，它所占用的地址是p所指向的地址。  </p>
+<p>例五：    </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a=12;    </span><br><span class="line">int b;    </span><br><span class="line">int \*p;    </span><br><span class="line">int \*\*ptr;    </span><br><span class="line">p=&amp;a;//&amp;a的结果是一个指针，类型是int\*，指向的类型是int，指向的地址是a的地址。    </span><br><span class="line">\*p=24;//\*p的结果，在这里它的类型是int，它所占用的地址是p所指向的地址，显然，\*p就是变量a。  </span><br><span class="line">ptr=&amp;p;//&amp;p的结果是个指针，该指针的类型是p的类型加个\*，在这里是int\*\*。该指针所指向的类型是p的类型，这里是int\*。该指针所指向的地址就是指针p自己的地址。   </span><br><span class="line">\*ptr=&amp;b;//\*ptr是个指针，&amp;b的结果也是个指针，且这两个指针的类型和所指向的类型是一样的，所以?amp;b来给\*ptr赋值就是毫无问题的了。  </span><br><span class="line">\*\*ptr=34;//\*ptr的结果是ptr所指向的东西，在这里是一个指针，对这个指针再做一次\*运算，结果就是一个int类型的变量。</span><br></pre></td></tr></table></figure>
 
-<p>在移动构造函数中，我们要做的就是转移成员数据str。</p>
-<p>我们就可以使用移动构造函数去创建新的对象而无需拷贝复制了：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">Myclass A(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="指针表达式"><a href="#指针表达式" class="headerlink" title="指针表达式"></a><strong>指针表达式</strong></h1><p>一个表达式的最后结果如果是一个指针，那么这个表达式就叫指针表达式。下面是一些指针表达式的例子：    </p>
+<p>例六：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a,b;    </span><br><span class="line">int array\[10\];    </span><br><span class="line">int \*pa;    </span><br><span class="line">pa=&amp;a;//&amp;a是一个指针表达式。    </span><br><span class="line">int \*\*ptr=&amp;pa;//&amp;pa也是一个指针表达式。    </span><br><span class="line">\*ptr=&amp;b;//\*ptr和&amp;b都是指针表达式。    </span><br><span class="line">pa=array;    </span><br><span class="line">pa++;//这也是指针表达式。</span><br></pre></td></tr></table></figure>
 
-<p>如果我们的类成员数据需要我们自己实现数据转移的话，也很简单，就是把数据拿过来，并将原先对象的数据清楚：</p>
-<p>假设这个类有两个成员变量int 和 char*类型：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Myclass2</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    int data;</span><br><span class="line">    char* str;</span><br><span class="line">public:</span><br><span class="line">    Myclass2()</span><br><span class="line">    :data(30)</span><br><span class="line">    &#123;</span><br><span class="line">        str=&quot;mrdc&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    ;</span><br><span class="line">    Myclass2(Myclass2&amp;&amp; rValue) noexcept</span><br><span class="line">    :data(std::move(rValue.data))</span><br><span class="line">    &#123;</span><br><span class="line">        rValue.data=0;  //delete data</span><br><span class="line">        str=rValue.str; //transfer</span><br><span class="line">        rValue.str=nullptr; //delete str</span><br><span class="line">    &#125;</span><br><span class="line">    ~Myclass2()</span><br><span class="line">    &#123;</span><br><span class="line">        if(str!=nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            delete str;</span><br><span class="line">            str=nullptr;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>例七：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char \*arr\[20\];    </span><br><span class="line">char \*\*parr=arr;//如果把arr看作指针的话，arr也是指针表达式    </span><br><span class="line">char \*str;    </span><br><span class="line">str=\*parr;//\*parr是指针表达式    </span><br><span class="line">str=\*(parr+1);//\*(parr+1)是指针表达式    </span><br><span class="line">str=\*(parr+2);//\*(parr+2)是指针表达式  </span><br></pre></td></tr></table></figure>
 
-<p>通过移动构造函数创建对象B：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MyClass A&#123;&#125;;</span><br><span class="line">MyClass B&#123; std::move(A) &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>由于指针表达式的结果是一个指针，所以指针表达式也具有指针所具有的四个要素：指针的类型，指针所指向的类型，指针指向的内存区，指针自身占据的内存。  </p>
+<p>好了，当一个指针表达式的结果指针已经明确地具有了指针自身占据的内存的话，这个指针表达式就是一个左值，否则就不是一个左值。 在例七中，&amp;a不是一个左值，因为它还没有占据明确的内存。*ptr是一个左值，因为*ptr这个指针已经占据了内存，其实*ptr就是指针pa，既然pa已经在内存中有了自己的位置，那么*ptr当然也有了自己的位置。</p>
+<h1 id="数组和指针的关系"><a href="#数组和指针的关系" class="headerlink" title="数组和指针的关系"></a><strong>数组和指针的关系</strong></h1><p>如果对声明数组的语句不太明白的话，请参阅我前段时间贴出的文章&lt;&lt;如何理解c和c++的复杂类型声明&gt;&gt;。 数组的数组名其实可以看作一个指针。看下例：    </p>
+<p>例八：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int array\[10\]=&#123;0,1,2,3,4,5,6,7,8,9&#125;,value;    </span><br><span class="line">...    </span><br><span class="line">...    </span><br><span class="line">value=array\[0\];//也可写成：value=\*array;    </span><br><span class="line">value=array\[3\];//也可写成：value=\*(array+3);    </span><br><span class="line">value=array\[4\];//也可写成：value=\*(array+4);  </span><br></pre></td></tr></table></figure>
 
-<p>内存中的布局：<br><img src="https://img2024.cnblogs.com/blog/2808158/202406/2808158-20240608170517534-1624419800.png" alt="内存布局"></p>
-<h3 id="移动赋值运算符"><a href="#移动赋值运算符" class="headerlink" title="移动赋值运算符"></a>移动赋值运算符</h3><p>和移动构造函数的实现类似：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 移动赋值运算符</span><br><span class="line">MyClass&amp; operator=(MyClass&amp;&amp; myClass) noexcept</span><br><span class="line">&#123;</span><br><span class="line">    val = myClass.val;</span><br><span class="line">    myClass.val = 0;</span><br><span class="line">    name = myClass.name;</span><br><span class="line">    myClass.name = nullptr;</span><br><span class="line">    return *this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>上例中，一般而言数组名array代表数组本身，类型是int [10]，但如果把array看做指针的话，它指向数组的第0个单元，类型是int *，所指向的类型是数组单元的类型即int。因此*array等于0就一点也不奇怪了。同理，array+3是一个指向数组第3个单元的指针，所以*(array+3)等于3。其它依此类推。   </p>
+<p>例九：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char \*str\[3\]=&#123;    </span><br><span class="line">&quot;Hello,this is a sample!&quot;,    </span><br><span class="line">&quot;Hi,good morning.&quot;,    </span><br><span class="line">&quot;Hello world&quot;    </span><br><span class="line">&#125;;    </span><br><span class="line">char s\[80\]；    </span><br><span class="line">strcpy(s,str\[0\]);//也可写成strcpy(s,\*str);    </span><br><span class="line">strcpy(s,str\[1\]);//也可写成strcpy(s,\*(str+1));    </span><br><span class="line">strcpy(s,str\[2\]);//也可写成strcpy(s,\*(str+2));  </span><br></pre></td></tr></table></figure>
+
+<p>上例中，str是一个三单元的数组，该数组的每个单元都是一个指针，这些指针各指向一个字符串。把指针数组名str当作一个指针的话，它指向数组的第0号单元，它的类型是char**，它指向的类型是char *。  </p>
+<p>*str也是一个指针，它的类型是char*，它所指向的类型是char，它指向的地址是字符串”Hello,this is a sample!”的第一个字符的地址，即’H’的地址。 str+1也是一个指针，它指向数组的第1号单元，它的类型是char**，它指向的类型是char *。   </p>
+<p>*(str+1)也是一个指针，它的类型是char*，它所指向的类型是char，它指向”Hi,good morning.”的第一个字符’H’，等等。    </p>
+<p>下面总结一下数组的数组名的问题。声明了一个数组TYPE array[n]，则数组名称array就有了两重含义：第一，它代表整个数组，它的类型是TYPE [n]；第二，它是一个指针，该指针的类型是TYPE*，该指针指向的类型是TYPE，也就是数组单元的类型，该指针指向的内存区就是数组第0号单元，该指针自己占有单独的内存区，注意它和数组第0号单元占据的内存区是不同的。该指针的值是不能修改的，即类似array++的表达式是错误的。   </p>
+<p>在不同的表达式中数组名array可以扮演不同的角色。    </p>
+<p>在表达式sizeof(array)中，数组名array代表数组本身，故这时sizeof函数测出的是整个数组的大小。    </p>
+<p>在表达式*array中，array扮演的是指针，因此这个表达式的结果就是数组第0号单元的值。sizeof(*array)测出的是数组单元的大小。    </p>
+<p>表达式array+n（其中n&#x3D;0，1，2，….。）中，array扮演的是指针，故array+n的结果是一个指针，它的类型是TYPE*，它指向的类型是TYPE，它指向数组第n号单元。故sizeof(array+n)测出的是指针类型的大小。   </p>
+<p>例十：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int array\[10\];    </span><br><span class="line">int (\*ptr)\[10\];    </span><br><span class="line">ptr=&amp;array;  </span><br></pre></td></tr></table></figure>
+
+<p>上例中ptr是一个指针，它的类型是int (*)[10]，他指向的类型是int [10]，我们用整个数组的首地址来初始化它。在语句ptr&#x3D;&amp;array中，array代表数组本身。   </p>
+<p>本节中提到了函数sizeof()，那么我来问一问，sizeof(指针名称)测出的究竟是指针自身类型的大小呢还是指针所指向的类型的大小？答案是前者。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int (\*ptr)\[10\];  </span><br></pre></td></tr></table></figure>
+
+<p>则在32位程序中，有：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sizeof(int(\*)\[10\])==4    </span><br><span class="line">sizeof(int \[10\])==40    </span><br><span class="line">sizeof(ptr)==4  </span><br></pre></td></tr></table></figure>
+
+<p>实际上，sizeof(对象)测出的都是对象自身的类型的大小，而不是别的什么类型的大小。 　</p>
+<h1 id="指针和结构类型的关系"><a href="#指针和结构类型的关系" class="headerlink" title="指针和结构类型的关系"></a><strong>指针和结构类型的关系</strong></h1><p>可以声明一个指向结构类型对象的指针。    </p>
+<p>例十一：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct MyStruct    </span><br><span class="line">&#123;    </span><br><span class="line">int a;    </span><br><span class="line">int b;    </span><br><span class="line">int c;    </span><br><span class="line">&#125;    </span><br><span class="line">  </span><br><span class="line">MyStruct ss=&#123;20,30,40&#125;;//声明了结构对象ss，并把ss的三个成员初始化为20，30和40。  </span><br><span class="line">MyStruct \*ptr=&amp;ss;//声明了一个指向结构对象ss的指针。它的类型是  </span><br><span class="line">MyStruct\*,它指向的类型是MyStruct。  </span><br><span class="line">int \*pstr=(int\*)&amp;ss;//声明了一个指向结构对象ss的指针。但是它的类型和它指向的类型和ptr是不同的。</span><br></pre></td></tr></table></figure>
+
+<p>请问怎样通过指针ptr来访问ss的三个成员变量？    </p>
+<p>答案：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ptr-&gt;a;    </span><br><span class="line">ptr-&gt;b;    </span><br><span class="line">ptr-&gt;c;  </span><br></pre></td></tr></table></figure>
+
+<p>又请问怎样通过指针pstr来访问ss的三个成员变量？  <br>答案：    
+ </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\*pstr；//访问了ss的成员a。    </span><br><span class="line">\*(pstr+1);//访问了ss的成员b。    </span><br><span class="line">\*(pstr+2)//访问了ss的成员c。 </span><br></pre></td></tr></table></figure>
+
+<p>呵呵，虽然我在我的MSVC++6.0上调式过上述代码，但是要知道，这样使用pstr来访问结构成员是不正规的，为了说明为什么不正规，让我们看看怎样通过指针来访问数组的各个单元： <br>例十二：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int array\[3\]=&#123;35,56,37&#125;;    </span><br><span class="line">int \*pa=array;  </span><br></pre></td></tr></table></figure>
+
+<p>通过指针pa访问数组array的三个单元的方法是：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\*pa;//访问了第0号单元    </span><br><span class="line">\*(pa+1);//访问了第1号单元    </span><br><span class="line">\*(pa+2);//访问了第2号单元  </span><br></pre></td></tr></table></figure>
+
+<p>从格式上看倒是与通过指针访问结构成员的不正规方法的格式一样。  </p>
+<p>所有的C&#x2F;C++编译器在排列数组的单元时，总是把各个数组单元存放在连续的存储区里，单元和单元之间没有空隙。但在存放结构对象的各个成员时，在某种编译环境下，可能会需要字对齐或双字对齐或者是别的什么对齐，需要在相邻两个成员之间加若干个“填充字节”，这就导致各个成员之间可能会有若干个字节的空隙。  </p>
+<p>所以，在例十二中，即使*pstr访问到了结构对象ss的第一个成员变量a，也不能保证*(pstr+1)就一定能访问到结构成员b。因为成员a和成员b之间可能会有若干填充字节，说不定*(pstr+1)就正好访问到了这些填充字节呢。这也证明了指针的灵活性。要是你的目的就是想看看各个结构成员之间到底有没有填充字节，嘿，这倒是个不错的方法。   </p>
+<p>通过指针访问结构成员的正确方法应该是象例十二中使用指针ptr的方法。</p>
+<h1 id="指针和函数的关系"><a href="#指针和函数的关系" class="headerlink" title="指针和函数的关系"></a><strong>指针和函数的关系</strong></h1><p>可以把一个指针声明成为一个指向函数的指针。  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int fun1(char\*,int);    </span><br><span class="line">int (\*pfun1)(char\*,int);    </span><br><span class="line">pfun1=fun1;    </span><br><span class="line">....    </span><br><span class="line">....    </span><br><span class="line">int a=(\*pfun1)(&quot;abcdefg&quot;,7);//通过函数指针调用函数。  </span><br></pre></td></tr></table></figure>
+
+<p>可以把指针作为函数的形参。在函数调用语句中，可以用指针表达式来作为实参。  </p>
 ]]></content>
       <categories>
         <category>c++</category>
       </categories>
       <tags>
-        <tag>引用</tag>
+        <tag>指针</tag>
       </tags>
   </entry>
   <entry>
@@ -216,119 +260,71 @@
       </tags>
   </entry>
   <entry>
-    <title>c++指针</title>
-    <url>/post/28e39982.html</url>
-    <content><![CDATA[<h1 id="指针的概念"><a href="#指针的概念" class="headerlink" title="指针的概念"></a><strong>指针的概念</strong></h1><p>指针是一个特殊的变量，它里面存储的数值被解释成为内存里的一个地址。要搞清一个指针需要搞清指针的四方面的内容：指针的类型，指针所指向的类型，指针的值或者叫指针所指向的内存区，还有指针本身所占据的内存区。让我们分别说明。   </p>
-<p>先声明几个指针放着做例子：    </p>
-<p>例一：    </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int \*ptr;    </span><br><span class="line">char \*ptr;    </span><br><span class="line">int \*\*ptr;    </span><br><span class="line">int (\*ptr)\[3\];    </span><br><span class="line">int \*(\*ptr)\[4\];  </span><br></pre></td></tr></table></figure>
+    <title>java继承</title>
+    <url>/post/89b3a4e0.html</url>
+    <content><![CDATA[<h1 id="继承与合成基本概念"><a href="#继承与合成基本概念" class="headerlink" title="继承与合成基本概念"></a>继承与合成基本概念</h1><p><strong>继承：</strong>可以基于已经存在的类构造一个新类。继承已经存在的类就可以复用这些类的方法和域。在此基础上，可以添加新的方法和域，从而扩充了类的功能。</p>
+<p><strong>合成：</strong>在新类里创建原有的对象称为合成。这种方式可以重复利用现有的代码而不更改它的形式。</p>
+<h3 id="1-继承的语法"><a href="#1-继承的语法" class="headerlink" title="1.继承的语法"></a>1.继承的语法</h3><p>关键字<code>extends</code>表明新类派生于一个已经存在的类。已存在的类称为父类或基类，新类称为子类或派生类。例如:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Student extends Person &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="指针的类型"><a href="#指针的类型" class="headerlink" title="指针的类型"></a><strong>指针的类型</strong></h1><p>从语法的角度看，你只要把指针声明语句里的指针名字去掉，剩下的部分就是这个指针的类型。这是指针本身所具有的类型。让我们看看例一中各个指针的类型：  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int \*ptr; //指针的类型是int \*    </span><br><span class="line">char \*ptr; //指针的类型是char \*    </span><br><span class="line">int \*\*ptr; //指针的类型是 int \*\*    </span><br><span class="line">int (\*ptr)\[3\]; //指针的类型是 int(\*)\[3\]    </span><br><span class="line">int \*(\*ptr)\[4\]; //指针的类型是 int \*(\*)\[4\]  </span><br></pre></td></tr></table></figure>
+<p>类Student继承了Person，Person类称为父类或基类，Student类称为子类或派生类。</p>
+<h3 id="2-合成的语法"><a href="#2-合成的语法" class="headerlink" title="2.合成的语法"></a>2.合成的语法</h3><p>合成比较简单，就是在一个类中创建一个已经存在的类。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Student &#123;</span><br><span class="line">    Dog dog;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>怎么样？找出指针的类型的方法是不是很简单？  </p>
-<h1 id="指针所指向的类型"><a href="#指针所指向的类型" class="headerlink" title="指针所指向的类型"></a><strong>指针所指向的类型</strong></h1><p>当你通过指针来访问指针所指向的内存区时，指针所指向的类型决定了编译器将把那片内存区里的内容当做什么来看待。  </p>
-<p>从语法上看，你只须把指针声明语句中的指针名字和名字左边的指针声明符*去掉，剩下的就是指针所指向的类型。例如：  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int \*ptr; //指针所指向的类型是int    </span><br><span class="line">char \*ptr; //指针所指向的的类型是char    </span><br><span class="line">int \*\*ptr; //指针所指向的的类型是 int \*    </span><br><span class="line">int (\*ptr)\[3\]; //指针所指向的的类型是 int()\[3\]    </span><br><span class="line">int \*(\*ptr)\[4\]; //指针所指向的的类型是 int \*()\[4\]  </span><br></pre></td></tr></table></figure>
+<h1 id="上溯造型"><a href="#上溯造型" class="headerlink" title="上溯造型"></a>上溯造型</h1><h3 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1.基本概念"></a>1.基本概念</h3><p>继承的作用在于代码的复用。由于继承意味着父类的所有方法亦可在子类中使用，所以发给父类的消息亦可发给衍生类。如果Person类中有一个eat方法，那么Student类中也会有这个方法，这意味着Student对象也是Person的一种类型。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    public void eat() &#123;</span><br><span class="line">        System.out.println(&quot;eat&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static void show(Person p) &#123;</span><br><span class="line">        p.eat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Student extends Person&#123;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Student s \= new Student();</span><br><span class="line">        Person.show(s);     // ①</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在指针的算术运算中，指针所指向的类型有很大的作用。    </p>
-<p>指针的类型(即指针本身的类型)和指针所指向的类型是两个概念。当你对C越来越熟悉时，你会发现，把与指针搅和在一起的“类型”这个概念分成“指针的类型”和“指针所指向的类型”两个概念，是精通指针的关键点之一。我看了不少书，发现有些写得差的书中，就把指针的这两个概念搅在一起了，所以看起书来前后矛盾，越看越糊涂。</p>
-<h1 id="指针的值"><a href="#指针的值" class="headerlink" title=" 指针的值"></a> <strong>指针的值</strong></h1><p>指针的值是指针本身存储的数值，这个值将被编译器当作一个地址，而不是一个一般的数值。在32位程序里，所有类型的指针的值都是一个32位整数，因为32位程序里内存地址全都是32位长。   </p>
-<p>指针所指向的内存区就是从指针的值所代表的那个内存地址开始，长度为sizeof(指针所指向的类型)的一片内存区。以后，我们说一个指针的值是XX，就相当于说该指针指向了以XX为首地址的一片内存区域；我们说一个指针指向了某块内存区域，就相当于说该指针的值是这块内存区域的首地址。   </p>
-<p>指针所指向的内存区和指针所指向的类型是两个完全不同的概念。在例一中，指针所指向的类型已经有了，但由于指针还未初始化，所以它所指向的内存区是不存在的，或者说是无意义的。   </p>
-<p>以后，每遇到一个指针，都应该问问：这个指针的类型是什么？指针指向的类型是什么？该指针指向了哪里？  </p>
-<h1 id="指针本身所占据的内存区"><a href="#指针本身所占据的内存区" class="headerlink" title="指针本身所占据的内存区"></a><strong>指针本身所占据的内存区</strong></h1><p>指针本身占了多大的内存？你只要用函数sizeof(指针的类型)测一下就知道了。在32位平台里，指针本身占据了4个字节的长度。  </p>
-<p>指针本身占据的内存这个概念在判断一个指针表达式是否是左值时很有用。 　</p>
-<h1 id="指针的算术运算"><a href="#指针的算术运算" class="headerlink" title="指针的算术运算"></a><strong>指针的算术运算</strong></h1><p>指针可以加上或减去一个整数。指针的这种运算的意义和通常的数值的加减运算的意义是不一样的。例如：  <br>例二：  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> char a\[20\];    </span><br><span class="line"> int \*ptr=a;    </span><br><span class="line">...    </span><br><span class="line">...    </span><br><span class="line"> ptr++;  </span><br></pre></td></tr></table></figure>
+<p>【运行结果】：<br>eat</p>
+<p>在Person中定义的show方法是用来接收Person句柄的，但是在①处接收的却是Student对象的引用。这是因为Student对象也是Person对象。在show方法中，传入的句柄(对象的引用)可以是Person对象以及Person的衍生类对象。这种将Student句柄转换成Person句柄的行为成为<strong>上溯造型</strong>。</p>
+<h3 id="2-为什么要上溯造型"><a href="#2-为什么要上溯造型" class="headerlink" title="2.为什么要上溯造型"></a>2.为什么要上溯造型</h3><p>为什么在调用eat是要有意忽略调用它的对象类型呢？如果让show方法简单地获取Student句柄似乎更加直观易懂，但是那样会使衍生自Person类的每一个新类都要实现专属自己的show方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Value &#123;</span><br><span class="line">    private int count = 1;</span><br><span class="line"></span><br><span class="line">    private Value(int count) &#123;</span><br><span class="line">        this.count = count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static final Value</span><br><span class="line">            v1 \= new Value(1),</span><br><span class="line">            v2 \= new Value(2),</span><br><span class="line">            v3 \= new Value(3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Person &#123;</span><br><span class="line"></span><br><span class="line">    public void eat(Value v) &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Teacher extends Person &#123;</span><br><span class="line">    public void eat(Value v) &#123;</span><br><span class="line">        System.out.println(&quot;Teacher.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Student extends Person &#123;</span><br><span class="line">    public void eat(Value v) &#123;</span><br><span class="line">        System.out.println(&quot;Student.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class UpcastingDemo &#123;</span><br><span class="line">    public static void show(Student s) &#123;</span><br><span class="line">        s.eat(Value.v1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void show(Teacher t) &#123;</span><br><span class="line">        t.eat(Value.v1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void show(Person p) &#123;</span><br><span class="line">        p.eat(Value.v1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Student s \= new Student();</span><br><span class="line">        Teacher t \= new Teacher();</span><br><span class="line">        Person p \= new Person();</span><br><span class="line">        show(s);</span><br><span class="line">        show(t);</span><br><span class="line">        show(p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在上例中，指针ptr的类型是int*,它指向的类型是int，它被初始化为指向整形变量a。接下来的第3句中，指针ptr被加了1，编译器是这样处理的：它把指针ptr的值加上了sizeof(int)，在32位程序中，是被加上了4。由于地址是用字节做单位的，故ptr所指向的地址由原来的变量a的地址向高地址方向增加了4个字节。<br>由于char类型的长度是一个字节，所以，原来ptr是指向数组a的第0号单元开始的四个字节，此时指向了数组a中从第4号单元开始的四个字节。<br>我们可以用一个指针和一个循环来遍历一个数组，看例子：  <br>例三：  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int array\[20\];    </span><br><span class="line">int \*ptr=array;    </span><br><span class="line">...    </span><br><span class="line">//此处略去为整型数组赋值的代码。    </span><br><span class="line">...    </span><br><span class="line">for(i=0;i&lt;20;i++)    </span><br><span class="line">&#123;    </span><br><span class="line">    (\*ptr)++;    </span><br><span class="line">    ptr++；    </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<p>这种做法一个很明显的缺陷就是必须为每一个Person类的衍生类定义与之紧密相关的方法，产生了很多重复的代码。另一方面，对于如果忘记了方法的重载也不会报错。上例中的三个show方法完全可以合并为一个：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public static void show(Person p) &#123;</span><br><span class="line">     p.eat(Value.v1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这个例子将整型数组中各个单元的值加1。由于每次循环都将指针ptr加1，所以每次循环都能访问数组的下一个单元。再看例子：    </p>
-<p>例四：    </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char a\[20\];    </span><br><span class="line">int \*ptr = a;    </span><br><span class="line">...    </span><br><span class="line">...    </span><br><span class="line">ptr += 5;  </span><br></pre></td></tr></table></figure>
+<h1 id="动态绑定"><a href="#动态绑定" class="headerlink" title="动态绑定"></a>动态绑定</h1><p>当执行show(s)时,输出结果是Student.eat()，这确实是希望得到的结果，但是似乎没有按照我们希望的形式来执行，再来看一下show方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public static void show(Person p) &#123;</span><br><span class="line">     p.eat(Value.v1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在这个例子中，ptr被加上了5，编译器是这样处理的：将指针ptr的值加上5乘sizeof(int)，在32位程序中就是加上了5乘4&#x3D;20。由于地址的单位是字节，故现在的ptr所指向的地址比起加5后的ptr所指向的地址来说，向高地址方向移动了20个字节。在这个例子中，没加5前的ptr指向数组a的第0号单元开始的四个字节，加5后，ptr已经指向了数组a的合法范围之外了。虽然这种情况在应用上会出问题，但在语法上却是可以的。这也体现出了指针的灵活性。   </p>
-<p>如果上例中，ptr是被减去5，那么处理过程大同小异，只不过ptr的值是被减去5乘sizeof(int)，新的ptr指向的地址将比原来的ptr所指向的地址向低地址方向移动了20个字节。   </p>
-<p>总结一下，一个指针ptrold加上一个整数n后，结果是一个新的指针ptrnew，ptrnew的类型和ptrold的类型相同，ptrnew所指向的类型和ptrold所指向的类型也相同。ptrnew的值将比ptrold的值增加了n乘sizeof(ptrold所指向的类型)个字节。就是说，ptrnew所指向的内存区将比ptrold所指向的内存区向高地址方向移动了n乘sizeof(ptrold所指向的类型)个字节。一个指针ptrold减去一个整数n后，结果是一个新的指针ptrnew，ptrnew的类型和ptrold的类型相同，ptrnew所指向的类型和ptrold所指向的类型也相同。ptrnew的值将比ptrold的值减少了n乘sizeof(ptrold所指向的类型)个字节，就是说，ptrnew所指向的内存区将比ptrold所指向的内存区向低地址方向移动了n乘sizeof(ptrold所指向的类型)个字节。</p>
-<h1 id="运算符-和"><a href="#运算符-和" class="headerlink" title="运算符&amp;和*"></a><strong>运算符&amp;和*</strong></h1><p>这里&amp;是取地址运算符，*是…书上叫做“间接运算符”。&amp;a的运算结果是一个指针，指针的类型是a的类型加个*，指针所指向的类型是a的类型，指针所指向的地址嘛，那就是a的地址。*p的运算结果就五花八门了。总之*p的结果是p所指向的东西，这个东西有这些特点：它的类型是p指向的类型，它所占用的地址是p所指向的地址。  </p>
-<p>例五：    </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a=12;    </span><br><span class="line">int b;    </span><br><span class="line">int \*p;    </span><br><span class="line">int \*\*ptr;    </span><br><span class="line">p=&amp;a;//&amp;a的结果是一个指针，类型是int\*，指向的类型是int，指向的地址是a的地址。    </span><br><span class="line">\*p=24;//\*p的结果，在这里它的类型是int，它所占用的地址是p所指向的地址，显然，\*p就是变量a。  </span><br><span class="line">ptr=&amp;p;//&amp;p的结果是个指针，该指针的类型是p的类型加个\*，在这里是int\*\*。该指针所指向的类型是p的类型，这里是int\*。该指针所指向的地址就是指针p自己的地址。   </span><br><span class="line">\*ptr=&amp;b;//\*ptr是个指针，&amp;b的结果也是个指针，且这两个指针的类型和所指向的类型是一样的，所以?amp;b来给\*ptr赋值就是毫无问题的了。  </span><br><span class="line">\*\*ptr=34;//\*ptr的结果是ptr所指向的东西，在这里是一个指针，对这个指针再做一次\*运算，结果就是一个int类型的变量。</span><br></pre></td></tr></table></figure>
+<p>它接收的是Person句柄，当执行show(s)时，它是如何知道Person句柄指向的是一个Student对象而不是Teacher对象呢？编译器是无从得知的，这涉及到接下来要说明的绑定问题。</p>
+<h3 id="1-方法调用的绑定"><a href="#1-方法调用的绑定" class="headerlink" title="1.方法调用的绑定"></a>1.方法调用的绑定</h3><p>将一个方法同一个方法主体连接在一起就称为<strong>绑定(Binding)<strong>。若在运行运行前执行绑定，就称为“早期绑定”。上面的例子中，在只有一个Person句柄的情况下，编译器不知道具体调用哪个方法。Java实现了一种方法调用机制，可在运行期间判断对象的类型，然后调用相应的方法，这种在运行期间进行，以对象的类型为基础的绑定称为</strong>动态绑定</strong>。除非一个方法被声明为final，Java中的所有方法都是动态绑定的。</p>
+<p>用一张图表示上溯造型的继承关系：</p>
+<p><img src="https://images2015.cnblogs.com/blog/525435/201512/525435-20151203233242393-347102988.jpg"></p>
+<p>用代码概括为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Shape s = new Shape();</span><br></pre></td></tr></table></figure>
 
-<h1 id="指针表达式"><a href="#指针表达式" class="headerlink" title="指针表达式"></a><strong>指针表达式</strong></h1><p>一个表达式的最后结果如果是一个指针，那么这个表达式就叫指针表达式。下面是一些指针表达式的例子：    </p>
-<p>例六：  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a,b;    </span><br><span class="line">int array\[10\];    </span><br><span class="line">int \*pa;    </span><br><span class="line">pa=&amp;a;//&amp;a是一个指针表达式。    </span><br><span class="line">int \*\*ptr=&amp;pa;//&amp;pa也是一个指针表达式。    </span><br><span class="line">\*ptr=&amp;b;//\*ptr和&amp;b都是指针表达式。    </span><br><span class="line">pa=array;    </span><br><span class="line">pa++;//这也是指针表达式。</span><br></pre></td></tr></table></figure>
+<p>按照继承关系，将创建的Circle对象句柄赋给一个Shape是合法的，因为Circle属于Shape的一种。</p>
+<p>当调用其中一个基础类方法时：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Shape s = new Shape();</span><br></pre></td></tr></table></figure>
 
-<p>例七：  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char \*arr\[20\];    </span><br><span class="line">char \*\*parr=arr;//如果把arr看作指针的话，arr也是指针表达式    </span><br><span class="line">char \*str;    </span><br><span class="line">str=\*parr;//\*parr是指针表达式    </span><br><span class="line">str=\*(parr+1);//\*(parr+1)是指针表达式    </span><br><span class="line">str=\*(parr+2);//\*(parr+2)是指针表达式  </span><br></pre></td></tr></table></figure>
+<p>此时，调用的是Circle.draw(),这是由于动态绑定的原因。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    void eat() &#123;&#125;</span><br><span class="line">    void speak() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Girl extends Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static Person randPerson() &#123;</span><br><span class="line">        switch ((int)(Math.random() \* 2)) &#123;</span><br><span class="line">        default:</span><br><span class="line">        case 0:</span><br><span class="line">            return new Boy();</span><br><span class="line">        case 1:</span><br><span class="line">            return new Girl();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person\[\] p \= new Person\[4\];</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\] \= randPerson();    // 随机生成Boy或Girl</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\].eat();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>由于指针表达式的结果是一个指针，所以指针表达式也具有指针所具有的四个要素：指针的类型，指针所指向的类型，指针指向的内存区，指针自身占据的内存。  </p>
-<p>好了，当一个指针表达式的结果指针已经明确地具有了指针自身占据的内存的话，这个指针表达式就是一个左值，否则就不是一个左值。 在例七中，&amp;a不是一个左值，因为它还没有占据明确的内存。*ptr是一个左值，因为*ptr这个指针已经占据了内存，其实*ptr就是指针pa，既然pa已经在内存中有了自己的位置，那么*ptr当然也有了自己的位置。</p>
-<h1 id="数组和指针的关系"><a href="#数组和指针的关系" class="headerlink" title="数组和指针的关系"></a><strong>数组和指针的关系</strong></h1><p>如果对声明数组的语句不太明白的话，请参阅我前段时间贴出的文章&lt;&lt;如何理解c和c++的复杂类型声明&gt;&gt;。 数组的数组名其实可以看作一个指针。看下例：    </p>
-<p>例八：  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int array\[10\]=&#123;0,1,2,3,4,5,6,7,8,9&#125;,value;    </span><br><span class="line">...    </span><br><span class="line">...    </span><br><span class="line">value=array\[0\];//也可写成：value=\*array;    </span><br><span class="line">value=array\[3\];//也可写成：value=\*(array+3);    </span><br><span class="line">value=array\[4\];//也可写成：value=\*(array+4);  </span><br></pre></td></tr></table></figure>
+<p>对所有从Person衍生出来的类，Person建立了一个通用接口，所有衍生的类都有eat和speak两种行为。衍生类覆盖了这些定义，重新定义了这两种行为。在主类中，randPerson随机选择Person对象的句柄。**上诉造型是在return语句里发生的。**return语句取得一个Boy或Girl的句柄并将其作为Person类型返回，此时并不知道具体是什么类型，只知道是Person对象句柄。在main方法中调用randPerson方法为数组填入Person对象，但不知具体情况。当调用数组每个元素的eat方法时，动态绑定的作用就是执行对象的重新定义了的方法。</p>
+<p>然而，动态绑定是有前提的，<strong>绑定的方法必须存在于基类中</strong>，否则无法编译通过。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person p \= new Boy();</span><br><span class="line">        p.eat();</span><br><span class="line">        p.speak();  // The method speak() is undefined for the type Person</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>上例中，一般而言数组名array代表数组本身，类型是int [10]，但如果把array看做指针的话，它指向数组的第0个单元，类型是int *，所指向的类型是数组单元的类型即int。因此*array等于0就一点也不奇怪了。同理，array+3是一个指向数组第3个单元的指针，所以*(array+3)等于3。其它依此类推。   </p>
-<p>例九：  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char \*str\[3\]=&#123;    </span><br><span class="line">&quot;Hello,this is a sample!&quot;,    </span><br><span class="line">&quot;Hi,good morning.&quot;,    </span><br><span class="line">&quot;Hello world&quot;    </span><br><span class="line">&#125;;    </span><br><span class="line">char s\[80\]；    </span><br><span class="line">strcpy(s,str\[0\]);//也可写成strcpy(s,\*str);    </span><br><span class="line">strcpy(s,str\[1\]);//也可写成strcpy(s,\*(str+1));    </span><br><span class="line">strcpy(s,str\[2\]);//也可写成strcpy(s,\*(str+2));  </span><br></pre></td></tr></table></figure>
+<p>如果子类中没有定义覆盖方法，则会调用父类中的方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person p \= new Boy();</span><br><span class="line">        p.eat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>上例中，str是一个三单元的数组，该数组的每个单元都是一个指针，这些指针各指向一个字符串。把指针数组名str当作一个指针的话，它指向数组的第0号单元，它的类型是char**，它指向的类型是char *。  </p>
-<p>*str也是一个指针，它的类型是char*，它所指向的类型是char，它指向的地址是字符串”Hello,this is a sample!”的第一个字符的地址，即’H’的地址。 str+1也是一个指针，它指向数组的第1号单元，它的类型是char**，它指向的类型是char *。   </p>
-<p>*(str+1)也是一个指针，它的类型是char*，它所指向的类型是char，它指向”Hi,good morning.”的第一个字符’H’，等等。    </p>
-<p>下面总结一下数组的数组名的问题。声明了一个数组TYPE array[n]，则数组名称array就有了两重含义：第一，它代表整个数组，它的类型是TYPE [n]；第二，它是一个指针，该指针的类型是TYPE*，该指针指向的类型是TYPE，也就是数组单元的类型，该指针指向的内存区就是数组第0号单元，该指针自己占有单独的内存区，注意它和数组第0号单元占据的内存区是不同的。该指针的值是不能修改的，即类似array++的表达式是错误的。   </p>
-<p>在不同的表达式中数组名array可以扮演不同的角色。    </p>
-<p>在表达式sizeof(array)中，数组名array代表数组本身，故这时sizeof函数测出的是整个数组的大小。    </p>
-<p>在表达式*array中，array扮演的是指针，因此这个表达式的结果就是数组第0号单元的值。sizeof(*array)测出的是数组单元的大小。    </p>
-<p>表达式array+n（其中n&#x3D;0，1，2，….。）中，array扮演的是指针，故array+n的结果是一个指针，它的类型是TYPE*，它指向的类型是TYPE，它指向数组第n号单元。故sizeof(array+n)测出的是指针类型的大小。   </p>
-<p>例十：  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int array\[10\];    </span><br><span class="line">int (\*ptr)\[10\];    </span><br><span class="line">ptr=&amp;array;  </span><br></pre></td></tr></table></figure>
+<p>【运行结果】: Person.eat()</p>
+<h3 id="2-静态方法的绑定"><a href="#2-静态方法的绑定" class="headerlink" title="2.静态方法的绑定"></a>2.静态方法的绑定</h3><p>将上面的方法都加上static关键字，变成静态方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    static void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    static void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Person.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">    static void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    static void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Girl extends Person &#123;</span><br><span class="line">    static void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    static void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static Person randPerson() &#123;</span><br><span class="line">        switch ((int)(Math.random() \* 2)) &#123;</span><br><span class="line">        default:</span><br><span class="line">        case 0:</span><br><span class="line">            return new Boy();</span><br><span class="line">        case 1:</span><br><span class="line">            return new Girl();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person\[\] p \= new Person\[4\];</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\] \= randPerson();    // 随机生成Boy或Girl</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\].eat();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>上例中ptr是一个指针，它的类型是int (*)[10]，他指向的类型是int [10]，我们用整个数组的首地址来初始化它。在语句ptr&#x3D;&amp;array中，array代表数组本身。   </p>
-<p>本节中提到了函数sizeof()，那么我来问一问，sizeof(指针名称)测出的究竟是指针自身类型的大小呢还是指针所指向的类型的大小？答案是前者。例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int (\*ptr)\[10\];  </span><br></pre></td></tr></table></figure>
-
-<p>则在32位程序中，有：  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sizeof(int(\*)\[10\])==4    </span><br><span class="line">sizeof(int \[10\])==40    </span><br><span class="line">sizeof(ptr)==4  </span><br></pre></td></tr></table></figure>
-
-<p>实际上，sizeof(对象)测出的都是对象自身的类型的大小，而不是别的什么类型的大小。 　</p>
-<h1 id="指针和结构类型的关系"><a href="#指针和结构类型的关系" class="headerlink" title="指针和结构类型的关系"></a><strong>指针和结构类型的关系</strong></h1><p>可以声明一个指向结构类型对象的指针。    </p>
-<p>例十一：  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct MyStruct    </span><br><span class="line">&#123;    </span><br><span class="line">int a;    </span><br><span class="line">int b;    </span><br><span class="line">int c;    </span><br><span class="line">&#125;    </span><br><span class="line">  </span><br><span class="line">MyStruct ss=&#123;20,30,40&#125;;//声明了结构对象ss，并把ss的三个成员初始化为20，30和40。  </span><br><span class="line">MyStruct \*ptr=&amp;ss;//声明了一个指向结构对象ss的指针。它的类型是  </span><br><span class="line">MyStruct\*,它指向的类型是MyStruct。  </span><br><span class="line">int \*pstr=(int\*)&amp;ss;//声明了一个指向结构对象ss的指针。但是它的类型和它指向的类型和ptr是不同的。</span><br></pre></td></tr></table></figure>
-
-<p>请问怎样通过指针ptr来访问ss的三个成员变量？    </p>
-<p>答案：  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ptr-&gt;a;    </span><br><span class="line">ptr-&gt;b;    </span><br><span class="line">ptr-&gt;c;  </span><br></pre></td></tr></table></figure>
-
-<p>又请问怎样通过指针pstr来访问ss的三个成员变量？  <br>答案：    
- </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\*pstr；//访问了ss的成员a。    </span><br><span class="line">\*(pstr+1);//访问了ss的成员b。    </span><br><span class="line">\*(pstr+2)//访问了ss的成员c。 </span><br></pre></td></tr></table></figure>
-
-<p>呵呵，虽然我在我的MSVC++6.0上调式过上述代码，但是要知道，这样使用pstr来访问结构成员是不正规的，为了说明为什么不正规，让我们看看怎样通过指针来访问数组的各个单元： <br>例十二：  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int array\[3\]=&#123;35,56,37&#125;;    </span><br><span class="line">int \*pa=array;  </span><br></pre></td></tr></table></figure>
-
-<p>通过指针pa访问数组array的三个单元的方法是：  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\*pa;//访问了第0号单元    </span><br><span class="line">\*(pa+1);//访问了第1号单元    </span><br><span class="line">\*(pa+2);//访问了第2号单元  </span><br></pre></td></tr></table></figure>
-
-<p>从格式上看倒是与通过指针访问结构成员的不正规方法的格式一样。  </p>
-<p>所有的C&#x2F;C++编译器在排列数组的单元时，总是把各个数组单元存放在连续的存储区里，单元和单元之间没有空隙。但在存放结构对象的各个成员时，在某种编译环境下，可能会需要字对齐或双字对齐或者是别的什么对齐，需要在相邻两个成员之间加若干个“填充字节”，这就导致各个成员之间可能会有若干个字节的空隙。  </p>
-<p>所以，在例十二中，即使*pstr访问到了结构对象ss的第一个成员变量a，也不能保证*(pstr+1)就一定能访问到结构成员b。因为成员a和成员b之间可能会有若干填充字节，说不定*(pstr+1)就正好访问到了这些填充字节呢。这也证明了指针的灵活性。要是你的目的就是想看看各个结构成员之间到底有没有填充字节，嘿，这倒是个不错的方法。   </p>
-<p>通过指针访问结构成员的正确方法应该是象例十二中使用指针ptr的方法。</p>
-<h1 id="指针和函数的关系"><a href="#指针和函数的关系" class="headerlink" title="指针和函数的关系"></a><strong>指针和函数的关系</strong></h1><p>可以把一个指针声明成为一个指向函数的指针。  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int fun1(char\*,int);    </span><br><span class="line">int (\*pfun1)(char\*,int);    </span><br><span class="line">pfun1=fun1;    </span><br><span class="line">....    </span><br><span class="line">....    </span><br><span class="line">int a=(\*pfun1)(&quot;abcdefg&quot;,7);//通过函数指针调用函数。  </span><br></pre></td></tr></table></figure>
-
-<p>可以把指针作为函数的形参。在函数调用语句中，可以用指针表达式来作为实参。  </p>
+<p>【运行结果】： Person.eat() Person.eat() Person.eat() Person.eat() 观察结果，<strong>对于静态方法而言，不管父类引用指向的什么子类对象，调用的都是父类的方法。</strong></p>
+<blockquote>
+<p><strong>助记口诀</strong> - 静态方法:静态方法看父类 - 非静态方法：非静态方法看子类</p>
+</blockquote>
 ]]></content>
       <categories>
-        <category>c++</category>
+        <category>java</category>
       </categories>
       <tags>
-        <tag>指针</tag>
+        <tag>继承</tag>
       </tags>
   </entry>
   <entry>
-    <title>C++--移动构造函数</title>
-    <url>/post/30200779.html</url>
+    <title>c++引用</title>
+    <url>/post/92ec66fa.html</url>
     <content><![CDATA[<h1 id="C-–移动构造函数-移动赋值运算符"><a href="#C-–移动构造函数-移动赋值运算符" class="headerlink" title="C++–移动构造函数&#x2F;移动赋值运算符"></a>C++–移动构造函数&#x2F;移动赋值运算符</h1><h2 id="什么是移动语义？"><a href="#什么是移动语义？" class="headerlink" title="什么是移动语义？"></a>什么是移动语义？</h2><blockquote>
 <p>在C++11中，移动语义是一个重要的新特性，它可以使程序在内存管理方面更加高效，同时也提高了程序的性能</p>
 </blockquote>
@@ -390,107 +386,12 @@
 <p>内存中的布局：<br><img src="https://img2024.cnblogs.com/blog/2808158/202406/2808158-20240608170517534-1624419800.png" alt="内存布局"></p>
 <h3 id="移动赋值运算符"><a href="#移动赋值运算符" class="headerlink" title="移动赋值运算符"></a>移动赋值运算符</h3><p>和移动构造函数的实现类似：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 移动赋值运算符</span><br><span class="line">MyClass&amp; operator=(MyClass&amp;&amp; myClass) noexcept</span><br><span class="line">&#123;</span><br><span class="line">    val = myClass.val;</span><br><span class="line">    myClass.val = 0;</span><br><span class="line">    name = myClass.name;</span><br><span class="line">    myClass.name = nullptr;</span><br><span class="line">    return *this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 ]]></content>
       <categories>
         <category>c++</category>
       </categories>
       <tags>
-        <tag>函数</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java Stream流</title>
-    <url>/post/757b002.html</url>
-    <content><![CDATA[<h1 id="Stream流"><a href="#Stream流" class="headerlink" title="Stream流"></a>Stream流</h1><p>Java 8 API添加了一个**<code>新的抽象称为流Stream</code>**，可以让你以一种声明的方式处理数据。</p>
-<p>结合Lambda表达式来完成某种功能的实现</p>
-<p>Stream 使用一种类似用 SQL 语句从数据库查询数据的直观方式来提供一种对 Java 集合运算和表达的高阶抽象。</p>
-<p>Stream API可以极大提高Java程序员的生产力，让程序员写出高效率、干净、简洁的代码。</p>
-<p>这种风格将要处理的元素集合看作一种流， 流在管道中传输， 并且可以在管道的节点上进行处理， 比如筛选， 排序，聚合等。</p>
-<p>元素流在管道中经过中间操作（intermediate operation）的处理，最后由最终操作(terminal operation)得到前面处理的结果。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">+--------------------+       +------+   +------+   +---+   +-------+</span><br><span class="line">| stream of elements +-----&gt; |filter+-&gt; |sorted+-&gt; |map+-&gt; |collect|</span><br><span class="line">+--------------------+       +------+   +------+   +---+   +-------+</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>以上流程转化为Java代码为:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">List&lt;Integer&gt; transactionsIds = </span><br><span class="line">widgets.stream()</span><br><span class="line">             .filter(b -&gt; b.getColor() == RED)</span><br><span class="line">             .sorted((x,y) -&gt; x.getWeight() - y.getWeight())</span><br><span class="line">             .mapToInt(Widget::getWeight)</span><br><span class="line">             .sum();</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="什么是Stream"><a href="#什么是Stream" class="headerlink" title="什么是Stream?"></a>什么是Stream?</h2><p>Stream（流）是一个来自数据源的元素队列并支持聚合操作</p>
-<ul>
-<li>元素是特定类型的对象，形成一个<strong>队列</strong>。 Java中的Stream并不会存储元素，而是按需计算。</li>
-<li><strong>数据源</strong> 流的来源。 可以是集合，数组，I&#x2F;O channel， 产生器generator 等。</li>
-<li><strong>聚合操作</strong> 类似SQL语句一样的操作， 比如filter, map, reduce, find, match, sorted等。</li>
-</ul>
-<p>和以前的Collection操作不同， Stream操作还有两个基础的特征：</p>
-<ul>
-<li><strong>Pipelining</strong>: 中间操作都会返回流对象本身。 这样多个操作可以串联成一个管道， 如同流式风格（fluent style）。 这样做可以对操作进行优化， 比如延迟执行(laziness)和短路( short-circuiting)。</li>
-<li><strong>内部迭代</strong>： 以前对集合遍历都是通过Iterator或者For-Each的方式, 显式的在集合外部进行迭代， 这叫做外部迭代。 Stream提供了内部迭代的方式， 通过访问者模式(Visitor)实现。</li>
-</ul>
-<h2 id="生成流"><a href="#生成流" class="headerlink" title="生成流"></a>生成流</h2><p>在 Java 8 中, 集合接口有两个方法来生成流：</p>
-<ul>
-<li><strong><code>stream()</code></strong> − 为集合创建<strong>串行流</strong>。(单线程)</li>
-<li><strong><code>parallelStream()</code>− 为集合创建</strong>并行流。(多线程)</li>
-</ul>
-<p>举个例子</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; strings = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">List&lt;String&gt; filtered = strings.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.toList());</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604221707954.png" alt="image-20240604221707954"></p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="Stream"><a href="#Stream" class="headerlink" title="Stream()"></a>Stream()</h3><p>生成流</p>
-<h3 id="forEach"><a href="#forEach" class="headerlink" title="forEach()"></a>forEach()</h3><p><code>void forEach(Consumer&lt;? super String&gt; action)</code></p>
-<ul>
-<li>用来遍历集合或者数组….</li>
-</ul>
-<p><code>Consumer</code>这个接口下一篇进行介绍,简单字面意思就是,你给它传什么的,他就消费什么(就是输出)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; strings3 = Arrays.asList(&quot;cwy&quot;,&quot;cwy&quot;,&quot;wst&quot;,&quot;wst&quot;,&quot;cwy&quot;);</span><br><span class="line">//遍历strings3</span><br><span class="line">strings3.forEach(System.out::println);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604223021420.png" alt="image-20240604223021420"></p>
-<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604222353301.png" alt="image-20240604222353301"></p>
-<h3 id="map"><a href="#map" class="headerlink" title="map()"></a>map()</h3><p><code>&lt; R&gt; Stream&lt; R&gt; map(Function&lt;? super T, ? extends R&gt; mapper);</code></p>
-<ul>
-<li><strong>map 方法用于映射每个元素到对应的结果</strong></li>
-</ul>
-<p>,嗯…有点类似于<code>一元函数映射</code></p>
-<p>Function 接口是一个功能型接口，它的一个作用就是转换作用，将输入数据转换成另一种形式的输出数据。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//        把xList中的数值  进行平方运算映射在yList</span><br><span class="line">List&lt;Integer&gt; xList = Arrays.asList(1,2,3,4,5,6,7,8,9);</span><br><span class="line">List&lt;Integer&gt; yList = xList.stream().map(integer -&gt; integer*integer).distinct().collect(Collectors.toList());</span><br><span class="line">System.out.println(yList);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604224900043.png" alt="image-20240604224900043"></p>
-<h3 id="filter"><a href="#filter" class="headerlink" title="filter()"></a>filter()</h3><p><code>Stream&lt;T&gt; filter(Predicate&lt;? super T&gt; predicate);</code></p>
-<p>filter 方法用于通过设置的条件过滤出元素</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//        获取空字符串的数量</span><br><span class="line">long count = strings4.stream().filter(String::isEmpty).count();</span><br><span class="line">System.out.println(count);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604232504042.png" alt="image-20240604232504042"></p>
-<h3 id="limit"><a href="#limit" class="headerlink" title="limit()"></a>limit()</h3><p><code>Stream&lt;T&gt; limit(long maxSize);</code></p>
-<p>limit 方法用于获取指定数量的流。 以下代码片段使用 limit 方法打印出 10 条数据：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//      取出集合前两个元素</span><br><span class="line">List&lt;String&gt; strings5 = Arrays.asList(&quot;cwy&quot;,&quot;cwy&quot;,&quot;wst&quot;,&quot;wst&quot;,&quot;cwy&quot;);</span><br><span class="line">strings5.stream().limit(2).forEach(System.out::println);</span><br><span class="line">//        or</span><br><span class="line">List&lt;String&gt; limits =strings5.stream().limit(2).collect(Collectors.toList());</span><br><span class="line">System.out.println(limits);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604233019073.png" alt="image-20240604233019073"></p>
-<h3 id="sorted"><a href="#sorted" class="headerlink" title="sorted()"></a>sorted()</h3><p>sorted 方法用于对流进行排序。</p>
-<p><code>IntStream sorted();</code></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//        使用 sorted 方法对输出的 10 个随机数进行排序：</span><br><span class="line">Random random = new Random();</span><br><span class="line">random.ints().limit(10).sorted().forEach(System.out::println);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="ints"><a href="#ints" class="headerlink" title="ints()"></a>ints()</h3><p>源码 用来生成整数流</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public IntStream ints() &#123;</span><br><span class="line">        return StreamSupport.intStream</span><br><span class="line">                (new RandomIntsSpliterator</span><br><span class="line">                         (this, 0L, Long.MAX_VALUE, Integer.MAX_VALUE, 0),</span><br><span class="line">                 false);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="并行-parallel-程序"><a href="#并行-parallel-程序" class="headerlink" title="并行(parallel)程序"></a>并行(parallel)程序</h3><p><strong><code>parallelStream</code></strong> 是流并行处理程序的代替方法。以下实例我们使用 parallelStream 来输出空字符串的数量：(使用的是多线程)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; strings = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">// 获取空字符串的数量</span><br><span class="line">long count = strings.parallelStream().filter(string -&gt; string.isEmpty()).count();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>使用并行的程序可以提升处理速度</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//        获取空字符串的数量</span><br><span class="line">long date1 = new Date().getTime();</span><br><span class="line">long count = strings4.stream().filter(String::isEmpty).count();</span><br><span class="line">long date2 = new Date().getTime();</span><br><span class="line">System.out.println(count+&quot;所用时间&quot;+(date2-date1));</span><br><span class="line"></span><br><span class="line">//          获取空字符串的数量</span><br><span class="line">long date3 = new Date().getTime();</span><br><span class="line">List&lt;String&gt; strings6 = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">long date4 = new Date().getTime();</span><br><span class="line">long count2 = strings6.parallelStream().filter(String::isEmpty).count();</span><br><span class="line">System.out.println(count2+&quot;所用时间&quot;+(date4-date3));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604234153199.png" alt="image-20240604234153199"></p>
-<p><strong>建议：数据量不大的情况下建议使用stream即可，不要盲目大量使用parallelStream,因为parallelStream是多线程异步的，也就是说会产生多线程，消耗内存不说，说不定还会更慢，并非一定会更快更好。</strong></p>
-<h3 id="Collectors"><a href="#Collectors" class="headerlink" title="Collectors"></a>Collectors</h3><p>Collectors 类实现了很多归约操作</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//        Collectors</span><br><span class="line">List&lt;String&gt;strings7 = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">List&lt;String&gt; filtered7 = strings7.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.toList());</span><br><span class="line">System.out.println(&quot;筛选列表: &quot; + filtered);</span><br><span class="line">String mergedString = strings7.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.joining(&quot;, &quot;));</span><br><span class="line">System.out.println(&quot;合并字符串: &quot; + mergedString);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604234940132.png" alt="image-20240604234940132"></p>
-<h3 id="统计相关函数"><a href="#统计相关函数" class="headerlink" title="统计相关函数"></a>统计相关函数</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">List&lt;Integer&gt; numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);</span><br><span class="line"></span><br><span class="line">IntSummaryStatistics stats = numbers.stream().mapToInt((x) -&gt; x).summaryStatistics();</span><br><span class="line">System.out.println(&quot;列表中最大的数 : &quot; + stats.getMax());</span><br><span class="line">System.out.println(&quot;列表中最小的数 : &quot; + stats.getMin());</span><br><span class="line">System.out.println(&quot;所有数之和 : &quot; + stats.getSum());</span><br><span class="line">System.out.println(&quot;平均数 : &quot; + stats.getAverage());</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604235321302.png" alt="image-20240604235321302"></p>
-<h2 id="完整实例"><a href="#完整实例" class="headerlink" title="完整实例"></a>完整实例</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import java.util.*;</span><br><span class="line">import java.util.stream.Collectors;</span><br><span class="line"></span><br><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(&quot;Hello world!&quot;);</span><br><span class="line">//        写Stream流</span><br><span class="line">        List&lt;String&gt; strings = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">        List&lt;String&gt; filtered = strings.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.toList());</span><br><span class="line">        System.out.println(filtered);</span><br><span class="line">//        过滤cwy</span><br><span class="line">        List&lt;String&gt; strings1 = Arrays.asList(&quot;cwy&quot;,&quot;cwy&quot;,&quot;wst&quot;,&quot;wst&quot;,&quot;cwy&quot;);</span><br><span class="line">        List&lt;String&gt; collect = strings1.stream()</span><br><span class="line">                        .filter(s -&gt; s.equals(&quot;wst&quot;)).collect(Collectors.toList());</span><br><span class="line">        System.out.println(collect);</span><br><span class="line">//        forEach</span><br><span class="line">        List&lt;String&gt; strings3 = Arrays.asList(&quot;cwy&quot;,&quot;cwy&quot;,&quot;wst&quot;,&quot;wst&quot;,&quot;cwy&quot;);</span><br><span class="line">        strings3.forEach(System.out::println);</span><br><span class="line">//        map</span><br><span class="line">//        把xList中的数值  进行平方运算映射在yList</span><br><span class="line">        List&lt;Integer&gt; xList = Arrays.asList(1,2,3,4,5,6,7,8,9);</span><br><span class="line">        List&lt;Integer&gt; yList = xList.stream().map(integer -&gt; integer*integer).distinct().collect(Collectors.toList());</span><br><span class="line">        System.out.println(yList);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//      取出集合前两个元素</span><br><span class="line">        List&lt;String&gt; strings5 = Arrays.asList(&quot;cwy&quot;,&quot;cwy&quot;,&quot;wst&quot;,&quot;wst&quot;,&quot;cwy&quot;);</span><br><span class="line">        strings5.stream().limit(2).forEach(System.out::println);</span><br><span class="line">//        or</span><br><span class="line">        List&lt;String&gt; limits = strings5.stream().limit(2).collect(Collectors.toList());</span><br><span class="line">        System.out.println(limits);</span><br><span class="line">//        使用 sorted 方法对输出的 10 个随机数进行排序：</span><br><span class="line">        Random random = new Random();</span><br><span class="line">        random.ints().limit(10).sorted().forEach(System.out::println);</span><br><span class="line"></span><br><span class="line">        //        获取空字符串的数量</span><br><span class="line">        long date1 = new Date().getTime();</span><br><span class="line">        List&lt;String&gt;strings4 = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">        long count = strings4.stream().filter(String::isEmpty).count();</span><br><span class="line">        long date2 = new Date().getTime();</span><br><span class="line">        System.out.println(count+&quot;所用时间&quot;+(date2-date1));</span><br><span class="line"></span><br><span class="line">        //          获取空字符串的数量</span><br><span class="line">        long date3 = new Date().getTime();</span><br><span class="line">        List&lt;String&gt; strings6 = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">        long date4 = new Date().getTime();</span><br><span class="line">        long count2 = strings6.parallelStream().filter(String::isEmpty).count();</span><br><span class="line">        System.out.println(count2+&quot;所用时间&quot;+(date4-date3));</span><br><span class="line">//        Collectors</span><br><span class="line">        List&lt;String&gt;strings7 = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">        List&lt;String&gt; filtered7 = strings7.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;筛选列表: &quot; + filtered);</span><br><span class="line">        String mergedString = strings7.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.joining(&quot;, &quot;));</span><br><span class="line">        System.out.println(&quot;合并字符串: &quot; + mergedString);</span><br><span class="line"></span><br><span class="line">        List&lt;Integer&gt; numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);</span><br><span class="line"></span><br><span class="line">        IntSummaryStatistics stats = numbers.stream().mapToInt((x) -&gt; x).summaryStatistics();</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;列表中最大的数 : &quot; + stats.getMax());</span><br><span class="line">        System.out.println(&quot;列表中最小的数 : &quot; + stats.getMin());</span><br><span class="line">        System.out.println(&quot;所有数之和 : &quot; + stats.getSum());</span><br><span class="line">        System.out.println(&quot;平均数 : &quot; + stats.getAverage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>stream流</tag>
+        <tag>引用</tag>
       </tags>
   </entry>
   <entry>
@@ -708,69 +609,6 @@
       </tags>
   </entry>
   <entry>
-    <title>java继承</title>
-    <url>/post/89b3a4e0.html</url>
-    <content><![CDATA[<h1 id="继承与合成基本概念"><a href="#继承与合成基本概念" class="headerlink" title="继承与合成基本概念"></a>继承与合成基本概念</h1><p><strong>继承：</strong>可以基于已经存在的类构造一个新类。继承已经存在的类就可以复用这些类的方法和域。在此基础上，可以添加新的方法和域，从而扩充了类的功能。</p>
-<p><strong>合成：</strong>在新类里创建原有的对象称为合成。这种方式可以重复利用现有的代码而不更改它的形式。</p>
-<h3 id="1-继承的语法"><a href="#1-继承的语法" class="headerlink" title="1.继承的语法"></a>1.继承的语法</h3><p>关键字<code>extends</code>表明新类派生于一个已经存在的类。已存在的类称为父类或基类，新类称为子类或派生类。例如:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Student extends Person &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>类Student继承了Person，Person类称为父类或基类，Student类称为子类或派生类。</p>
-<h3 id="2-合成的语法"><a href="#2-合成的语法" class="headerlink" title="2.合成的语法"></a>2.合成的语法</h3><p>合成比较简单，就是在一个类中创建一个已经存在的类。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Student &#123;</span><br><span class="line">    Dog dog;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="上溯造型"><a href="#上溯造型" class="headerlink" title="上溯造型"></a>上溯造型</h1><h3 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1.基本概念"></a>1.基本概念</h3><p>继承的作用在于代码的复用。由于继承意味着父类的所有方法亦可在子类中使用，所以发给父类的消息亦可发给衍生类。如果Person类中有一个eat方法，那么Student类中也会有这个方法，这意味着Student对象也是Person的一种类型。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    public void eat() &#123;</span><br><span class="line">        System.out.println(&quot;eat&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static void show(Person p) &#123;</span><br><span class="line">        p.eat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Student extends Person&#123;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Student s \= new Student();</span><br><span class="line">        Person.show(s);     // ①</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>【运行结果】：<br>eat</p>
-<p>在Person中定义的show方法是用来接收Person句柄的，但是在①处接收的却是Student对象的引用。这是因为Student对象也是Person对象。在show方法中，传入的句柄(对象的引用)可以是Person对象以及Person的衍生类对象。这种将Student句柄转换成Person句柄的行为成为<strong>上溯造型</strong>。</p>
-<h3 id="2-为什么要上溯造型"><a href="#2-为什么要上溯造型" class="headerlink" title="2.为什么要上溯造型"></a>2.为什么要上溯造型</h3><p>为什么在调用eat是要有意忽略调用它的对象类型呢？如果让show方法简单地获取Student句柄似乎更加直观易懂，但是那样会使衍生自Person类的每一个新类都要实现专属自己的show方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Value &#123;</span><br><span class="line">    private int count = 1;</span><br><span class="line"></span><br><span class="line">    private Value(int count) &#123;</span><br><span class="line">        this.count = count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static final Value</span><br><span class="line">            v1 \= new Value(1),</span><br><span class="line">            v2 \= new Value(2),</span><br><span class="line">            v3 \= new Value(3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Person &#123;</span><br><span class="line"></span><br><span class="line">    public void eat(Value v) &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Teacher extends Person &#123;</span><br><span class="line">    public void eat(Value v) &#123;</span><br><span class="line">        System.out.println(&quot;Teacher.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Student extends Person &#123;</span><br><span class="line">    public void eat(Value v) &#123;</span><br><span class="line">        System.out.println(&quot;Student.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class UpcastingDemo &#123;</span><br><span class="line">    public static void show(Student s) &#123;</span><br><span class="line">        s.eat(Value.v1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void show(Teacher t) &#123;</span><br><span class="line">        t.eat(Value.v1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void show(Person p) &#123;</span><br><span class="line">        p.eat(Value.v1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Student s \= new Student();</span><br><span class="line">        Teacher t \= new Teacher();</span><br><span class="line">        Person p \= new Person();</span><br><span class="line">        show(s);</span><br><span class="line">        show(t);</span><br><span class="line">        show(p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这种做法一个很明显的缺陷就是必须为每一个Person类的衍生类定义与之紧密相关的方法，产生了很多重复的代码。另一方面，对于如果忘记了方法的重载也不会报错。上例中的三个show方法完全可以合并为一个：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public static void show(Person p) &#123;</span><br><span class="line">     p.eat(Value.v1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="动态绑定"><a href="#动态绑定" class="headerlink" title="动态绑定"></a>动态绑定</h1><p>当执行show(s)时,输出结果是Student.eat()，这确实是希望得到的结果，但是似乎没有按照我们希望的形式来执行，再来看一下show方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public static void show(Person p) &#123;</span><br><span class="line">     p.eat(Value.v1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>它接收的是Person句柄，当执行show(s)时，它是如何知道Person句柄指向的是一个Student对象而不是Teacher对象呢？编译器是无从得知的，这涉及到接下来要说明的绑定问题。</p>
-<h3 id="1-方法调用的绑定"><a href="#1-方法调用的绑定" class="headerlink" title="1.方法调用的绑定"></a>1.方法调用的绑定</h3><p>将一个方法同一个方法主体连接在一起就称为<strong>绑定(Binding)<strong>。若在运行运行前执行绑定，就称为“早期绑定”。上面的例子中，在只有一个Person句柄的情况下，编译器不知道具体调用哪个方法。Java实现了一种方法调用机制，可在运行期间判断对象的类型，然后调用相应的方法，这种在运行期间进行，以对象的类型为基础的绑定称为</strong>动态绑定</strong>。除非一个方法被声明为final，Java中的所有方法都是动态绑定的。</p>
-<p>用一张图表示上溯造型的继承关系：</p>
-<p><img src="https://images2015.cnblogs.com/blog/525435/201512/525435-20151203233242393-347102988.jpg"></p>
-<p>用代码概括为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Shape s = new Shape();</span><br></pre></td></tr></table></figure>
-
-<p>按照继承关系，将创建的Circle对象句柄赋给一个Shape是合法的，因为Circle属于Shape的一种。</p>
-<p>当调用其中一个基础类方法时：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Shape s = new Shape();</span><br></pre></td></tr></table></figure>
-
-<p>此时，调用的是Circle.draw(),这是由于动态绑定的原因。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    void eat() &#123;&#125;</span><br><span class="line">    void speak() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Girl extends Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static Person randPerson() &#123;</span><br><span class="line">        switch ((int)(Math.random() \* 2)) &#123;</span><br><span class="line">        default:</span><br><span class="line">        case 0:</span><br><span class="line">            return new Boy();</span><br><span class="line">        case 1:</span><br><span class="line">            return new Girl();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person\[\] p \= new Person\[4\];</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\] \= randPerson();    // 随机生成Boy或Girl</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\].eat();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对所有从Person衍生出来的类，Person建立了一个通用接口，所有衍生的类都有eat和speak两种行为。衍生类覆盖了这些定义，重新定义了这两种行为。在主类中，randPerson随机选择Person对象的句柄。**上诉造型是在return语句里发生的。**return语句取得一个Boy或Girl的句柄并将其作为Person类型返回，此时并不知道具体是什么类型，只知道是Person对象句柄。在main方法中调用randPerson方法为数组填入Person对象，但不知具体情况。当调用数组每个元素的eat方法时，动态绑定的作用就是执行对象的重新定义了的方法。</p>
-<p>然而，动态绑定是有前提的，<strong>绑定的方法必须存在于基类中</strong>，否则无法编译通过。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person p \= new Boy();</span><br><span class="line">        p.eat();</span><br><span class="line">        p.speak();  // The method speak() is undefined for the type Person</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果子类中没有定义覆盖方法，则会调用父类中的方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person p \= new Boy();</span><br><span class="line">        p.eat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>【运行结果】: Person.eat()</p>
-<h3 id="2-静态方法的绑定"><a href="#2-静态方法的绑定" class="headerlink" title="2.静态方法的绑定"></a>2.静态方法的绑定</h3><p>将上面的方法都加上static关键字，变成静态方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    static void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    static void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Person.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">    static void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    static void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Girl extends Person &#123;</span><br><span class="line">    static void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    static void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static Person randPerson() &#123;</span><br><span class="line">        switch ((int)(Math.random() \* 2)) &#123;</span><br><span class="line">        default:</span><br><span class="line">        case 0:</span><br><span class="line">            return new Boy();</span><br><span class="line">        case 1:</span><br><span class="line">            return new Girl();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person\[\] p \= new Person\[4\];</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\] \= randPerson();    // 随机生成Boy或Girl</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\].eat();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>【运行结果】： Person.eat() Person.eat() Person.eat() Person.eat() 观察结果，<strong>对于静态方法而言，不管父类引用指向的什么子类对象，调用的都是父类的方法。</strong></p>
-<blockquote>
-<p><strong>助记口诀</strong> - 静态方法:静态方法看父类 - 非静态方法：非静态方法看子类</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>继承</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Python中字符串格式判断</title>
     <url>/post/bc285c4.html</url>
     <content><![CDATA[<p>在python编程中，我们经常要面临将字符串进行转换的情况，那么字符串是否符合转换的要求呢？python中内置了字符串类的方法供我们使用进行字符串格式的判断。</p>
@@ -826,6 +664,100 @@
       </tags>
   </entry>
   <entry>
+    <title>Java Stream流</title>
+    <url>/post/757b002.html</url>
+    <content><![CDATA[<h1 id="Stream流"><a href="#Stream流" class="headerlink" title="Stream流"></a>Stream流</h1><p>Java 8 API添加了一个**<code>新的抽象称为流Stream</code>**，可以让你以一种声明的方式处理数据。</p>
+<p>结合Lambda表达式来完成某种功能的实现</p>
+<p>Stream 使用一种类似用 SQL 语句从数据库查询数据的直观方式来提供一种对 Java 集合运算和表达的高阶抽象。</p>
+<p>Stream API可以极大提高Java程序员的生产力，让程序员写出高效率、干净、简洁的代码。</p>
+<p>这种风格将要处理的元素集合看作一种流， 流在管道中传输， 并且可以在管道的节点上进行处理， 比如筛选， 排序，聚合等。</p>
+<p>元素流在管道中经过中间操作（intermediate operation）的处理，最后由最终操作(terminal operation)得到前面处理的结果。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">+--------------------+       +------+   +------+   +---+   +-------+</span><br><span class="line">| stream of elements +-----&gt; |filter+-&gt; |sorted+-&gt; |map+-&gt; |collect|</span><br><span class="line">+--------------------+       +------+   +------+   +---+   +-------+</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>以上流程转化为Java代码为:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">List&lt;Integer&gt; transactionsIds = </span><br><span class="line">widgets.stream()</span><br><span class="line">             .filter(b -&gt; b.getColor() == RED)</span><br><span class="line">             .sorted((x,y) -&gt; x.getWeight() - y.getWeight())</span><br><span class="line">             .mapToInt(Widget::getWeight)</span><br><span class="line">             .sum();</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="什么是Stream"><a href="#什么是Stream" class="headerlink" title="什么是Stream?"></a>什么是Stream?</h2><p>Stream（流）是一个来自数据源的元素队列并支持聚合操作</p>
+<ul>
+<li>元素是特定类型的对象，形成一个<strong>队列</strong>。 Java中的Stream并不会存储元素，而是按需计算。</li>
+<li><strong>数据源</strong> 流的来源。 可以是集合，数组，I&#x2F;O channel， 产生器generator 等。</li>
+<li><strong>聚合操作</strong> 类似SQL语句一样的操作， 比如filter, map, reduce, find, match, sorted等。</li>
+</ul>
+<p>和以前的Collection操作不同， Stream操作还有两个基础的特征：</p>
+<ul>
+<li><strong>Pipelining</strong>: 中间操作都会返回流对象本身。 这样多个操作可以串联成一个管道， 如同流式风格（fluent style）。 这样做可以对操作进行优化， 比如延迟执行(laziness)和短路( short-circuiting)。</li>
+<li><strong>内部迭代</strong>： 以前对集合遍历都是通过Iterator或者For-Each的方式, 显式的在集合外部进行迭代， 这叫做外部迭代。 Stream提供了内部迭代的方式， 通过访问者模式(Visitor)实现。</li>
+</ul>
+<h2 id="生成流"><a href="#生成流" class="headerlink" title="生成流"></a>生成流</h2><p>在 Java 8 中, 集合接口有两个方法来生成流：</p>
+<ul>
+<li><strong><code>stream()</code></strong> − 为集合创建<strong>串行流</strong>。(单线程)</li>
+<li><strong><code>parallelStream()</code>− 为集合创建</strong>并行流。(多线程)</li>
+</ul>
+<p>举个例子</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; strings = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">List&lt;String&gt; filtered = strings.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.toList());</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604221707954.png" alt="image-20240604221707954"></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="Stream"><a href="#Stream" class="headerlink" title="Stream()"></a>Stream()</h3><p>生成流</p>
+<h3 id="forEach"><a href="#forEach" class="headerlink" title="forEach()"></a>forEach()</h3><p><code>void forEach(Consumer&lt;? super String&gt; action)</code></p>
+<ul>
+<li>用来遍历集合或者数组….</li>
+</ul>
+<p><code>Consumer</code>这个接口下一篇进行介绍,简单字面意思就是,你给它传什么的,他就消费什么(就是输出)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; strings3 = Arrays.asList(&quot;cwy&quot;,&quot;cwy&quot;,&quot;wst&quot;,&quot;wst&quot;,&quot;cwy&quot;);</span><br><span class="line">//遍历strings3</span><br><span class="line">strings3.forEach(System.out::println);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604223021420.png" alt="image-20240604223021420"></p>
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604222353301.png" alt="image-20240604222353301"></p>
+<h3 id="map"><a href="#map" class="headerlink" title="map()"></a>map()</h3><p><code>&lt; R&gt; Stream&lt; R&gt; map(Function&lt;? super T, ? extends R&gt; mapper);</code></p>
+<ul>
+<li><strong>map 方法用于映射每个元素到对应的结果</strong></li>
+</ul>
+<p>,嗯…有点类似于<code>一元函数映射</code></p>
+<p>Function 接口是一个功能型接口，它的一个作用就是转换作用，将输入数据转换成另一种形式的输出数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//        把xList中的数值  进行平方运算映射在yList</span><br><span class="line">List&lt;Integer&gt; xList = Arrays.asList(1,2,3,4,5,6,7,8,9);</span><br><span class="line">List&lt;Integer&gt; yList = xList.stream().map(integer -&gt; integer*integer).distinct().collect(Collectors.toList());</span><br><span class="line">System.out.println(yList);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604224900043.png" alt="image-20240604224900043"></p>
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter()"></a>filter()</h3><p><code>Stream&lt;T&gt; filter(Predicate&lt;? super T&gt; predicate);</code></p>
+<p>filter 方法用于通过设置的条件过滤出元素</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//        获取空字符串的数量</span><br><span class="line">long count = strings4.stream().filter(String::isEmpty).count();</span><br><span class="line">System.out.println(count);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604232504042.png" alt="image-20240604232504042"></p>
+<h3 id="limit"><a href="#limit" class="headerlink" title="limit()"></a>limit()</h3><p><code>Stream&lt;T&gt; limit(long maxSize);</code></p>
+<p>limit 方法用于获取指定数量的流。 以下代码片段使用 limit 方法打印出 10 条数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//      取出集合前两个元素</span><br><span class="line">List&lt;String&gt; strings5 = Arrays.asList(&quot;cwy&quot;,&quot;cwy&quot;,&quot;wst&quot;,&quot;wst&quot;,&quot;cwy&quot;);</span><br><span class="line">strings5.stream().limit(2).forEach(System.out::println);</span><br><span class="line">//        or</span><br><span class="line">List&lt;String&gt; limits =strings5.stream().limit(2).collect(Collectors.toList());</span><br><span class="line">System.out.println(limits);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604233019073.png" alt="image-20240604233019073"></p>
+<h3 id="sorted"><a href="#sorted" class="headerlink" title="sorted()"></a>sorted()</h3><p>sorted 方法用于对流进行排序。</p>
+<p><code>IntStream sorted();</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//        使用 sorted 方法对输出的 10 个随机数进行排序：</span><br><span class="line">Random random = new Random();</span><br><span class="line">random.ints().limit(10).sorted().forEach(System.out::println);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="ints"><a href="#ints" class="headerlink" title="ints()"></a>ints()</h3><p>源码 用来生成整数流</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public IntStream ints() &#123;</span><br><span class="line">        return StreamSupport.intStream</span><br><span class="line">                (new RandomIntsSpliterator</span><br><span class="line">                         (this, 0L, Long.MAX_VALUE, Integer.MAX_VALUE, 0),</span><br><span class="line">                 false);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="并行-parallel-程序"><a href="#并行-parallel-程序" class="headerlink" title="并行(parallel)程序"></a>并行(parallel)程序</h3><p><strong><code>parallelStream</code></strong> 是流并行处理程序的代替方法。以下实例我们使用 parallelStream 来输出空字符串的数量：(使用的是多线程)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; strings = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">// 获取空字符串的数量</span><br><span class="line">long count = strings.parallelStream().filter(string -&gt; string.isEmpty()).count();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>使用并行的程序可以提升处理速度</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//        获取空字符串的数量</span><br><span class="line">long date1 = new Date().getTime();</span><br><span class="line">long count = strings4.stream().filter(String::isEmpty).count();</span><br><span class="line">long date2 = new Date().getTime();</span><br><span class="line">System.out.println(count+&quot;所用时间&quot;+(date2-date1));</span><br><span class="line"></span><br><span class="line">//          获取空字符串的数量</span><br><span class="line">long date3 = new Date().getTime();</span><br><span class="line">List&lt;String&gt; strings6 = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">long date4 = new Date().getTime();</span><br><span class="line">long count2 = strings6.parallelStream().filter(String::isEmpty).count();</span><br><span class="line">System.out.println(count2+&quot;所用时间&quot;+(date4-date3));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604234153199.png" alt="image-20240604234153199"></p>
+<p><strong>建议：数据量不大的情况下建议使用stream即可，不要盲目大量使用parallelStream,因为parallelStream是多线程异步的，也就是说会产生多线程，消耗内存不说，说不定还会更慢，并非一定会更快更好。</strong></p>
+<h3 id="Collectors"><a href="#Collectors" class="headerlink" title="Collectors"></a>Collectors</h3><p>Collectors 类实现了很多归约操作</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//        Collectors</span><br><span class="line">List&lt;String&gt;strings7 = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">List&lt;String&gt; filtered7 = strings7.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.toList());</span><br><span class="line">System.out.println(&quot;筛选列表: &quot; + filtered);</span><br><span class="line">String mergedString = strings7.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.joining(&quot;, &quot;));</span><br><span class="line">System.out.println(&quot;合并字符串: &quot; + mergedString);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604234940132.png" alt="image-20240604234940132"></p>
+<h3 id="统计相关函数"><a href="#统计相关函数" class="headerlink" title="统计相关函数"></a>统计相关函数</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">List&lt;Integer&gt; numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);</span><br><span class="line"></span><br><span class="line">IntSummaryStatistics stats = numbers.stream().mapToInt((x) -&gt; x).summaryStatistics();</span><br><span class="line">System.out.println(&quot;列表中最大的数 : &quot; + stats.getMax());</span><br><span class="line">System.out.println(&quot;列表中最小的数 : &quot; + stats.getMin());</span><br><span class="line">System.out.println(&quot;所有数之和 : &quot; + stats.getSum());</span><br><span class="line">System.out.println(&quot;平均数 : &quot; + stats.getAverage());</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/cwy0710/image/raw/master/img/image-20240604235321302.png" alt="image-20240604235321302"></p>
+<h2 id="完整实例"><a href="#完整实例" class="headerlink" title="完整实例"></a>完整实例</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import java.util.*;</span><br><span class="line">import java.util.stream.Collectors;</span><br><span class="line"></span><br><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(&quot;Hello world!&quot;);</span><br><span class="line">//        写Stream流</span><br><span class="line">        List&lt;String&gt; strings = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">        List&lt;String&gt; filtered = strings.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.toList());</span><br><span class="line">        System.out.println(filtered);</span><br><span class="line">//        过滤cwy</span><br><span class="line">        List&lt;String&gt; strings1 = Arrays.asList(&quot;cwy&quot;,&quot;cwy&quot;,&quot;wst&quot;,&quot;wst&quot;,&quot;cwy&quot;);</span><br><span class="line">        List&lt;String&gt; collect = strings1.stream()</span><br><span class="line">                        .filter(s -&gt; s.equals(&quot;wst&quot;)).collect(Collectors.toList());</span><br><span class="line">        System.out.println(collect);</span><br><span class="line">//        forEach</span><br><span class="line">        List&lt;String&gt; strings3 = Arrays.asList(&quot;cwy&quot;,&quot;cwy&quot;,&quot;wst&quot;,&quot;wst&quot;,&quot;cwy&quot;);</span><br><span class="line">        strings3.forEach(System.out::println);</span><br><span class="line">//        map</span><br><span class="line">//        把xList中的数值  进行平方运算映射在yList</span><br><span class="line">        List&lt;Integer&gt; xList = Arrays.asList(1,2,3,4,5,6,7,8,9);</span><br><span class="line">        List&lt;Integer&gt; yList = xList.stream().map(integer -&gt; integer*integer).distinct().collect(Collectors.toList());</span><br><span class="line">        System.out.println(yList);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//      取出集合前两个元素</span><br><span class="line">        List&lt;String&gt; strings5 = Arrays.asList(&quot;cwy&quot;,&quot;cwy&quot;,&quot;wst&quot;,&quot;wst&quot;,&quot;cwy&quot;);</span><br><span class="line">        strings5.stream().limit(2).forEach(System.out::println);</span><br><span class="line">//        or</span><br><span class="line">        List&lt;String&gt; limits = strings5.stream().limit(2).collect(Collectors.toList());</span><br><span class="line">        System.out.println(limits);</span><br><span class="line">//        使用 sorted 方法对输出的 10 个随机数进行排序：</span><br><span class="line">        Random random = new Random();</span><br><span class="line">        random.ints().limit(10).sorted().forEach(System.out::println);</span><br><span class="line"></span><br><span class="line">        //        获取空字符串的数量</span><br><span class="line">        long date1 = new Date().getTime();</span><br><span class="line">        List&lt;String&gt;strings4 = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">        long count = strings4.stream().filter(String::isEmpty).count();</span><br><span class="line">        long date2 = new Date().getTime();</span><br><span class="line">        System.out.println(count+&quot;所用时间&quot;+(date2-date1));</span><br><span class="line"></span><br><span class="line">        //          获取空字符串的数量</span><br><span class="line">        long date3 = new Date().getTime();</span><br><span class="line">        List&lt;String&gt; strings6 = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">        long date4 = new Date().getTime();</span><br><span class="line">        long count2 = strings6.parallelStream().filter(String::isEmpty).count();</span><br><span class="line">        System.out.println(count2+&quot;所用时间&quot;+(date4-date3));</span><br><span class="line">//        Collectors</span><br><span class="line">        List&lt;String&gt;strings7 = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;,&quot;&quot;, &quot;jkl&quot;);</span><br><span class="line">        List&lt;String&gt; filtered7 = strings7.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;筛选列表: &quot; + filtered);</span><br><span class="line">        String mergedString = strings7.stream().filter(string -&gt; !string.isEmpty()).collect(Collectors.joining(&quot;, &quot;));</span><br><span class="line">        System.out.println(&quot;合并字符串: &quot; + mergedString);</span><br><span class="line"></span><br><span class="line">        List&lt;Integer&gt; numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);</span><br><span class="line"></span><br><span class="line">        IntSummaryStatistics stats = numbers.stream().mapToInt((x) -&gt; x).summaryStatistics();</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;列表中最大的数 : &quot; + stats.getMax());</span><br><span class="line">        System.out.println(&quot;列表中最小的数 : &quot; + stats.getMin());</span><br><span class="line">        System.out.println(&quot;所有数之和 : &quot; + stats.getSum());</span><br><span class="line">        System.out.println(&quot;平均数 : &quot; + stats.getAverage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>stream流</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python可迭代序列反转</title>
     <url>/post/2e0286d4.html</url>
     <content><![CDATA[<h3 id="1-字符串反转"><a href="#1-字符串反转" class="headerlink" title="1.字符串反转"></a>1.字符串反转</h3><p>示例：s &#x3D; “hello”</p>
@@ -853,6 +785,79 @@
       </categories>
       <tags>
         <tag>可迭代序列</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++--移动构造函数</title>
+    <url>/post/30200779.html</url>
+    <content><![CDATA[<h1 id="C-–移动构造函数-移动赋值运算符"><a href="#C-–移动构造函数-移动赋值运算符" class="headerlink" title="C++–移动构造函数&#x2F;移动赋值运算符"></a>C++–移动构造函数&#x2F;移动赋值运算符</h1><h2 id="什么是移动语义？"><a href="#什么是移动语义？" class="headerlink" title="什么是移动语义？"></a>什么是移动语义？</h2><blockquote>
+<p>在C++11中，移动语义是一个重要的新特性，它可以使程序在内存管理方面更加高效，同时也提高了程序的性能</p>
+</blockquote>
+<p>它允许将一个对象的所有权从一个对象转移到另一个对象，而不需要进行数据的拷贝。</p>
+<h3 id="通俗理解"><a href="#通俗理解" class="headerlink" title="通俗理解"></a>通俗理解</h3><p>我有一份材料，A同学找我借，那我把材料复印一份，把复印件给他，这叫做数据拷贝；而我如果把材料的所有权转让给他，那么他现在直接拥有原始的那份材料，这叫做移动语义。</p>
+<h2 id="为什么需要移动语义？"><a href="#为什么需要移动语义？" class="headerlink" title="为什么需要移动语义？"></a>为什么需要移动语义？</h2><h2 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h2><blockquote>
+<p>要理解为什么我们需要移动语义，那我们就需要理解拷贝的操作</p>
+</blockquote>
+<p>C++中有拷贝构造函数和拷贝复制运算符。拷贝，顾名思义就是重新申请一块新的内存空间，然后将需要的数据复制一份放到里面。</p>
+<p>如果要复制的对象中涉及到了其他对象或者是指针数据的话，那么拷贝操作就是一项耗时的过程。</p>
+<p>我们通过一个例子来演示一下是如果进行拷贝的：</p>
+<p>定义一个简单的类：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Myclass</span><br><span class="line">&#123;</span><br><span class="line">    public:</span><br><span class="line">    Myclass(const std::string&amp; s):str(s)&#123;&#125;;</span><br><span class="line">    private:</span><br><span class="line">    std::string str;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当新建一个对象A时，传递一个参数”hello,world”，A中的成员变量会存储该字符串，也就是会申请一个新的内存空间去存储该字符串：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass A(&quot;hello,world&quot;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当我们定义一个新的对象B，并将A赋值给B时：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass B=A;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>同样，B也会申请一段空间，并将A中存储的字符串拷贝过来</p>
+<h3 id="需要移动语义的情况"><a href="#需要移动语义的情况" class="headerlink" title="需要移动语义的情况"></a>需要移动语义的情况</h3><blockquote>
+<p>从拷贝的操作不难看出，这样的操作是耗时的，那在什么情况下，拷贝操作不是必要的呢？</p>
+</blockquote>
+<p>同样还是延续上面的例子，这里我们定义一个容器以及一个对象tmp，然后将其装入到容器中：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">std::vector&lt;Myclass&gt; myClasses;</span><br><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>每次将对象添加到容器中都会发生一次拷贝操作。</p>
+<p>我们现在假设tmp对象在被添加到容器中两次之后就不再需要了，那第二次添加的时候是不是可以让容器直接取tmp对象的数据呢？这就是移动语义的意义，减少不必要的数据拷贝，提高程序的性能。</p>
+<p>假设Myclass类已经实现了移动语义，我们就可以使用<code>std::move</code> 让myClasses容器直接转移tmp对象的数据为己用。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="移动语义的实现"><a href="#移动语义的实现" class="headerlink" title="移动语义的实现"></a>移动语义的实现</h2><p>我们需要先了解右值引用</p>
+<h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><blockquote>
+<p>我们都知道C++有一个操作叫引用，实际上默认指的是左值引用，也就是对一个左值进行引用。那右值引用就是对右值的引用</p>
+</blockquote>
+<p>通过<code>&amp;&amp;</code> 声明，同时：</p>
+<ol>
+<li>右值引用只能绑定到一个右值，不能绑定到左值；</li>
+<li>右值引用可以通过<code>std::move()</code> 将一个左值转换成右值引用</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a=0;</span><br><span class="line">int&amp;&amp; tmp=a;   //error,不能引用左值</span><br><span class="line">int&amp;&amp; tmp2=0;  //correct</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="移动构造函数"><a href="#移动构造函数" class="headerlink" title="移动构造函数"></a>移动构造函数</h3><p>还是接着上面的例子，当向容器添加一个新元素时，如果是通过拷贝的方法，那么对应执行的就是<strong>拷贝构造函数</strong>，而如果是通过移动的方式，那对应的就是<strong>移动构造函数</strong>。</p>
+<p>下面我们就为Myclass定义移动构造函数，其中string类型本身就实现了移动构造函数，所以可以直接使用<code>std::move</code> ：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass(Myclass&amp;&amp; rValue) noexcept</span><br><span class="line">    :str(std::move(rValue.str))</span><br><span class="line">    &#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在移动构造函数中，我们要做的就是转移成员数据str。</p>
+<p>我们就可以使用移动构造函数去创建新的对象而无需拷贝复制了：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">Myclass A(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果我们的类成员数据需要我们自己实现数据转移的话，也很简单，就是把数据拿过来，并将原先对象的数据清楚：</p>
+<p>假设这个类有两个成员变量int 和 char*类型：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Myclass2</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    int data;</span><br><span class="line">    char* str;</span><br><span class="line">public:</span><br><span class="line">    Myclass2()</span><br><span class="line">    :data(30)</span><br><span class="line">    &#123;</span><br><span class="line">        str=&quot;mrdc&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    ;</span><br><span class="line">    Myclass2(Myclass2&amp;&amp; rValue) noexcept</span><br><span class="line">    :data(std::move(rValue.data))</span><br><span class="line">    &#123;</span><br><span class="line">        rValue.data=0;  //delete data</span><br><span class="line">        str=rValue.str; //transfer</span><br><span class="line">        rValue.str=nullptr; //delete str</span><br><span class="line">    &#125;</span><br><span class="line">    ~Myclass2()</span><br><span class="line">    &#123;</span><br><span class="line">        if(str!=nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            delete str;</span><br><span class="line">            str=nullptr;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过移动构造函数创建对象B：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MyClass A&#123;&#125;;</span><br><span class="line">MyClass B&#123; std::move(A) &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>内存中的布局：<br><img src="https://img2024.cnblogs.com/blog/2808158/202406/2808158-20240608170517534-1624419800.png" alt="内存布局"></p>
+<h3 id="移动赋值运算符"><a href="#移动赋值运算符" class="headerlink" title="移动赋值运算符"></a>移动赋值运算符</h3><p>和移动构造函数的实现类似：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 移动赋值运算符</span><br><span class="line">MyClass&amp; operator=(MyClass&amp;&amp; myClass) noexcept</span><br><span class="line">&#123;</span><br><span class="line">    val = myClass.val;</span><br><span class="line">    myClass.val = 0;</span><br><span class="line">    name = myClass.name;</span><br><span class="line">    myClass.name = nullptr;</span><br><span class="line">    return *this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>c++</category>
+      </categories>
+      <tags>
+        <tag>函数</tag>
       </tags>
   </entry>
 </search>
