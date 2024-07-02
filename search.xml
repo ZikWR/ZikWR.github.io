@@ -29,6 +29,83 @@
       </tags>
   </entry>
   <entry>
+    <title>新建博客</title>
+    <url>/post/666670c8.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>c++引用</title>
+    <url>/post/92ec66fa.html</url>
+    <content><![CDATA[<h1 id="C-–移动构造函数-移动赋值运算符"><a href="#C-–移动构造函数-移动赋值运算符" class="headerlink" title="C++–移动构造函数&#x2F;移动赋值运算符"></a>C++–移动构造函数&#x2F;移动赋值运算符</h1><h2 id="什么是移动语义？"><a href="#什么是移动语义？" class="headerlink" title="什么是移动语义？"></a>什么是移动语义？</h2><blockquote>
+<p>在C++11中，移动语义是一个重要的新特性，它可以使程序在内存管理方面更加高效，同时也提高了程序的性能</p>
+</blockquote>
+<p>它允许将一个对象的所有权从一个对象转移到另一个对象，而不需要进行数据的拷贝。</p>
+<h3 id="通俗理解"><a href="#通俗理解" class="headerlink" title="通俗理解"></a>通俗理解</h3><p>我有一份材料，A同学找我借，那我把材料复印一份，把复印件给他，这叫做数据拷贝；而我如果把材料的所有权转让给他，那么他现在直接拥有原始的那份材料，这叫做移动语义。</p>
+<h2 id="为什么需要移动语义？"><a href="#为什么需要移动语义？" class="headerlink" title="为什么需要移动语义？"></a>为什么需要移动语义？</h2><h2 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h2><blockquote>
+<p>要理解为什么我们需要移动语义，那我们就需要理解拷贝的操作</p>
+</blockquote>
+<p>C++中有拷贝构造函数和拷贝复制运算符。拷贝，顾名思义就是重新申请一块新的内存空间，然后将需要的数据复制一份放到里面。</p>
+<p>如果要复制的对象中涉及到了其他对象或者是指针数据的话，那么拷贝操作就是一项耗时的过程。</p>
+<p>我们通过一个例子来演示一下是如果进行拷贝的：</p>
+<p>定义一个简单的类：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Myclass</span><br><span class="line">&#123;</span><br><span class="line">    public:</span><br><span class="line">    Myclass(const std::string&amp; s):str(s)&#123;&#125;;</span><br><span class="line">    private:</span><br><span class="line">    std::string str;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当新建一个对象A时，传递一个参数”hello,world”，A中的成员变量会存储该字符串，也就是会申请一个新的内存空间去存储该字符串：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass A(&quot;hello,world&quot;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当我们定义一个新的对象B，并将A赋值给B时：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass B=A;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>同样，B也会申请一段空间，并将A中存储的字符串拷贝过来</p>
+<h3 id="需要移动语义的情况"><a href="#需要移动语义的情况" class="headerlink" title="需要移动语义的情况"></a>需要移动语义的情况</h3><blockquote>
+<p>从拷贝的操作不难看出，这样的操作是耗时的，那在什么情况下，拷贝操作不是必要的呢？</p>
+</blockquote>
+<p>同样还是延续上面的例子，这里我们定义一个容器以及一个对象tmp，然后将其装入到容器中：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">std::vector&lt;Myclass&gt; myClasses;</span><br><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>每次将对象添加到容器中都会发生一次拷贝操作。</p>
+<p>我们现在假设tmp对象在被添加到容器中两次之后就不再需要了，那第二次添加的时候是不是可以让容器直接取tmp对象的数据呢？这就是移动语义的意义，减少不必要的数据拷贝，提高程序的性能。</p>
+<p>假设Myclass类已经实现了移动语义，我们就可以使用<code>std::move</code> 让myClasses容器直接转移tmp对象的数据为己用。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="移动语义的实现"><a href="#移动语义的实现" class="headerlink" title="移动语义的实现"></a>移动语义的实现</h2><p>我们需要先了解右值引用</p>
+<h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><blockquote>
+<p>我们都知道C++有一个操作叫引用，实际上默认指的是左值引用，也就是对一个左值进行引用。那右值引用就是对右值的引用</p>
+</blockquote>
+<p>通过<code>&amp;&amp;</code> 声明，同时：</p>
+<ol>
+<li>右值引用只能绑定到一个右值，不能绑定到左值；</li>
+<li>右值引用可以通过<code>std::move()</code> 将一个左值转换成右值引用</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a=0;</span><br><span class="line">int&amp;&amp; tmp=a;   //error,不能引用左值</span><br><span class="line">int&amp;&amp; tmp2=0;  //correct</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="移动构造函数"><a href="#移动构造函数" class="headerlink" title="移动构造函数"></a>移动构造函数</h3><p>还是接着上面的例子，当向容器添加一个新元素时，如果是通过拷贝的方法，那么对应执行的就是<strong>拷贝构造函数</strong>，而如果是通过移动的方式，那对应的就是<strong>移动构造函数</strong>。</p>
+<p>下面我们就为Myclass定义移动构造函数，其中string类型本身就实现了移动构造函数，所以可以直接使用<code>std::move</code> ：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass(Myclass&amp;&amp; rValue) noexcept</span><br><span class="line">    :str(std::move(rValue.str))</span><br><span class="line">    &#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在移动构造函数中，我们要做的就是转移成员数据str。</p>
+<p>我们就可以使用移动构造函数去创建新的对象而无需拷贝复制了：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">Myclass A(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果我们的类成员数据需要我们自己实现数据转移的话，也很简单，就是把数据拿过来，并将原先对象的数据清楚：</p>
+<p>假设这个类有两个成员变量int 和 char*类型：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Myclass2</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    int data;</span><br><span class="line">    char* str;</span><br><span class="line">public:</span><br><span class="line">    Myclass2()</span><br><span class="line">    :data(30)</span><br><span class="line">    &#123;</span><br><span class="line">        str=&quot;mrdc&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    ;</span><br><span class="line">    Myclass2(Myclass2&amp;&amp; rValue) noexcept</span><br><span class="line">    :data(std::move(rValue.data))</span><br><span class="line">    &#123;</span><br><span class="line">        rValue.data=0;  //delete data</span><br><span class="line">        str=rValue.str; //transfer</span><br><span class="line">        rValue.str=nullptr; //delete str</span><br><span class="line">    &#125;</span><br><span class="line">    ~Myclass2()</span><br><span class="line">    &#123;</span><br><span class="line">        if(str!=nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            delete str;</span><br><span class="line">            str=nullptr;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过移动构造函数创建对象B：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MyClass A&#123;&#125;;</span><br><span class="line">MyClass B&#123; std::move(A) &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>内存中的布局：<br><img src="https://img2024.cnblogs.com/blog/2808158/202406/2808158-20240608170517534-1624419800.png" alt="内存布局"></p>
+<h3 id="移动赋值运算符"><a href="#移动赋值运算符" class="headerlink" title="移动赋值运算符"></a>移动赋值运算符</h3><p>和移动构造函数的实现类似：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 移动赋值运算符</span><br><span class="line">MyClass&amp; operator=(MyClass&amp;&amp; myClass) noexcept</span><br><span class="line">&#123;</span><br><span class="line">    val = myClass.val;</span><br><span class="line">    myClass.val = 0;</span><br><span class="line">    name = myClass.name;</span><br><span class="line">    myClass.name = nullptr;</span><br><span class="line">    return *this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>c++</category>
+      </categories>
+      <tags>
+        <tag>引用</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>c++STL</title>
     <url>/post/a11c5604.html</url>
     <content><![CDATA[<p><strong>以下内容来源网上 经过整合STL而成</strong></p>
@@ -152,78 +229,6 @@
       </categories>
       <tags>
         <tag>STL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c++引用</title>
-    <url>/post/92ec66fa.html</url>
-    <content><![CDATA[<h1 id="C-–移动构造函数-移动赋值运算符"><a href="#C-–移动构造函数-移动赋值运算符" class="headerlink" title="C++–移动构造函数&#x2F;移动赋值运算符"></a>C++–移动构造函数&#x2F;移动赋值运算符</h1><h2 id="什么是移动语义？"><a href="#什么是移动语义？" class="headerlink" title="什么是移动语义？"></a>什么是移动语义？</h2><blockquote>
-<p>在C++11中，移动语义是一个重要的新特性，它可以使程序在内存管理方面更加高效，同时也提高了程序的性能</p>
-</blockquote>
-<p>它允许将一个对象的所有权从一个对象转移到另一个对象，而不需要进行数据的拷贝。</p>
-<h3 id="通俗理解"><a href="#通俗理解" class="headerlink" title="通俗理解"></a>通俗理解</h3><p>我有一份材料，A同学找我借，那我把材料复印一份，把复印件给他，这叫做数据拷贝；而我如果把材料的所有权转让给他，那么他现在直接拥有原始的那份材料，这叫做移动语义。</p>
-<h2 id="为什么需要移动语义？"><a href="#为什么需要移动语义？" class="headerlink" title="为什么需要移动语义？"></a>为什么需要移动语义？</h2><h2 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h2><blockquote>
-<p>要理解为什么我们需要移动语义，那我们就需要理解拷贝的操作</p>
-</blockquote>
-<p>C++中有拷贝构造函数和拷贝复制运算符。拷贝，顾名思义就是重新申请一块新的内存空间，然后将需要的数据复制一份放到里面。</p>
-<p>如果要复制的对象中涉及到了其他对象或者是指针数据的话，那么拷贝操作就是一项耗时的过程。</p>
-<p>我们通过一个例子来演示一下是如果进行拷贝的：</p>
-<p>定义一个简单的类：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Myclass</span><br><span class="line">&#123;</span><br><span class="line">    public:</span><br><span class="line">    Myclass(const std::string&amp; s):str(s)&#123;&#125;;</span><br><span class="line">    private:</span><br><span class="line">    std::string str;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>当新建一个对象A时，传递一个参数”hello,world”，A中的成员变量会存储该字符串，也就是会申请一个新的内存空间去存储该字符串：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass A(&quot;hello,world&quot;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>当我们定义一个新的对象B，并将A赋值给B时：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass B=A;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>同样，B也会申请一段空间，并将A中存储的字符串拷贝过来</p>
-<h3 id="需要移动语义的情况"><a href="#需要移动语义的情况" class="headerlink" title="需要移动语义的情况"></a>需要移动语义的情况</h3><blockquote>
-<p>从拷贝的操作不难看出，这样的操作是耗时的，那在什么情况下，拷贝操作不是必要的呢？</p>
-</blockquote>
-<p>同样还是延续上面的例子，这里我们定义一个容器以及一个对象tmp，然后将其装入到容器中：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">std::vector&lt;Myclass&gt; myClasses;</span><br><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(tmp);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>每次将对象添加到容器中都会发生一次拷贝操作。</p>
-<p>我们现在假设tmp对象在被添加到容器中两次之后就不再需要了，那第二次添加的时候是不是可以让容器直接取tmp对象的数据呢？这就是移动语义的意义，减少不必要的数据拷贝，提高程序的性能。</p>
-<p>假设Myclass类已经实现了移动语义，我们就可以使用<code>std::move</code> 让myClasses容器直接转移tmp对象的数据为己用。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">myClasses.push_back(tmp);</span><br><span class="line">myClasses.push_back(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="移动语义的实现"><a href="#移动语义的实现" class="headerlink" title="移动语义的实现"></a>移动语义的实现</h2><p>我们需要先了解右值引用</p>
-<h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><blockquote>
-<p>我们都知道C++有一个操作叫引用，实际上默认指的是左值引用，也就是对一个左值进行引用。那右值引用就是对右值的引用</p>
-</blockquote>
-<p>通过<code>&amp;&amp;</code> 声明，同时：</p>
-<ol>
-<li>右值引用只能绑定到一个右值，不能绑定到左值；</li>
-<li>右值引用可以通过<code>std::move()</code> 将一个左值转换成右值引用</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a=0;</span><br><span class="line">int&amp;&amp; tmp=a;   //error,不能引用左值</span><br><span class="line">int&amp;&amp; tmp2=0;  //correct</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="移动构造函数"><a href="#移动构造函数" class="headerlink" title="移动构造函数"></a>移动构造函数</h3><p>还是接着上面的例子，当向容器添加一个新元素时，如果是通过拷贝的方法，那么对应执行的就是<strong>拷贝构造函数</strong>，而如果是通过移动的方式，那对应的就是<strong>移动构造函数</strong>。</p>
-<p>下面我们就为Myclass定义移动构造函数，其中string类型本身就实现了移动构造函数，所以可以直接使用<code>std::move</code> ：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass(Myclass&amp;&amp; rValue) noexcept</span><br><span class="line">    :str(std::move(rValue.str))</span><br><span class="line">    &#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在移动构造函数中，我们要做的就是转移成员数据str。</p>
-<p>我们就可以使用移动构造函数去创建新的对象而无需拷贝复制了：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Myclass tmp(&quot;hello&quot;);</span><br><span class="line">Myclass A(std::move(tmp));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>如果我们的类成员数据需要我们自己实现数据转移的话，也很简单，就是把数据拿过来，并将原先对象的数据清楚：</p>
-<p>假设这个类有两个成员变量int 和 char*类型：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Myclass2</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    int data;</span><br><span class="line">    char* str;</span><br><span class="line">public:</span><br><span class="line">    Myclass2()</span><br><span class="line">    :data(30)</span><br><span class="line">    &#123;</span><br><span class="line">        str=&quot;mrdc&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    ;</span><br><span class="line">    Myclass2(Myclass2&amp;&amp; rValue) noexcept</span><br><span class="line">    :data(std::move(rValue.data))</span><br><span class="line">    &#123;</span><br><span class="line">        rValue.data=0;  //delete data</span><br><span class="line">        str=rValue.str; //transfer</span><br><span class="line">        rValue.str=nullptr; //delete str</span><br><span class="line">    &#125;</span><br><span class="line">    ~Myclass2()</span><br><span class="line">    &#123;</span><br><span class="line">        if(str!=nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            delete str;</span><br><span class="line">            str=nullptr;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>通过移动构造函数创建对象B：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MyClass A&#123;&#125;;</span><br><span class="line">MyClass B&#123; std::move(A) &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>内存中的布局：<br><img src="https://img2024.cnblogs.com/blog/2808158/202406/2808158-20240608170517534-1624419800.png" alt="内存布局"></p>
-<h3 id="移动赋值运算符"><a href="#移动赋值运算符" class="headerlink" title="移动赋值运算符"></a>移动赋值运算符</h3><p>和移动构造函数的实现类似：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 移动赋值运算符</span><br><span class="line">MyClass&amp; operator=(MyClass&amp;&amp; myClass) noexcept</span><br><span class="line">&#123;</span><br><span class="line">    val = myClass.val;</span><br><span class="line">    myClass.val = 0;</span><br><span class="line">    name = myClass.name;</span><br><span class="line">    myClass.name = nullptr;</span><br><span class="line">    return *this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>c++</category>
-      </categories>
-      <tags>
-        <tag>引用</tag>
       </tags>
   </entry>
   <entry>
@@ -408,6 +413,69 @@
       </categories>
       <tags>
         <tag>函数</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java继承</title>
+    <url>/post/89b3a4e0.html</url>
+    <content><![CDATA[<h1 id="继承与合成基本概念"><a href="#继承与合成基本概念" class="headerlink" title="继承与合成基本概念"></a>继承与合成基本概念</h1><p><strong>继承：</strong>可以基于已经存在的类构造一个新类。继承已经存在的类就可以复用这些类的方法和域。在此基础上，可以添加新的方法和域，从而扩充了类的功能。</p>
+<p><strong>合成：</strong>在新类里创建原有的对象称为合成。这种方式可以重复利用现有的代码而不更改它的形式。</p>
+<h3 id="1-继承的语法"><a href="#1-继承的语法" class="headerlink" title="1.继承的语法"></a>1.继承的语法</h3><p>关键字<code>extends</code>表明新类派生于一个已经存在的类。已存在的类称为父类或基类，新类称为子类或派生类。例如:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Student extends Person &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>类Student继承了Person，Person类称为父类或基类，Student类称为子类或派生类。</p>
+<h3 id="2-合成的语法"><a href="#2-合成的语法" class="headerlink" title="2.合成的语法"></a>2.合成的语法</h3><p>合成比较简单，就是在一个类中创建一个已经存在的类。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Student &#123;</span><br><span class="line">    Dog dog;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="上溯造型"><a href="#上溯造型" class="headerlink" title="上溯造型"></a>上溯造型</h1><h3 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1.基本概念"></a>1.基本概念</h3><p>继承的作用在于代码的复用。由于继承意味着父类的所有方法亦可在子类中使用，所以发给父类的消息亦可发给衍生类。如果Person类中有一个eat方法，那么Student类中也会有这个方法，这意味着Student对象也是Person的一种类型。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    public void eat() &#123;</span><br><span class="line">        System.out.println(&quot;eat&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static void show(Person p) &#123;</span><br><span class="line">        p.eat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Student extends Person&#123;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Student s \= new Student();</span><br><span class="line">        Person.show(s);     // ①</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【运行结果】：<br>eat</p>
+<p>在Person中定义的show方法是用来接收Person句柄的，但是在①处接收的却是Student对象的引用。这是因为Student对象也是Person对象。在show方法中，传入的句柄(对象的引用)可以是Person对象以及Person的衍生类对象。这种将Student句柄转换成Person句柄的行为成为<strong>上溯造型</strong>。</p>
+<h3 id="2-为什么要上溯造型"><a href="#2-为什么要上溯造型" class="headerlink" title="2.为什么要上溯造型"></a>2.为什么要上溯造型</h3><p>为什么在调用eat是要有意忽略调用它的对象类型呢？如果让show方法简单地获取Student句柄似乎更加直观易懂，但是那样会使衍生自Person类的每一个新类都要实现专属自己的show方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Value &#123;</span><br><span class="line">    private int count = 1;</span><br><span class="line"></span><br><span class="line">    private Value(int count) &#123;</span><br><span class="line">        this.count = count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static final Value</span><br><span class="line">            v1 \= new Value(1),</span><br><span class="line">            v2 \= new Value(2),</span><br><span class="line">            v3 \= new Value(3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Person &#123;</span><br><span class="line"></span><br><span class="line">    public void eat(Value v) &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Teacher extends Person &#123;</span><br><span class="line">    public void eat(Value v) &#123;</span><br><span class="line">        System.out.println(&quot;Teacher.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Student extends Person &#123;</span><br><span class="line">    public void eat(Value v) &#123;</span><br><span class="line">        System.out.println(&quot;Student.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class UpcastingDemo &#123;</span><br><span class="line">    public static void show(Student s) &#123;</span><br><span class="line">        s.eat(Value.v1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void show(Teacher t) &#123;</span><br><span class="line">        t.eat(Value.v1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void show(Person p) &#123;</span><br><span class="line">        p.eat(Value.v1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Student s \= new Student();</span><br><span class="line">        Teacher t \= new Teacher();</span><br><span class="line">        Person p \= new Person();</span><br><span class="line">        show(s);</span><br><span class="line">        show(t);</span><br><span class="line">        show(p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种做法一个很明显的缺陷就是必须为每一个Person类的衍生类定义与之紧密相关的方法，产生了很多重复的代码。另一方面，对于如果忘记了方法的重载也不会报错。上例中的三个show方法完全可以合并为一个：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public static void show(Person p) &#123;</span><br><span class="line">     p.eat(Value.v1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="动态绑定"><a href="#动态绑定" class="headerlink" title="动态绑定"></a>动态绑定</h1><p>当执行show(s)时,输出结果是Student.eat()，这确实是希望得到的结果，但是似乎没有按照我们希望的形式来执行，再来看一下show方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public static void show(Person p) &#123;</span><br><span class="line">     p.eat(Value.v1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它接收的是Person句柄，当执行show(s)时，它是如何知道Person句柄指向的是一个Student对象而不是Teacher对象呢？编译器是无从得知的，这涉及到接下来要说明的绑定问题。</p>
+<h3 id="1-方法调用的绑定"><a href="#1-方法调用的绑定" class="headerlink" title="1.方法调用的绑定"></a>1.方法调用的绑定</h3><p>将一个方法同一个方法主体连接在一起就称为<strong>绑定(Binding)<strong>。若在运行运行前执行绑定，就称为“早期绑定”。上面的例子中，在只有一个Person句柄的情况下，编译器不知道具体调用哪个方法。Java实现了一种方法调用机制，可在运行期间判断对象的类型，然后调用相应的方法，这种在运行期间进行，以对象的类型为基础的绑定称为</strong>动态绑定</strong>。除非一个方法被声明为final，Java中的所有方法都是动态绑定的。</p>
+<p>用一张图表示上溯造型的继承关系：</p>
+<p><img src="https://images2015.cnblogs.com/blog/525435/201512/525435-20151203233242393-347102988.jpg"></p>
+<p>用代码概括为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Shape s = new Shape();</span><br></pre></td></tr></table></figure>
+
+<p>按照继承关系，将创建的Circle对象句柄赋给一个Shape是合法的，因为Circle属于Shape的一种。</p>
+<p>当调用其中一个基础类方法时：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Shape s = new Shape();</span><br></pre></td></tr></table></figure>
+
+<p>此时，调用的是Circle.draw(),这是由于动态绑定的原因。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    void eat() &#123;&#125;</span><br><span class="line">    void speak() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Girl extends Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static Person randPerson() &#123;</span><br><span class="line">        switch ((int)(Math.random() \* 2)) &#123;</span><br><span class="line">        default:</span><br><span class="line">        case 0:</span><br><span class="line">            return new Boy();</span><br><span class="line">        case 1:</span><br><span class="line">            return new Girl();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person\[\] p \= new Person\[4\];</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\] \= randPerson();    // 随机生成Boy或Girl</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\].eat();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对所有从Person衍生出来的类，Person建立了一个通用接口，所有衍生的类都有eat和speak两种行为。衍生类覆盖了这些定义，重新定义了这两种行为。在主类中，randPerson随机选择Person对象的句柄。**上诉造型是在return语句里发生的。**return语句取得一个Boy或Girl的句柄并将其作为Person类型返回，此时并不知道具体是什么类型，只知道是Person对象句柄。在main方法中调用randPerson方法为数组填入Person对象，但不知具体情况。当调用数组每个元素的eat方法时，动态绑定的作用就是执行对象的重新定义了的方法。</p>
+<p>然而，动态绑定是有前提的，<strong>绑定的方法必须存在于基类中</strong>，否则无法编译通过。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person p \= new Boy();</span><br><span class="line">        p.eat();</span><br><span class="line">        p.speak();  // The method speak() is undefined for the type Person</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果子类中没有定义覆盖方法，则会调用父类中的方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person p \= new Boy();</span><br><span class="line">        p.eat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【运行结果】: Person.eat()</p>
+<h3 id="2-静态方法的绑定"><a href="#2-静态方法的绑定" class="headerlink" title="2.静态方法的绑定"></a>2.静态方法的绑定</h3><p>将上面的方法都加上static关键字，变成静态方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    static void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    static void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Person.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">    static void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    static void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Girl extends Person &#123;</span><br><span class="line">    static void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    static void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static Person randPerson() &#123;</span><br><span class="line">        switch ((int)(Math.random() \* 2)) &#123;</span><br><span class="line">        default:</span><br><span class="line">        case 0:</span><br><span class="line">            return new Boy();</span><br><span class="line">        case 1:</span><br><span class="line">            return new Girl();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person\[\] p \= new Person\[4\];</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\] \= randPerson();    // 随机生成Boy或Girl</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\].eat();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【运行结果】： Person.eat() Person.eat() Person.eat() Person.eat() 观察结果，<strong>对于静态方法而言，不管父类引用指向的什么子类对象，调用的都是父类的方法。</strong></p>
+<blockquote>
+<p><strong>助记口诀</strong> - 静态方法:静态方法看父类 - 非静态方法：非静态方法看子类</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>继承</tag>
       </tags>
   </entry>
   <entry>
@@ -716,69 +784,6 @@
       </categories>
       <tags>
         <tag>异常</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java继承</title>
-    <url>/post/89b3a4e0.html</url>
-    <content><![CDATA[<h1 id="继承与合成基本概念"><a href="#继承与合成基本概念" class="headerlink" title="继承与合成基本概念"></a>继承与合成基本概念</h1><p><strong>继承：</strong>可以基于已经存在的类构造一个新类。继承已经存在的类就可以复用这些类的方法和域。在此基础上，可以添加新的方法和域，从而扩充了类的功能。</p>
-<p><strong>合成：</strong>在新类里创建原有的对象称为合成。这种方式可以重复利用现有的代码而不更改它的形式。</p>
-<h3 id="1-继承的语法"><a href="#1-继承的语法" class="headerlink" title="1.继承的语法"></a>1.继承的语法</h3><p>关键字<code>extends</code>表明新类派生于一个已经存在的类。已存在的类称为父类或基类，新类称为子类或派生类。例如:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Student extends Person &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>类Student继承了Person，Person类称为父类或基类，Student类称为子类或派生类。</p>
-<h3 id="2-合成的语法"><a href="#2-合成的语法" class="headerlink" title="2.合成的语法"></a>2.合成的语法</h3><p>合成比较简单，就是在一个类中创建一个已经存在的类。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Student &#123;</span><br><span class="line">    Dog dog;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="上溯造型"><a href="#上溯造型" class="headerlink" title="上溯造型"></a>上溯造型</h1><h3 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1.基本概念"></a>1.基本概念</h3><p>继承的作用在于代码的复用。由于继承意味着父类的所有方法亦可在子类中使用，所以发给父类的消息亦可发给衍生类。如果Person类中有一个eat方法，那么Student类中也会有这个方法，这意味着Student对象也是Person的一种类型。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    public void eat() &#123;</span><br><span class="line">        System.out.println(&quot;eat&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static void show(Person p) &#123;</span><br><span class="line">        p.eat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Student extends Person&#123;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Student s \= new Student();</span><br><span class="line">        Person.show(s);     // ①</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>【运行结果】：<br>eat</p>
-<p>在Person中定义的show方法是用来接收Person句柄的，但是在①处接收的却是Student对象的引用。这是因为Student对象也是Person对象。在show方法中，传入的句柄(对象的引用)可以是Person对象以及Person的衍生类对象。这种将Student句柄转换成Person句柄的行为成为<strong>上溯造型</strong>。</p>
-<h3 id="2-为什么要上溯造型"><a href="#2-为什么要上溯造型" class="headerlink" title="2.为什么要上溯造型"></a>2.为什么要上溯造型</h3><p>为什么在调用eat是要有意忽略调用它的对象类型呢？如果让show方法简单地获取Student句柄似乎更加直观易懂，但是那样会使衍生自Person类的每一个新类都要实现专属自己的show方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Value &#123;</span><br><span class="line">    private int count = 1;</span><br><span class="line"></span><br><span class="line">    private Value(int count) &#123;</span><br><span class="line">        this.count = count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static final Value</span><br><span class="line">            v1 \= new Value(1),</span><br><span class="line">            v2 \= new Value(2),</span><br><span class="line">            v3 \= new Value(3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Person &#123;</span><br><span class="line"></span><br><span class="line">    public void eat(Value v) &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Teacher extends Person &#123;</span><br><span class="line">    public void eat(Value v) &#123;</span><br><span class="line">        System.out.println(&quot;Teacher.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Student extends Person &#123;</span><br><span class="line">    public void eat(Value v) &#123;</span><br><span class="line">        System.out.println(&quot;Student.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class UpcastingDemo &#123;</span><br><span class="line">    public static void show(Student s) &#123;</span><br><span class="line">        s.eat(Value.v1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void show(Teacher t) &#123;</span><br><span class="line">        t.eat(Value.v1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void show(Person p) &#123;</span><br><span class="line">        p.eat(Value.v1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Student s \= new Student();</span><br><span class="line">        Teacher t \= new Teacher();</span><br><span class="line">        Person p \= new Person();</span><br><span class="line">        show(s);</span><br><span class="line">        show(t);</span><br><span class="line">        show(p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这种做法一个很明显的缺陷就是必须为每一个Person类的衍生类定义与之紧密相关的方法，产生了很多重复的代码。另一方面，对于如果忘记了方法的重载也不会报错。上例中的三个show方法完全可以合并为一个：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public static void show(Person p) &#123;</span><br><span class="line">     p.eat(Value.v1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="动态绑定"><a href="#动态绑定" class="headerlink" title="动态绑定"></a>动态绑定</h1><p>当执行show(s)时,输出结果是Student.eat()，这确实是希望得到的结果，但是似乎没有按照我们希望的形式来执行，再来看一下show方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public static void show(Person p) &#123;</span><br><span class="line">     p.eat(Value.v1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>它接收的是Person句柄，当执行show(s)时，它是如何知道Person句柄指向的是一个Student对象而不是Teacher对象呢？编译器是无从得知的，这涉及到接下来要说明的绑定问题。</p>
-<h3 id="1-方法调用的绑定"><a href="#1-方法调用的绑定" class="headerlink" title="1.方法调用的绑定"></a>1.方法调用的绑定</h3><p>将一个方法同一个方法主体连接在一起就称为<strong>绑定(Binding)<strong>。若在运行运行前执行绑定，就称为“早期绑定”。上面的例子中，在只有一个Person句柄的情况下，编译器不知道具体调用哪个方法。Java实现了一种方法调用机制，可在运行期间判断对象的类型，然后调用相应的方法，这种在运行期间进行，以对象的类型为基础的绑定称为</strong>动态绑定</strong>。除非一个方法被声明为final，Java中的所有方法都是动态绑定的。</p>
-<p>用一张图表示上溯造型的继承关系：</p>
-<p><img src="https://images2015.cnblogs.com/blog/525435/201512/525435-20151203233242393-347102988.jpg"></p>
-<p>用代码概括为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Shape s = new Shape();</span><br></pre></td></tr></table></figure>
-
-<p>按照继承关系，将创建的Circle对象句柄赋给一个Shape是合法的，因为Circle属于Shape的一种。</p>
-<p>当调用其中一个基础类方法时：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Shape s = new Shape();</span><br></pre></td></tr></table></figure>
-
-<p>此时，调用的是Circle.draw(),这是由于动态绑定的原因。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    void eat() &#123;&#125;</span><br><span class="line">    void speak() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Girl extends Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static Person randPerson() &#123;</span><br><span class="line">        switch ((int)(Math.random() \* 2)) &#123;</span><br><span class="line">        default:</span><br><span class="line">        case 0:</span><br><span class="line">            return new Boy();</span><br><span class="line">        case 1:</span><br><span class="line">            return new Girl();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person\[\] p \= new Person\[4\];</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\] \= randPerson();    // 随机生成Boy或Girl</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\].eat();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对所有从Person衍生出来的类，Person建立了一个通用接口，所有衍生的类都有eat和speak两种行为。衍生类覆盖了这些定义，重新定义了这两种行为。在主类中，randPerson随机选择Person对象的句柄。**上诉造型是在return语句里发生的。**return语句取得一个Boy或Girl的句柄并将其作为Person类型返回，此时并不知道具体是什么类型，只知道是Person对象句柄。在main方法中调用randPerson方法为数组填入Person对象，但不知具体情况。当调用数组每个元素的eat方法时，动态绑定的作用就是执行对象的重新定义了的方法。</p>
-<p>然而，动态绑定是有前提的，<strong>绑定的方法必须存在于基类中</strong>，否则无法编译通过。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person p \= new Boy();</span><br><span class="line">        p.eat();</span><br><span class="line">        p.speak();  // The method speak() is undefined for the type Person</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果子类中没有定义覆盖方法，则会调用父类中的方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person p \= new Boy();</span><br><span class="line">        p.eat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>【运行结果】: Person.eat()</p>
-<h3 id="2-静态方法的绑定"><a href="#2-静态方法的绑定" class="headerlink" title="2.静态方法的绑定"></a>2.静态方法的绑定</h3><p>将上面的方法都加上static关键字，变成静态方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    static void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Person.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    static void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Person.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Boy extends Person &#123;</span><br><span class="line">    static void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    static void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Boy.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Girl extends Person &#123;</span><br><span class="line">    static void eat() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.eat()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    static void speak() &#123;</span><br><span class="line">        System.out.println(&quot;Girl.speak()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Persons &#123;</span><br><span class="line">    public static Person randPerson() &#123;</span><br><span class="line">        switch ((int)(Math.random() \* 2)) &#123;</span><br><span class="line">        default:</span><br><span class="line">        case 0:</span><br><span class="line">            return new Boy();</span><br><span class="line">        case 1:</span><br><span class="line">            return new Girl();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String\[\] args) &#123;</span><br><span class="line">        Person\[\] p \= new Person\[4\];</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\] \= randPerson();    // 随机生成Boy或Girl</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 0; i &lt; p.length; i++) &#123;</span><br><span class="line">            p\[i\].eat();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>【运行结果】： Person.eat() Person.eat() Person.eat() Person.eat() 观察结果，<strong>对于静态方法而言，不管父类引用指向的什么子类对象，调用的都是父类的方法。</strong></p>
-<blockquote>
-<p><strong>助记口诀</strong> - 静态方法:静态方法看父类 - 非静态方法：非静态方法看子类</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>继承</tag>
       </tags>
   </entry>
   <entry>
